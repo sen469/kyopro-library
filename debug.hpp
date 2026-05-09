@@ -36,6 +36,41 @@ std::ostream &operator<<(std::ostream &os, const std::map<T, U> &m) {
     return os << "}";
 }
 
+template <typename T, typename Container, typename Compare>
+std::ostream &operator<<(std::ostream &os, std::priority_queue<T, Container, Compare> pq) {
+    os << "{";
+    while (!pq.empty()) {
+        os << pq.top() << (pq.size() == 1 ? "" : ", ");
+        pq.pop();
+    }
+    return os << "}";
+}
+
+template <typename T, typename Container>
+std::ostream &operator<<(std::ostream &os, std::stack<T, Container> s) {
+    os << "{";
+    std::vector<T> v;
+    while (!s.empty()) {
+        v.push_back(s.top());
+        s.pop();
+    }
+    std::reverse(v.begin(), v.end());
+    for (int i = 0; i < (int)v.size(); i++) {
+        os << v[i] << (i == (int)v.size() - 1 ? "" : ", ");
+    }
+    return os << "}";
+}
+
+template <typename T, typename Container>
+std::ostream &operator<<(std::ostream &os, std::queue<T, Container> q) {
+    os << "{";
+    while (!q.empty()) {
+        os << q.front() << (q.size() == 1 ? "" : ", ");
+        q.pop();
+    }
+    return os << "}";
+}
+
 namespace debug_internal {
     template <typename T>
     std::string type_name() {
@@ -62,6 +97,8 @@ namespace debug_internal {
         while ((pos = res.find("basic_string<char, std::char_traits<char> >")) != std::string::npos) {
             res.replace(pos, 43, "string");
         }
+        // Remove std::
+        while ((pos = res.find("std::")) != std::string::npos) res.erase(pos, 5);
         // Remove spaces before > to avoid "vector<int >"
         while ((pos = res.find(" >")) != std::string::npos) res.erase(pos, 1);
         return res;
