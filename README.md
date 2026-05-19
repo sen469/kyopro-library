@@ -22,3 +22,26 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 `insert`, `erase`, `reverse`, `apply`, `prod`, `get`, `set`, `to_vector` が使えます。
 
 詳しい使い方は [docs/implicit_treap.md](docs/implicit_treap.md) を参照してください。
+
+## Balanced Binary Search Tree
+
+```cpp
+#include "kyopro/balanced_binary_search_tree.hpp"
+```
+
+重複を許す平衡二分探索木です。
+`insert`, `erase`, `count`, `contains`, `lower_bound`, `upper_bound`, `kth`, `order_of_key`, `to_vector` が使えます。
+
+詳しい使い方は [docs/balanced_binary_search_tree.md](docs/balanced_binary_search_tree.md) を参照してください。
+
+## 提出用 include 展開
+
+```sh
+python3 expander.py main.cpp
+python3 expander.py main.cpp -o submit.cpp
+python3 expander.py main.cpp --console
+```
+
+`#include "lib/all"` や `#include "lib/kyopro/..."` など、リポジトリ内のローカル include を再帰的に展開します。
+`#include <bits/stdc++.h>` や `#include <atcoder/all>` のようなシステム include はそのまま残します。
+出力先を指定しない場合は `combined.cpp` を作成します。
