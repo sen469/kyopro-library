@@ -13,13 +13,22 @@ INCLUDE_RE = re.compile(r'^(\s*)#\s*include\s*"([^"]+)"\s*(?://.*)?$')
 
 
 class Expander:
-    def __init__(self, include_dirs: list[Path]):
+    def __init__(self, include_dirs: list[Path], ignore_paths: Optional[list[Path]] = None):
         self.include_dirs = []
         for include_dir in include_dirs:
             include_dir = include_dir.resolve()
             if include_dir not in self.include_dirs:
                 self.include_dirs.append(include_dir)
         self.expanded = set()
+        self.ignore_paths = {p.resolve() for p in ignore_paths} if ignore_paths else set()
+
+    def is_ignored(self, path: Path) -> bool:
+        if path in self.ignore_paths:
+            return True
+        for parent in path.parents:
+            if parent in self.ignore_paths:
+                return True
+        return False
 
     def resolve_include(self, include_path: str, current_dir: Path) -> Optional[Path]:
         candidates = [current_dir / include_path]
@@ -49,6 +58,10 @@ class Expander:
             resolved = self.resolve_include(include_path, path.parent)
 
             if resolved is None:
+                result.append(line)
+                continue
+
+            if self.is_ignored(resolved):
                 result.append(line)
                 continue
 
@@ -92,6 +105,12 @@ def parse_args() -> argparse.Namespace:
         help="additional include path. This option can be specified multiple times",
     )
     parser.add_argument(
+        "--ignore",
+        action="append",
+        type=Path,
+        help="ignore specific file from expansion. This option can be specified multiple times",
+    )
+    parser.add_argument(
         "--origname",
         help="report line numbers from the original source file in GCC/Clang error messages",
     )
@@ -124,7 +143,15 @@ def main() -> int:
 
     include_dirs.extend([source.parent, repo_root, repo_root / "lib", Path.cwd()])
 
-    expander = Expander(include_dirs)
+    ignore_paths = args.ignore or []
+    # デフォルトで lib/debug ディレクトリを除外対象にする
+    default_debug_dir = repo_root / "lib/debug"
+    if default_debug_dir.is_dir():
+        ignore_paths.append(default_debug_dir)
+    elif (repo_root / "lib/debug/debug.hpp").is_file():
+        ignore_paths.append(repo_root / "lib/debug/debug.hpp")
+
+    expander = Expander(include_dirs, ignore_paths)
     expanded = "".join(expander.expand_file(source, args.origname))
 
     if args.console:
