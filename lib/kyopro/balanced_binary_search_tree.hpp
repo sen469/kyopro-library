@@ -255,14 +255,15 @@ public:
     int count(const T& x) const { return count(root, x); }
     bool contains(const T& x) const { return count(x) > 0; }
 
-    const T& kth(int k) const {
+    const T& at(int k) const {
         assert(0 <= k && k < size());
         return kth(root, k);
     }
-	const T &operator[](int k)
-	{
-		return kth(root, k);
-	}
+
+    const T &operator[](int k)
+    {
+        return kth(root, k);
+    }
 
     int order_of_key(const T& x) const {
         node* t = root;
