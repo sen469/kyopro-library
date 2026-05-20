@@ -55,7 +55,15 @@ python3 expander.py main.cpp --console
 
 `#include "lib/all"` や `#include "lib/kyopro/..."` など、リポジトリ内のローカル include を再帰的に展開します。
 `#include <bits/stdc++.h>` のような通常のシステム include はそのまま残し、同梱している `atcoder/...` は展開します。
+展開したヘッダの開始コメントには GitHub 上の参照 URL も出力します。
 出力先を指定しない場合は `combined.cpp` を作成します。
+
+```cpp
+// begin: kyopro/binomial.hpp (https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binomial.hpp)
+```
+
+URL を変える場合は `--github-base` または `KYOPRO_GITHUB_BASE` を指定します。
+空文字を指定すると URL 出力を無効にできます。
 
 ## セットアップ
 

@@ -13,7 +13,13 @@ INCLUDE_RE = re.compile(r'^(\s*)#\s*include\s*([<"])([^>"]+)([>"])\s*(?://.*)?$'
 
 
 class Expander:
-    def __init__(self, include_dirs: list[Path], ignore_paths: Optional[list[Path]] = None):
+    def __init__(
+        self,
+        include_dirs: list[Path],
+        ignore_paths: Optional[list[Path]] = None,
+        github_base_url: Optional[str] = None,
+        github_roots: Optional[list[tuple[Path, str]]] = None,
+    ):
         self.include_dirs = []
         for include_dir in include_dirs:
             include_dir = include_dir.resolve()
@@ -21,6 +27,10 @@ class Expander:
                 self.include_dirs.append(include_dir)
         self.expanded: set[Path] = set()
         self.ignore_paths = {p.resolve() for p in ignore_paths} if ignore_paths else set()
+        self.github_base_url = github_base_url.rstrip("/") if github_base_url else None
+        self.github_roots = []
+        for root, prefix in github_roots or []:
+            self.github_roots.append((root.resolve(), prefix.strip("/")))
 
     def is_ignored(self, path: Path) -> bool:
         if path in self.ignore_paths:
@@ -36,6 +46,23 @@ class Expander:
         for candidate in candidates:
             if candidate.is_file():
                 return candidate.resolve()
+        return None
+
+    def github_url(self, path: Path) -> Optional[str]:
+        if not self.github_base_url:
+            return None
+
+        for root, prefix in self.github_roots:
+            try:
+                rel = path.resolve().relative_to(root)
+            except ValueError:
+                continue
+
+            repo_path = rel.as_posix()
+            if prefix:
+                repo_path = f"{prefix}/{repo_path}"
+            return f"{self.github_base_url}/{repo_path}"
+
         return None
 
     def expand_file(self, path: Path, origname: Optional[str] = None) -> list[str]:
@@ -70,7 +97,11 @@ class Expander:
                 continue
 
             self.expanded.add(resolved)
-            result.append(f"// begin: {include_path}\n")
+            url = self.github_url(resolved)
+            if url:
+                result.append(f"// begin: {include_path} ({url})\n")
+            else:
+                result.append(f"// begin: {include_path}\n")
             result.extend(self.expand_file(resolved, str(resolved) if origname is not None else None))
             if result and not result[-1].endswith("\n"):
                 result[-1] += "\n"
@@ -115,6 +146,11 @@ def parse_args() -> argparse.Namespace:
         "--origname",
         help="report line numbers from the original source file in GCC/Clang error messages",
     )
+    parser.add_argument(
+        "--github-base",
+        default=getenv("KYOPRO_GITHUB_BASE", "https://github.com/sen469/kyopro-library/blob/main"),
+        help="base URL used in expanded include comments. Set empty string to disable",
+    )
     return parser.parse_args()
 
 
@@ -132,7 +168,11 @@ def main() -> int:
         print(f"expander.py: source file not found: {source}", file=sys.stderr)
         return 1
 
-    repo_root = Path(__file__).resolve().parent
+    script_dir = Path(__file__).resolve().parent
+    repo_root = script_dir
+    if not (repo_root / "lib").is_dir() and (repo_root.parent / "lib").is_dir():
+        repo_root = repo_root.parent
+
     include_dirs = []
 
     if args.lib:
@@ -151,7 +191,12 @@ def main() -> int:
     elif (repo_root / "lib/debug/debug.hpp").is_file():
         ignore_paths.append(repo_root / "lib/debug/debug.hpp")
 
-    expander = Expander(include_dirs, ignore_paths)
+    github_base_url = args.github_base or None
+    github_roots = [
+        (repo_root / "lib", "lib"),
+        (repo_root, ""),
+    ]
+    expander = Expander(include_dirs, ignore_paths, github_base_url, github_roots)
     expanded = "".join(expander.expand_file(source, args.origname))
 
     if args.console:
