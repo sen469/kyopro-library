@@ -34,6 +34,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/balanced_binary_search_tree.md](docs/balanced_binary_search_tree.md) を参照してください。
 
+## Binomial
+
+```cpp
+#include "kyopro/binomial.hpp"
+```
+
+素数 mod で `nCk` を計算します。
+階乗と逆階乗を前計算し、`comb(n, k)` または `operator()(n, k)` で二項係数を返します。
+
+詳しい使い方は [docs/binomial.md](docs/binomial.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
@@ -43,5 +54,5 @@ python3 expander.py main.cpp --console
 ```
 
 `#include "lib/all"` や `#include "lib/kyopro/..."` など、リポジトリ内のローカル include を再帰的に展開します。
-`#include <bits/stdc++.h>` や `#include <atcoder/all>` のようなシステム include はそのまま残します。
+`#include <bits/stdc++.h>` のような通常のシステム include はそのまま残し、同梱している `atcoder/...` は展開します。
 出力先を指定しない場合は `combined.cpp` を作成します。

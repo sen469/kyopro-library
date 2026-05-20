@@ -1,2 +1,4 @@
+#include <atcoder/all>
 #include "kyopro/implicit_treap.hpp"
 #include "kyopro/balanced_binary_search_tree.hpp"
+#include "kyopro/binomial.hpp"
