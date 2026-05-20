@@ -9,7 +9,7 @@
 コンパイル例:
 
 ```sh
-g++ -std=c++17 -O2 -Wall -Wextra -Iinclude test/implicit_treap_test.cpp
+g++ -std=c++17 -O2 -Wall -Wextra -Ilib test/implicit_treap_test.cpp
 ```
 
 ## Implicit Treap
