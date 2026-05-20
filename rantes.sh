@@ -30,7 +30,7 @@ if [ $# -ne 2 ]; then
 fi
 
 # コンパイル実行
-g++ -I./ -O3 "$1" -o main && g++ -I./ -O3 "$2" -o ans
+g++ -I. -I./lib -O3 "$1" -o main && g++ -I. -I./lib -O3 "$2" -o ans
 
 # 直前のコマンドが失敗した場合は終了
 if [ $? -ne 0 ]; then
@@ -40,9 +40,14 @@ fi
 
 echo "Running tests... Press Ctrl+C to stop."
 
+cnt=1
 # テストループ
 while true; do
     python3 generate.py > input.txt
+
+    printf "========== %d ==========\n" "$cnt"
+    cat input.txt
+    cnt=$((cnt + 1))
 
     # 実行が失敗した場合もループを抜ける
     ./main < input.txt > out1.txt || break
