@@ -45,6 +45,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/binomial.md](docs/binomial.md) を参照してください。
 
+## Run Length Encoding
+
+```cpp
+#include "kyopro/run_length_encoding.hpp"
+```
+
+連続する同じ値を `(値, 個数)` にまとめるランレングス圧縮です。
+文字列、`vector`、iterator 範囲に対して使えます。
+
+詳しい使い方は [docs/run_length_encoding.md](docs/run_length_encoding.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
