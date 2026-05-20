@@ -144,14 +144,40 @@ int s.order_of_key(T x);
 
 - ならし $O(\log n)$
 
+## iterator
+
+```cpp
+auto it = s.begin();
+auto last = s.end();
+```
+
+昇順に要素を指すイテレータを返します。
+重複する値は個数分並びます。
+`it - s.begin()` で 0-indexed の位置を求められます。
+`*it` は `const T&` を返します。
+
+**注意**
+
+- `insert`, `erase`, `erase_all`, `clear` の後は、既存のイテレータを使わないでください。
+- `end()` は参照できません。
+
+**計算量**
+
+- `begin`, `end`: $O(1)$
+- `*it`: ならし $O(\log n)$
+- `++it`, `--it`, `it + k`, `it - other`: $O(1)$
+
 ## lower_bound
 
 ```cpp
-optional<T> s.lower_bound(T x);
+auto it = s.lower_bound(T x);
 ```
 
-`x` 以上で最小の値を返します。
-存在しない場合は `nullopt` を返します。
+`x` 以上で最小の値を指すイテレータを返します。
+存在しない場合は `s.end()` を返します。
+`lower_bound(x) - begin()` は `x` より小さい要素数、つまり `order_of_key(x)` と一致します。
+
+値を `optional<T>` で受け取りたい場合は `lower_bound_value(x)` が使えます。
 
 **計算量**
 
@@ -160,11 +186,13 @@ optional<T> s.lower_bound(T x);
 ## upper_bound
 
 ```cpp
-optional<T> s.upper_bound(T x);
+auto it = s.upper_bound(T x);
 ```
 
-`x` より大きい最小の値を返します。
-存在しない場合は `nullopt` を返します。
+`x` より大きい最小の値を指すイテレータを返します。
+存在しない場合は `s.end()` を返します。
+
+値を `optional<T>` で受け取りたい場合は `upper_bound_value(x)` が使えます。
 
 **計算量**
 
@@ -234,5 +262,8 @@ s.insert(5);
 assert(s.count(5) == 2);
 assert(s.kth(1) == 5);
 assert(s.order_of_key(5) == 1);
-assert(s.lower_bound(2).value() == 5);
+auto it = s.lower_bound(2);
+assert(it != s.end());
+assert(*it == 5);
+assert(it - s.begin() == 1);
 ```

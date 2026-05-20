@@ -37,13 +37,17 @@ int main() {
         } else if (kind == 4) {
             auto got = t.lower_bound(x);
             auto it = ms.lower_bound(x);
-            assert((bool)got == (it != ms.end()));
+            assert(got - t.begin() == distance(ms.begin(), it));
+            assert((got == t.end()) == (it == ms.end()));
             if (it != ms.end()) assert(*got == *it);
+            assert(t.lower_bound_value(x) == (it == ms.end() ? nullopt : optional<int>(*it)));
         } else if (kind == 5) {
             auto got = t.upper_bound(x);
             auto it = ms.upper_bound(x);
-            assert((bool)got == (it != ms.end()));
+            assert(got - t.begin() == distance(ms.begin(), it));
+            assert((got == t.end()) == (it == ms.end()));
             if (it != ms.end()) assert(*got == *it);
+            assert(t.upper_bound_value(x) == (it == ms.end() ? nullopt : optional<int>(*it)));
         } else if (kind == 6) {
             int k = uniform_int_distribution<int>(0, (int)ms.size() - 1)(rng);
             auto it = ms.begin();
@@ -67,6 +71,14 @@ int main() {
         assert(t.to_vector() == multiset_to_vector(ms));
     }
 
+
+    kyopro::balanced_binary_search_tree<int> iter_test({3, 1, 3, 2});
+    assert(vector<int>(iter_test.begin(), iter_test.end()) == vector<int>({1, 2, 3, 3}));
+    assert(iter_test.lower_bound(3) - iter_test.begin() == 2);
+    assert(iter_test.upper_bound(3) == iter_test.end());
+    assert(*(iter_test.begin() + 1) == 2);
+    assert(iter_test.end() - iter_test.begin() == iter_test.size());
+
     kyopro::balanced_binary_search_tree<int> copied = t;
     assert(copied.to_vector() == t.to_vector());
     copied.insert(12345);
@@ -74,8 +86,11 @@ int main() {
 
     t.clear();
     assert(t.empty());
-    assert(!t.lower_bound(0));
-    assert(!t.upper_bound(0));
+    assert(t.begin() == t.end());
+    assert(t.lower_bound(0) == t.end());
+    assert(t.upper_bound(0) == t.end());
+    assert(!t.lower_bound_value(0));
+    assert(!t.upper_bound_value(0));
     assert(!t.min());
     assert(!t.max());
 

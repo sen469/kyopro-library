@@ -2,8 +2,10 @@
 #define KYOPRO_BALANCED_BINARY_SEARCH_TREE_HPP
 
 #include <cassert>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <iterator>
 #include <optional>
 #include <utility>
 #include <vector>
@@ -194,6 +196,119 @@ private:
     }
 
 public:
+    class const_iterator {
+    private:
+        const balanced_binary_search_tree* tree;
+        int index;
+
+        const_iterator(const balanced_binary_search_tree* tree_ptr, int index_value)
+            : tree(tree_ptr), index(index_value) {}
+
+        friend class balanced_binary_search_tree;
+
+    public:
+        using difference_type = std::ptrdiff_t;
+        using value_type = T;
+        using reference = const T&;
+        using pointer = const T*;
+        using iterator_category = std::random_access_iterator_tag;
+
+        const_iterator() : tree(nullptr), index(0) {}
+
+        reference operator*() const {
+            assert(tree);
+            assert(0 <= index && index < tree->size());
+            return tree->at(index);
+        }
+
+        pointer operator->() const { return &**this; }
+
+        const_iterator& operator++() {
+            index++;
+            return *this;
+        }
+
+        const_iterator operator++(int) {
+            const_iterator res = *this;
+            ++*this;
+            return res;
+        }
+
+        const_iterator& operator--() {
+            index--;
+            return *this;
+        }
+
+        const_iterator operator--(int) {
+            const_iterator res = *this;
+            --*this;
+            return res;
+        }
+
+        const_iterator& operator+=(difference_type n) {
+            index += static_cast<int>(n);
+            return *this;
+        }
+
+        const_iterator& operator-=(difference_type n) {
+            index -= static_cast<int>(n);
+            return *this;
+        }
+
+        const_iterator operator+(difference_type n) const {
+            const_iterator res = *this;
+            res += n;
+            return res;
+        }
+
+        const_iterator operator-(difference_type n) const {
+            const_iterator res = *this;
+            res -= n;
+            return res;
+        }
+
+        friend const_iterator operator+(difference_type n, const const_iterator& it) {
+            return it + n;
+        }
+
+        difference_type operator-(const const_iterator& other) const {
+            assert(tree == other.tree);
+            return index - other.index;
+        }
+
+        reference operator[](difference_type n) const { return *(*this + n); }
+
+        bool operator==(const const_iterator& other) const {
+            return tree == other.tree && index == other.index;
+        }
+
+        bool operator!=(const const_iterator& other) const {
+            return !(*this == other);
+        }
+
+        bool operator<(const const_iterator& other) const {
+            assert(tree == other.tree);
+            return index < other.index;
+        }
+
+        bool operator<=(const const_iterator& other) const {
+            assert(tree == other.tree);
+            return index <= other.index;
+        }
+
+        bool operator>(const const_iterator& other) const {
+            assert(tree == other.tree);
+            return index > other.index;
+        }
+
+        bool operator>=(const const_iterator& other) const {
+            assert(tree == other.tree);
+            return index >= other.index;
+        }
+    };
+
+    using iterator = const_iterator;
+
     balanced_binary_search_tree()
         : root(nullptr), comp(Compare()), rng_state(2463534242u) {}
 
@@ -238,6 +353,13 @@ public:
     int size() const { return size(root); }
     bool empty() const { return !root; }
 
+    iterator begin() { return iterator(this, 0); }
+    iterator end() { return iterator(this, size()); }
+    const_iterator begin() const { return const_iterator(this, 0); }
+    const_iterator end() const { return const_iterator(this, size()); }
+    const_iterator cbegin() const { return const_iterator(this, 0); }
+    const_iterator cend() const { return const_iterator(this, size()); }
+
     void insert(const T& x) { root = insert(root, x); }
 
     bool erase(const T& x) {
@@ -260,6 +382,8 @@ public:
         return kth(root, k);
     }
 
+    const T& kth(int k) const { return at(k); }
+
     const T &operator[](int k)
     {
         return kth(root, k);
@@ -281,7 +405,15 @@ public:
         return res;
     }
 
-    std::optional<T> lower_bound(const T& x) const {
+    iterator lower_bound(const T& x) {
+        return iterator(this, order_of_key(x));
+    }
+
+    const_iterator lower_bound(const T& x) const {
+        return const_iterator(this, order_of_key(x));
+    }
+
+    std::optional<T> lower_bound_value(const T& x) const {
         node* t = root;
         node* res = nullptr;
 
@@ -298,7 +430,45 @@ public:
         return res->key;
     }
 
-    std::optional<T> upper_bound(const T& x) const {
+    iterator upper_bound(const T& x) {
+        node* t = root;
+        int res = size();
+        int passed = 0;
+
+        while (t) {
+            int left_size = size(t->left);
+            if (comp(x, t->key)) {
+                res = passed + left_size;
+                t = t->left;
+            } else {
+                passed += left_size + t->count;
+                t = t->right;
+            }
+        }
+
+        return iterator(this, res);
+    }
+
+    const_iterator upper_bound(const T& x) const {
+        node* t = root;
+        int res = size();
+        int passed = 0;
+
+        while (t) {
+            int left_size = size(t->left);
+            if (comp(x, t->key)) {
+                res = passed + left_size;
+                t = t->left;
+            } else {
+                passed += left_size + t->count;
+                t = t->right;
+            }
+        }
+
+        return const_iterator(this, res);
+    }
+
+    std::optional<T> upper_bound_value(const T& x) const {
         node* t = root;
         node* res = nullptr;
 
