@@ -56,3 +56,18 @@ python3 expander.py main.cpp --console
 `#include "lib/all"` や `#include "lib/kyopro/..."` など、リポジトリ内のローカル include を再帰的に展開します。
 `#include <bits/stdc++.h>` のような通常のシステム include はそのまま残し、同梱している `atcoder/...` は展開します。
 出力先を指定しない場合は `combined.cpp` を作成します。
+
+## セットアップ
+
+`setup.sh` の上部にある `COMPETITIVE_PROGRAMMING_DIR` を普段使う競プロディレクトリに書き換えてから実行します。
+
+```sh
+./setup.sh
+```
+
+競プロディレクトリには `lib` へのシンボリックリンクを作り、`expander.py` と `rantes.sh` をコピーします。`generate.py` と `ans.cpp` がない場合は、ランテス用の雛形も作成します。
+一時的に別のディレクトリへ入れる場合は引数でも指定できます。
+
+```sh
+./setup.sh /path/to/procon
+```
