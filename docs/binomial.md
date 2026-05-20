@@ -93,3 +93,21 @@ int binom.inv_fact(int n);
 **計算量**
 
 - 前計算済みなら `O(1)`
+
+[問題例(ABC021 D-多重ループ)] (https://atcoder.jp/contests/abc021/submissions/75963254)
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;:
+#include "kyopro/binomial.hpp"
+using namespace kyopro;
+
+int main()
+{
+    int n, k;
+    cin >> n >> k;
+    binomial<1000000007> binom(n);
+    cout << binom.comb(n + k - 1, k) << endl;
+    return (0);
+}
+```
