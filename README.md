@@ -45,6 +45,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/binomial.md](docs/binomial.md) を参照してください。
 
+## BigInt
+
+```cpp
+#include "kyopro/bigint.hpp"
+```
+
+符号付き多倍長整数です。
+`cin` で読み込んで `+`, `-`, `*`, 比較、`__int128` などの整数型との相互変換ができます。
+
+詳しい使い方は [docs/bigint.md](docs/bigint.md) を参照してください。
+
 ## Run Length Encoding
 
 ```cpp
