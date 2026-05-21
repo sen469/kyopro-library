@@ -12,6 +12,17 @@
 g++ -std=c++17 -O2 -Wall -Wextra -Ilib test/implicit_treap_test.cpp
 ```
 
+## テスト状況
+
+- [ ] Implicit Treap
+- [x] Balanced Binary Search Tree \{[Ordered Set](https://judge.yosupo.jp/problem/ordered_set) \}
+- [x] Binomial
+- [x] Run Length Encoding
+- [x] Manacher
+- [x] sieve
+
+<!-- Implicit Treap 以外のライブラリは [Library Checker](https://judge.yosupo.jp/) でテスト済みです。 -->
+
 ## Implicit Treap
 
 ```cpp
