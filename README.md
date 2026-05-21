@@ -56,6 +56,19 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/run_length_encoding.md](docs/run_length_encoding.md) を参照してください。
 
+## Sieve
+
+```cpp
+#include "kyopro/sieve.hpp"
+```
+
+エラトステネスの篩です。
+素数判定、素数列挙、最小素因数、素因数分解、約数列挙ができます。
+`kyopro::sieve<long long>` のように、素因数分解や約数列挙の値の型を指定できます。
+`factorize(x)` は篩の上限を超える値も Miller-Rabin と Pollard Rho で分解します。
+
+詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
