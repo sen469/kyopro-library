@@ -2,5 +2,6 @@
 #include "kyopro/implicit_treap.hpp"
 #include "kyopro/balanced_binary_search_tree.hpp"
 #include "kyopro/binomial.hpp"
+#include "kyopro/manacher.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/sieve.hpp"

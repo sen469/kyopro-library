@@ -56,6 +56,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/run_length_encoding.md](docs/run_length_encoding.md) を参照してください。
 
+## Manacher
+
+```cpp
+#include "kyopro/manacher.hpp"
+```
+
+各中心の最長回文半径を $O(n)$ で求めます。
+奇数長は `manacher(s)`、偶数長は `manacher_even(s)`、半開区間 `[l, r)` の回文判定は `palindrome_radii(s).is_palindrome(l, r)` が使えます。
+
+詳しい使い方は [docs/manacher.md](docs/manacher.md) を参照してください。
+
 ## Sieve
 
 ```cpp
