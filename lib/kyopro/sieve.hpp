@@ -3,9 +3,11 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <cstdint>
 #include <numeric>
 #include <type_traits>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -19,6 +21,15 @@ private:
     int n_;
     std::vector<int> spf_;
     std::vector<int> primes_;
+
+    static bool is_nonnegative(T x) {
+        if constexpr (std::is_signed<T>::value) {
+            return 0 <= x;
+        } else {
+            (void)x;
+            return true;
+        }
+    }
 
     static uint64_t mod_mul(uint64_t a, uint64_t b, uint64_t mod) {
         return (uint64_t)((__uint128_t)a * b % mod);
@@ -76,7 +87,7 @@ private:
             uint64_t d = 1;
 
             auto f = [&](uint64_t v) {
-                return (mod_mul(v, v, n) + c) % n;
+                return (uint64_t)(((__uint128_t)mod_mul(v, v, n) + c) % n);
             };
 
             while (d == 1) {
@@ -134,8 +145,8 @@ public:
     const std::vector<int>& primes() const { return primes_; }
 
     bool is_prime(T x) const {
-        assert(0 <= x);
-        if (x <= n_) return x >= 2 && spf_[(int)x] == x;
+        assert(is_nonnegative(x));
+        if ((uint64_t)x <= (uint64_t)n_) return x >= 2 && spf_[(int)x] == x;
         return is_prime_u64((uint64_t)x);
     }
 
@@ -148,7 +159,7 @@ public:
         assert(1 <= x);
         std::vector<std::pair<T, int>> res;
 
-        if (x <= n_) {
+        if ((uint64_t)x <= (uint64_t)n_) {
             while (x > 1) {
                 T p = spf_[(int)x];
                 int count = 0;
@@ -195,6 +206,112 @@ public:
         return res;
     }
 };
+
+template <class T>
+std::vector<std::pair<T, int>> factorize(T x) {
+    return sieve<T>().factorize(x);
+}
+
+namespace internal {
+
+class prime_counter {
+private:
+    static constexpr int table_size = 5000000;
+    static constexpr int phi_x = 100000;
+    static constexpr int phi_s = 100;
+
+    std::vector<int> primes_;
+    std::vector<int> pi_;
+    std::vector<long long> phi_cache_;
+    std::unordered_map<uint64_t, long long> lehmer_cache_;
+
+    static uint64_t isqrt(uint64_t x) {
+        uint64_t r = (uint64_t)std::sqrt((long double)x);
+        while ((__uint128_t)(r + 1) * (r + 1) <= x) r++;
+        while ((__uint128_t)r * r > x) r--;
+        return r;
+    }
+
+    static uint64_t icbrt(uint64_t x) {
+        uint64_t r = (uint64_t)std::cbrt((long double)x);
+        while ((__uint128_t)(r + 1) * (r + 1) * (r + 1) <= x) r++;
+        while ((__uint128_t)r * r * r > x) r--;
+        return r;
+    }
+
+    static uint64_t iroot4(uint64_t x) {
+        uint64_t r = (uint64_t)std::sqrt((long double)isqrt(x));
+        while ((__uint128_t)(r + 1) * (r + 1) * (r + 1) * (r + 1) <= x) r++;
+        while ((__uint128_t)r * r * r * r > x) r--;
+        return r;
+    }
+
+    long long phi(uint64_t x, int s) {
+        if (s == 0) return (long long)x;
+        if (s < phi_s && x < phi_x) {
+            long long& res = phi_cache_[s * phi_x + (int)x];
+            if (res != -1) return res;
+            res = phi(x, s - 1) - phi(x / primes_[s - 1], s - 1);
+            return res;
+        }
+        return phi(x, s - 1) - phi(x / primes_[s - 1], s - 1);
+    }
+
+public:
+    prime_counter() : pi_(table_size + 1, 0), phi_cache_(phi_s * phi_x, -1) {
+        std::vector<bool> is_prime(table_size + 1, true);
+        is_prime[0] = is_prime[1] = false;
+        for (int i = 2; i <= table_size; i++) {
+            if (is_prime[i]) {
+                primes_.push_back(i);
+                if (1LL * i * i <= table_size) {
+                    for (long long j = 1LL * i * i; j <= table_size; j += i) {
+                        is_prime[(int)j] = false;
+                    }
+                }
+            }
+            pi_[i] = (int)primes_.size();
+        }
+    }
+
+    long long lehmer_pi(uint64_t x) {
+        if (x <= table_size) return pi_[(int)x];
+        auto it = lehmer_cache_.find(x);
+        if (it != lehmer_cache_.end()) return it->second;
+
+        long long a = lehmer_pi(iroot4(x));
+        long long b = lehmer_pi(isqrt(x));
+        long long c = lehmer_pi(icbrt(x));
+        long long res = phi(x, (int)a) + (b + a - 2) * (b - a + 1) / 2;
+
+        for (long long i = a; i < b; i++) {
+            uint64_t w = x / primes_[(int)i];
+            res -= lehmer_pi(w);
+            if (i < c) {
+                long long lim = lehmer_pi(isqrt(w));
+                for (long long j = i; j < lim; j++) {
+                    res -= lehmer_pi(w / primes_[(int)j]) - j;
+                }
+            }
+        }
+
+        lehmer_cache_[x] = res;
+        return res;
+    }
+};
+
+}  // namespace internal
+
+template <class T>
+long long prime_count_less(T n) {
+    static_assert(std::is_integral<T>::value, "prime_count_less<T>: T must be an integral type");
+    if constexpr (std::is_signed<T>::value) {
+        assert(0 <= n);
+    }
+    if (n <= 2) return 0;
+    static internal::prime_counter counter;
+    return counter.lehmer_pi((uint64_t)n - 1);
+}
 
 }  // namespace kyopro
 

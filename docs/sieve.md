@@ -51,6 +51,25 @@ const vector<int>& ps = sv.primes();
 
 - $O(1)$
 
+## prime_count_less
+
+```cpp
+long long cnt = kyopro::prime_count_less(n);
+```
+
+`n` より小さい素数の個数を返します。
+内部では Lehmer の素数計数を使います。
+
+**制約**
+
+- `0 <= n`
+- `n <= 10^11` 程度
+
+**計算量**
+
+- 初回呼び出し時に前計算 $O(M \log \log M)$
+- 各クエリは高速
+
 ## spf
 
 ```cpp
@@ -71,11 +90,13 @@ int p = sv.spf(T x);
 
 ```cpp
 auto f = sv.factorize(x);
+auto g = kyopro::factorize(x);
 ```
 
 `x` を素因数分解し、`vector<pair<T, int>>` で `(素因数, 指数)` を昇順に返します。
 `x == 1` の場合は空の `vector` を返します。
 `x <= sv.max_n()` の場合は最小素因数テーブルを使い、それより大きい場合は Miller-Rabin と Pollard Rho で分解します。
+前計算が不要な場合は `kyopro::factorize(x)` を直接使えます。
 
 **制約**
 
@@ -117,4 +138,26 @@ if (sv.is_prime(n)) {
 for (auto [p, e] : sv.factorize(n)) {
     cout << p << ' ' << e << '\n';
 }
+```
+
+篩を作らずに、各クエリの整数を直接素因数分解する例です。
+
+```cpp
+int Q;
+cin >> Q;
+while (Q--) {
+    long long a;
+    cin >> a;
+    for (auto [p, e] : kyopro::factorize(a)) {
+        cout << p << ' ' << e << '\n';
+    }
+}
+```
+
+`n` より小さい素数の個数を数える例です。
+
+```cpp
+long long n;
+cin >> n;
+cout << kyopro::prime_count_less(n) << '\n';
 ```

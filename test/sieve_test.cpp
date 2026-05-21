@@ -67,6 +67,25 @@ int main() {
     vector<pair<long long, int>> factor_pow2_60 = {{2LL, 60}};
     assert(sv_ll.factorize(pow2_60) == factor_pow2_60);
 
+    long long ten18 = 1000000000000000000LL;
+    vector<pair<long long, int>> factor_ten18 = {{2LL, 18}, {5LL, 18}};
+    assert(sv_ll.factorize(ten18) == factor_ten18);
+    assert(kyopro::factorize(ten18) == factor_ten18);
+
+    unsigned long long ten19 = 10000000000000000000ULL;
+    vector<pair<unsigned long long, int>> factor_ten19 = {{2ULL, 19}, {5ULL, 19}};
+    assert(kyopro::factorize(ten19) == factor_ten19);
+
+    assert(kyopro::prime_count_less(0) == 0);
+    assert(kyopro::prime_count_less(1) == 0);
+    assert(kyopro::prime_count_less(2) == 0);
+    assert(kyopro::prime_count_less(3) == 1);
+    assert(kyopro::prime_count_less(100) == 25);
+    assert(kyopro::prime_count_less(101) == 25);
+    assert(kyopro::prime_count_less(102) == 26);
+    assert(kyopro::prime_count_less(1000000) == 78498);
+    assert(kyopro::prime_count_less(100000000000LL) == 4118054813LL);
+
     assert(sv_ll.is_prime(1000000007LL));
     assert(!sv_ll.is_prime(near_1e18));
 
