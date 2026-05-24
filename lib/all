@@ -4,6 +4,7 @@
 #include "kyopro/binomial.hpp"
 #include "kyopro/bigint.hpp"
 #include "kyopro/cycle_detection.hpp"
+#include "kyopro/compress.hpp"
 #include "kyopro/dijkstra.hpp"
 #include "kyopro/manacher.hpp"
 #include "kyopro/run_length_encoding.hpp"

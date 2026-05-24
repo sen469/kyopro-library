@@ -91,6 +91,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 
+## Compress
+
+```cpp
+#include "kyopro/compress.hpp"
+```
+
+座標圧縮を $O(n \log n)$ で行います。
+圧縮後の配列と、圧縮後の値から元の値へ戻すための重複なし昇順配列を返します。
+後から `get`, `lower_bound`, `upper_bound`, `contains` を使える `compressor` 型もあります。
+
+詳しい使い方は [docs/compress.md](docs/compress.md) を参照してください。
+
 ## Cycle Detection
 
 ```cpp
