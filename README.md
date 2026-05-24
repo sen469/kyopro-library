@@ -91,6 +91,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 
+## Topological Sort
+
+```cpp
+#include "kyopro/topological_sort.hpp"
+```
+
+DAG のトポロジカル順序を $O(n + m)$ で求めます。
+隣接リストまたは `{from, to}` の辺リストから使えます。
+閉路がある場合は空の `vector<int>` を返します。
+
+詳しい使い方は [docs/topological_sort.md](docs/topological_sort.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
