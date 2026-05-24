@@ -91,6 +91,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 
+## Dijkstra
+
+```cpp
+#include "kyopro/dijkstra.hpp"
+```
+
+非負重みのグラフで、始点から各頂点への最短距離を $O((n + m) \log n)$ で求めます。
+隣接リストまたは `{from, to, cost}` の辺リストから使えます。
+到達判定と最短経路復元もできます。
+
+詳しい使い方は [docs/dijkstra.md](docs/dijkstra.md) を参照してください。
+
 ## Topological Sort
 
 ```cpp
