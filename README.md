@@ -91,6 +91,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 
+## Cycle Detection
+
+```cpp
+#include "kyopro/cycle_detection.hpp"
+```
+
+有向グラフと無向グラフのサイクルを $O(n + m)$ で検出します。
+見つかったサイクルの頂点列を返し、サイクルがない場合は空の `vector<int>` を返します。
+辺リスト版の無向グラフでは自己ループと多重辺も検出できます。
+
+詳しい使い方は [docs/cycle_detection.md](docs/cycle_detection.md) を参照してください。
+
 ## Dijkstra
 
 ```cpp
