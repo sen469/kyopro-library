@@ -91,6 +91,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 
+## Factorial Mod
+
+```cpp
+#include "kyopro/factorial_mod.hpp"
+```
+
+素数 mod で `n! mod p` を求めます。
+`n < p` では 0 側または `p - 1` 側の近い方から計算し、`n >= p` では `0` を返します。
+計算量は `n < p` で `O(min(n, p - 1 - n) + log p)` です。
+
+詳しい使い方は [docs/factorial_mod.md](docs/factorial_mod.md) を参照してください。
+
 ## Compress
 
 ```cpp
