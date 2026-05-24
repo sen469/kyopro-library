@@ -139,6 +139,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/dijkstra.md](docs/dijkstra.md) を参照してください。
 
+## Matrix
+
+```cpp
+#include "kyopro/matrix.hpp"
+```
+
+行列の加算、減算、乗算、累乗を行います。
+`long long` や `atcoder::modint` など、`+`, `-`, `*`, `T(0)`, `T(1)` が使える型で利用できます。
+
+詳しい使い方は [docs/matrix.md](docs/matrix.md) を参照してください。
+
 ## Topological Sort
 
 ```cpp

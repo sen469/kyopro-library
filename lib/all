@@ -8,6 +8,7 @@
 #include "kyopro/dijkstra.hpp"
 #include "kyopro/factorial_mod.hpp"
 #include "kyopro/manacher.hpp"
+#include "kyopro/matrix.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/sieve.hpp"
 #include "kyopro/topological_sort.hpp"
