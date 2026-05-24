@@ -139,6 +139,17 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/topological_sort.md](docs/topological_sort.md) を参照してください。
 
+## Wavelet Matrix
+
+```cpp
+#include "kyopro/wavelet_matrix.hpp"
+```
+
+静的配列に対して、区間 k 番目、区間内の値の個数、前駆・後継を $O(\log \sigma)$ で求めます。
+内部で座標圧縮するため、負数や `long long` も扱えます。
+
+詳しい使い方は [docs/wavelet_matrix.md](docs/wavelet_matrix.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
