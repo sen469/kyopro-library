@@ -23,6 +23,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/implicit_treap.md](docs/implicit_treap.md) を参照してください。
 
+## Angular Sort
+
+```cpp
+#include "kyopro/angular_sort.hpp"
+```
+
+点を正の x 軸方向から反時計回りの偏角順に $O(n \log n)$ でソートします。
+同じ偏角の点は原点から近い順、原点 `(0, 0)` は先頭に並びます。
+元の配列を変更せず添字列を返す `angular_sorted_indices` もあります。
+
+詳しい使い方は [docs/angular_sort.md](docs/angular_sort.md) を参照してください。
+
 ## Balanced Binary Search Tree
 
 ```cpp
