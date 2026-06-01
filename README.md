@@ -151,6 +151,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/dijkstra.md](docs/dijkstra.md) を参照してください。
 
+## Lowest Common Ancestor
+
+```cpp
+#include "kyopro/lowest_common_ancestor.hpp"
+```
+
+木の 2 頂点の最小共通祖先をダブリングで求めます。
+`lca`, `dist`, `kth_ancestor` が使え、森では別成分の `lca` と `dist` は `-1` を返します。
+
+詳しい使い方は [docs/lowest_common_ancestor.md](docs/lowest_common_ancestor.md) を参照してください。
+
 ## Matrix
 
 ```cpp
