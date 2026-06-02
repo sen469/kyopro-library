@@ -196,6 +196,17 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/tree_diameter.md](docs/tree_diameter.md) を参照してください。
 
+## Trie
+
+```cpp
+#include "kyopro/trie.hpp"
+```
+
+文字列集合を Trie 木で管理します。
+`insert`, `erase`, `count`, `contains`, `starts_with`, `prefix_count` が使えます。
+
+詳しい使い方は [docs/trie.md](docs/trie.md) を参照してください。
+
 ## Wavelet Matrix
 
 ```cpp
