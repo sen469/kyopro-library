@@ -185,6 +185,17 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/topological_sort.md](docs/topological_sort.md) を参照してください。
 
+## Tree Diameter
+
+```cpp
+#include "kyopro/tree_diameter.hpp"
+```
+
+重み付き木の直径を $O(n)$ で求めます。
+直径の長さ、両端の頂点、両端を結ぶパスを返します。
+
+詳しい使い方は [docs/tree_diameter.md](docs/tree_diameter.md) を参照してください。
+
 ## Wavelet Matrix
 
 ```cpp
