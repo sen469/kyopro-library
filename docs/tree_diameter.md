@@ -10,44 +10,101 @@
 ## tree_diameter_edge
 
 ```cpp
-vector<vector<kyopro::tree_diameter_edge<long long>>> graph(n);
-graph[0].push_back({1, 3});
-graph[1].push_back({0, 3});
+template <class T>
+struct tree_diameter_edge {
+    int to;
+    T cost;
+};
 ```
 
-`to` と `cost` を持つ辺です。
-辺の重みは `int`, `long long` などで使えます。
+**メンバ変数**
+
+- `int to`: 行き先の頂点
+- `T cost`: 辺の重み
+
+## tree_diameter_result
+
+```cpp
+template <class T>
+struct tree_diameter_result {
+    T diameter;
+    int from;
+    int to;
+    vector<int> path;
+};
+```
+
+**メンバ変数**
+
+- `T diameter`: 直径の長さ
+- `int from`: 直径の片方の端点
+- `int to`: 直径のもう片方の端点
+- `vector<int> path`: `from` から `to` への頂点列
+
+頂点が 1 つの場合、`diameter = 0`, `from = 0`, `to = 0`, `path = {0}` です。
+頂点が 0 個の場合、`diameter = 0`, `from = -1`, `to = -1`, `path = {}` です。
 
 ## tree_diameter
 
 ```cpp
-auto res = kyopro::tree_diameter(graph);
+template <class T>
+tree_diameter_result<T> tree_diameter(
+    const vector<vector<tree_diameter_edge<T>>>& graph
+);
 ```
 
-`res.diameter` に直径の長さが入ります。
-`res.from`, `res.to` は直径の両端の頂点です。
-`res.path` は `from` から `to` への頂点列です。
+重み付き木 `graph` の直径を返します。
 
-頂点が 1 つの場合、直径は `0`、両端は `0`、パスは `{0}` です。
-頂点が 0 個の場合、直径は `0`、両端は `-1`、パスは空です。
+**引数**
+
+- `const vector<vector<tree_diameter_edge<T>>>& graph`: 重み付き木の隣接リスト
+
+**戻り値**
+
+- 直径の長さ、両端、パスを持つ `tree_diameter_result<T>`
+
+**制約**
+
+- `graph` は無向木、または頂点数 0 の空グラフ
+- `graph[v]` の各辺 `e` について `0 <= e.to < graph.size()`
+- 辺は両方向に追加されている
+- 辺の重みは非負
+- `T` は `T(0)`, `operator+`, `operator<` が使える
 
 **計算量**
 
 - $O(n)$
 
-## 辺リストから使う
+## 辺リスト版
 
 ```cpp
-vector<tuple<int, int, long long>> edges = {
-    {0, 1, 3},
-    {1, 2, 4},
-};
-
-auto res = kyopro::tree_diameter(n, edges);
+template <class T>
+tree_diameter_result<T> tree_diameter(
+    int n,
+    const vector<tuple<int, int, T>>& edges
+);
 ```
 
-`edges` は `{u, v, cost}` の形式です。
-無向辺として扱います。
+辺リストから重み付き木の直径を返します。
+辺は無向辺として扱います。
+
+**引数**
+
+- `int n`: 頂点数
+- `const vector<tuple<int, int, T>>& edges`: `{u, v, cost}` 形式の辺リスト
+
+**戻り値**
+
+- 直径の長さ、両端、パスを持つ `tree_diameter_result<T>`
+
+**制約**
+
+- `0 <= n`
+- `edges.size() == max(0, n - 1)`
+- 各辺 `(u, v, cost)` について `0 <= u, v < n`
+- 辺全体で木をなす
+- `cost` は非負
+- `T` は `T(0)`, `operator+`, `operator<` が使える
 
 **計算量**
 
