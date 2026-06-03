@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 
+#include "atcoder/modint.hpp"
 #include "kyopro/binomial.hpp"
 
 using namespace std;
@@ -72,6 +73,19 @@ int main() {
     assert(comb2(1000, 1) == 1000);
     assert(comb2(1000, 999) == 1000);
 
+    kyopro::binomial<998244353, long long> comb_ll;
+    static_assert(is_same_v<decltype(comb_ll.comb(5, 2)), long long>);
+    assert(comb_ll.comb(5, 2) == 10LL);
+    assert(comb_ll.perm(5, 2) == 20LL);
+    assert(comb_ll.fact(5) == 120LL);
+
+    kyopro::binomial<998244353, atcoder::modint998244353> comb_mint;
+    static_assert(is_same_v<decltype(comb_mint.comb(5, 2)), atcoder::modint998244353>);
+    assert(comb_mint.comb(5, 2).val() == 10);
+    assert(comb_mint.perm(5, 2).val() == 20);
+    assert(comb_mint.fact(5).val() == 120);
+    assert(comb_mint.inv_fact(5).val() == atcoder::modint998244353(120).inv().val());
+
     kyopro::dynamic_binomial dynamic_comb(1000000007);
     assert(dynamic_comb.mod() == 1000000007);
     assert(dynamic_comb(0, 0) == 1);
@@ -96,6 +110,13 @@ int main() {
     assert(dynamic_comb2(1000, 1000) == 1);
     assert(dynamic_comb2(1000, 1) == 1000);
     assert(dynamic_comb2(1000, 999) == 1000);
+
+    atcoder::modint::set_mod(runtime_mod);
+    kyopro::dynamic_binomial<atcoder::modint> dynamic_comb_mint(runtime_mod);
+    static_assert(is_same_v<decltype(dynamic_comb_mint.comb(5, 2)), atcoder::modint>);
+    assert(dynamic_comb_mint.comb(5, 2).val() == 10);
+    assert(dynamic_comb_mint.perm(5, 2).val() == 20);
+    assert(dynamic_comb_mint.fact(5).val() == 120);
 
     kyopro::arbitrary_mod_binomial<12> arbitrary_comb(60);
     kyopro::dynamic_arbitrary_mod_binomial dynamic_arbitrary_comb(12, 60);
@@ -125,6 +146,16 @@ int main() {
     assert(dynamic_arbitrary_comb3.fact(10) == 0);
     assert(dynamic_arbitrary_comb3.comb(10, 5) == 0);
     assert(dynamic_arbitrary_comb3.perm(10, 5) == 0);
+
+    kyopro::arbitrary_mod_binomial<12, long long> arbitrary_comb_ll(60);
+    static_assert(is_same_v<decltype(arbitrary_comb_ll.comb(10, 5)), long long>);
+    assert(arbitrary_comb_ll.comb(10, 5) == naive_comb_mod(10, 5, 12));
+    assert(arbitrary_comb_ll.perm(10, 5) == naive_perm_mod(10, 5, 12));
+
+    kyopro::dynamic_arbitrary_mod_binomial<long long> dynamic_arbitrary_comb_ll(12, 60);
+    static_assert(is_same_v<decltype(dynamic_arbitrary_comb_ll.comb(10, 5)), long long>);
+    assert(dynamic_arbitrary_comb_ll.comb(10, 5) == naive_comb_mod(10, 5, 12));
+    assert(dynamic_arbitrary_comb_ll.perm(10, 5) == naive_perm_mod(10, 5, 12));
 
     kyopro::dynamic_arbitrary_mod_binomial yosupo_case(10007);
     assert(yosupo_case.comb(4, 2) == 6);

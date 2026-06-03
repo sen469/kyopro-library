@@ -8,7 +8,7 @@
 
 namespace kyopro {
 
-template <int MOD>
+template <int MOD, class T = int>
 class binomial {
 private:
     std::vector<int> fact_;
@@ -50,31 +50,32 @@ public:
         }
     }
 
-    int fact(int n) {
+    T fact(int n) {
         ensure(n);
-        return fact_[n];
+        return T(fact_[n]);
     }
 
-    int inv_fact(int n) {
+    T inv_fact(int n) {
         ensure(n);
-        return inv_fact_[n];
+        return T(inv_fact_[n]);
     }
 
-    int perm(int n, int k) {
-        if (k < 0 || n < k) return 0;
+    T perm(int n, int k) {
+        if (k < 0 || n < k) return T(0);
         ensure(n);
-        return (long long)fact_[n] * inv_fact_[n - k] % MOD;
+        return T((long long)fact_[n] * inv_fact_[n - k] % MOD);
     }
 
-    int comb(int n, int k) {
-        if (k < 0 || n < k) return 0;
+    T comb(int n, int k) {
+        if (k < 0 || n < k) return T(0);
         ensure(n);
-        return (long long)fact_[n] * inv_fact_[k] % MOD * inv_fact_[n - k] % MOD;
+        return T((long long)fact_[n] * inv_fact_[k] % MOD * inv_fact_[n - k] % MOD);
     }
 
-    int operator()(int n, int k) { return comb(n, k); }
+    T operator()(int n, int k) { return comb(n, k); }
 };
 
+template <class T = int>
 class dynamic_binomial {
 private:
     int mod_;
@@ -119,29 +120,29 @@ public:
         }
     }
 
-    int fact(int n) {
+    T fact(int n) {
         ensure(n);
-        return fact_[n];
+        return T(fact_[n]);
     }
 
-    int inv_fact(int n) {
+    T inv_fact(int n) {
         ensure(n);
-        return inv_fact_[n];
+        return T(inv_fact_[n]);
     }
 
-    int perm(int n, int k) {
-        if (k < 0 || n < k) return 0;
+    T perm(int n, int k) {
+        if (k < 0 || n < k) return T(0);
         ensure(n);
-        return (long long)fact_[n] * inv_fact_[n - k] % mod_;
+        return T((long long)fact_[n] * inv_fact_[n - k] % mod_);
     }
 
-    int comb(int n, int k) {
-        if (k < 0 || n < k) return 0;
+    T comb(int n, int k) {
+        if (k < 0 || n < k) return T(0);
         ensure(n);
-        return (long long)fact_[n] * inv_fact_[k] % mod_ * inv_fact_[n - k] % mod_;
+        return T((long long)fact_[n] * inv_fact_[k] % mod_ * inv_fact_[n - k] % mod_);
     }
 
-    int operator()(int n, int k) { return comb(n, k); }
+    T operator()(int n, int k) { return comb(n, k); }
 };
 
 namespace internal {
@@ -284,6 +285,7 @@ public:
 
 }  // namespace internal
 
+template <class T = int>
 class dynamic_arbitrary_mod_binomial {
 private:
     int mod_;
@@ -345,36 +347,36 @@ public:
         ensure_bins(n);
     }
 
-    int fact(int n) {
+    T fact(int n) {
         ensure_fact(n);
-        return fact_[n];
+        return T(fact_[n]);
     }
 
-    int perm(long long n, long long k) {
-        if (k < 0 || n < k) return 0;
+    T perm(long long n, long long k) {
+        if (k < 0 || n < k) return T(0);
         ensure_bins(n);
         std::vector<int> residues;
         residues.reserve(bins_.size());
         for (auto& bin : bins_) residues.push_back(bin.perm(n, k));
-        return crt(residues);
+        return T(crt(residues));
     }
 
-    int comb(long long n, long long k) {
-        if (k < 0 || n < k) return 0;
+    T comb(long long n, long long k) {
+        if (k < 0 || n < k) return T(0);
         ensure_bins(n);
         std::vector<int> residues;
         residues.reserve(bins_.size());
         for (auto& bin : bins_) residues.push_back(bin.comb(n, k));
-        return crt(residues);
+        return T(crt(residues));
     }
 
-    int operator()(long long n, long long k) { return comb(n, k); }
+    T operator()(long long n, long long k) { return comb(n, k); }
 };
 
-template <int MOD>
+template <int MOD, class T = int>
 class arbitrary_mod_binomial {
 private:
-    dynamic_arbitrary_mod_binomial impl_;
+    dynamic_arbitrary_mod_binomial<T> impl_;
 
 public:
     arbitrary_mod_binomial() : impl_(MOD) {}
@@ -385,13 +387,13 @@ public:
 
     void ensure(long long n) { impl_.ensure(n); }
 
-    int fact(int n) { return impl_.fact(n); }
+    T fact(int n) { return impl_.fact(n); }
 
-    int perm(long long n, long long k) { return impl_.perm(n, k); }
+    T perm(long long n, long long k) { return impl_.perm(n, k); }
 
-    int comb(long long n, long long k) { return impl_.comb(n, k); }
+    T comb(long long n, long long k) { return impl_.comb(n, k); }
 
-    int operator()(long long n, long long k) { return comb(n, k); }
+    T operator()(long long n, long long k) { return comb(n, k); }
 };
 
 }  // namespace kyopro
