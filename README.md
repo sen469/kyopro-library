@@ -35,6 +35,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/angular_sort.md](docs/angular_sort.md) を参照してください。
 
+## Arbitrary Mod Convolution
+
+```cpp
+#include "kyopro/arbitrary_mod_convolution.hpp"
+```
+
+任意 mod で畳み込みを $O(n \log n)$ で行います。
+3 つの NTT friendly prime で計算し、CRT で指定した mod に復元します。
+
+詳しい使い方は [docs/arbitrary_mod_convolution.md](docs/arbitrary_mod_convolution.md) を参照してください。
+
 ## Balanced Binary Search Tree
 
 ```cpp
