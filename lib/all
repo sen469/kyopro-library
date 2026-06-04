@@ -9,6 +9,7 @@
 #include "kyopro/compress.hpp"
 #include "kyopro/dijkstra.hpp"
 #include "kyopro/factorial_mod.hpp"
+#include "kyopro/interval_heap.hpp"
 #include "kyopro/lowest_common_ancestor.hpp"
 #include "kyopro/manacher.hpp"
 #include "kyopro/matrix.hpp"

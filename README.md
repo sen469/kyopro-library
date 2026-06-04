@@ -23,6 +23,17 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/implicit_treap.md](docs/implicit_treap.md) を参照してください。
 
+## Interval Heap
+
+```cpp
+#include "kyopro/interval_heap.hpp"
+```
+
+両端優先度付きキューです。
+最小値と最大値を $O(1)$ で取得し、挿入、最小値削除、最大値削除を $O(\log n)$ で行います。
+
+詳しい使い方は [docs/interval_heap.md](docs/interval_heap.md) を参照してください。
+
 ## Angular Sort
 
 ```cpp
