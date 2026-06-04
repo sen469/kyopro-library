@@ -19,3 +19,4 @@
 #include "kyopro/topological_sort.hpp"
 #include "kyopro/trie.hpp"
 #include "kyopro/wavelet_matrix.hpp"
+#include "kyopro/weighted_union_find.hpp"

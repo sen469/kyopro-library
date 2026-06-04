@@ -240,6 +240,17 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/wavelet_matrix.md](docs/wavelet_matrix.md) を参照してください。
 
+## Weighted Union Find
+
+```cpp
+#include "kyopro/weighted_union_find.hpp"
+```
+
+各頂点にポテンシャルを持つ Union-Find です。
+制約 `potential[b] - potential[a] = w` の追加、矛盾検出、同一連結成分内のポテンシャル差取得ができます。
+
+詳しい使い方は [docs/weighted_union_find.md](docs/weighted_union_find.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh
