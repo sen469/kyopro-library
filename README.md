@@ -218,6 +218,18 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/tree_diameter.md](docs/tree_diameter.md) を参照してください。
 
+## Rerooting DP
+
+```cpp
+#include "kyopro/rerooting_dp.hpp"
+```
+
+木の全方位 DP を $O(n)$ で行います。
+`op`, `f_ve`, `f_ev` を渡して、各頂点を根にしたときの DP 値を求めます。
+辺重みなどは辺 ID から外部配列を参照できます。
+
+詳しい使い方は [docs/rerooting_dp.md](docs/rerooting_dp.md) を参照してください。
+
 ## Trie
 
 ```cpp
