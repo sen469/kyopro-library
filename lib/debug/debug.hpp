@@ -4,6 +4,35 @@
 # include <bits/stdc++.h>
 # include <cxxabi.h>
 
+// Forward declarations
+template <typename T, typename U>
+std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p);
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v);
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const std::set<T> &s);
+
+template <typename T, typename U>
+std::ostream &operator<<(std::ostream &os, const std::map<T, U> &m);
+
+template <typename T, typename Container, typename Compare>
+std::ostream &operator<<(std::ostream &os, std::priority_queue<T, Container, Compare> pq);
+
+template <typename T, typename Container>
+std::ostream &operator<<(std::ostream &os, std::stack<T, Container> s);
+
+template <typename T, typename Container>
+std::ostream &operator<<(std::ostream &os, std::queue<T, Container> q);
+
+template <typename... Args>
+std::ostream &operator<<(std::ostream &os, const std::tuple<Args...> &t);
+
+template <typename T>
+auto operator<<(std::ostream &os, const T &m) -> decltype(m.val(), os);
+
+// Implementations
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
     return os << "(" << p.first << ", " << p.second << ")";
@@ -69,6 +98,21 @@ std::ostream &operator<<(std::ostream &os, std::queue<T, Container> q) {
         q.pop();
     }
     return os << "}";
+}
+
+template <typename... Args>
+std::ostream &operator<<(std::ostream &os, const std::tuple<Args...> &t) {
+    os << "(";
+    std::apply([&os](const auto &...args) {
+        int n = 0;
+        ((os << args << (++n == (int)sizeof...(Args) ? "" : ", ")), ...);
+    }, t);
+    return os << ")";
+}
+
+template <typename T>
+auto operator<<(std::ostream &os, const T &m) -> decltype(m.val(), os) {
+    return os << m.val();
 }
 
 namespace debug_internal {
