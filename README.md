@@ -173,6 +173,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/dijkstra.md](docs/dijkstra.md) を参照してください。
 
+## Doubling
+
+```cpp
+#include "kyopro/doubling.hpp"
+```
+
+関数グラフ上で同じ遷移を何回も適用した結果を $O(\log k)$ で求めます。
+遷移先がない場合は `-1` を使えます。
+辺の値を畳み込みながら移動する `doubling_monoid` もあります。
+
+詳しい使い方は [docs/doubling.md](docs/doubling.md) を参照してください。
+
 ## Lowest Common Ancestor
 
 ```cpp
