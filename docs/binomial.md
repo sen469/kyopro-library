@@ -186,7 +186,7 @@ cout << binom.comb(n, k) << '\n';
 合成数 mod では階乗の逆元が存在しないことがあるため、`arbitrary_mod_binomial` と `dynamic_arbitrary_mod_binomial` は `inv_fact` を提供しません。
 内部では mod を素因数冪に分解し、各素因数冪で計算した値を CRT で復元します。
 
-[問題例(ABC021 D-多重ループ)] (https://atcoder.jp/contests/abc021/submissions/75963254)
+[問題例(ABC021 D-多重ループ)](https://atcoder.jp/contests/abc021/submissions/75963254)
 
 ```cpp
 #include <bits/stdc++.h>

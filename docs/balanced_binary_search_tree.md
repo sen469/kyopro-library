@@ -249,8 +249,8 @@ void s.clear();
 
 - $O(n)$
 
-[問題例] (https://atcoder.jp/contests/abc458/tasks/abc458_d)
-
+[問題例 ABC458-D Chalkboard Median](https://atcoder.jp/contests/abc458/tasks/abc458_d)  
+[Ordered Set](https://judge.yosupo.jp/problem/ordered_set)
 ## 使用例
 
 ```cpp
