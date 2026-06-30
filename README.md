@@ -23,6 +23,18 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/implicit_treap.md](docs/implicit_treap.md) を参照してください。
 
+## Dynamic Segtree
+
+```cpp
+#include "kyopro/dynamic_segtree.hpp"
+```
+
+必要な頂点だけを作るセグメント木です。
+ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
+座標が大きい場合でも、点更新、1 点取得、区間取得、`max_right`, `min_left` ができます。
+
+詳しい使い方は [docs/dynamic_segtree.md](docs/dynamic_segtree.md) を参照してください。
+
 ## Interval Heap
 
 ```cpp
