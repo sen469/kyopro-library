@@ -69,6 +69,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/persistent_union_find.md](docs/persistent_union_find.md) を参照してください。
 
+## Sparse Table
+
+```cpp
+#include "kyopro/sparse_table.hpp"
+```
+
+静的配列に対して、`min`, `max`, `gcd` などの冪等な区間演算を $O(1)$ で求めます。
+ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
+
+詳しい使い方は [docs/sparse_table.md](docs/sparse_table.md) を参照してください。
+
 ## Interval Heap
 
 ```cpp

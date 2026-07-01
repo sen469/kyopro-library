@@ -21,6 +21,7 @@
 #include "kyopro/rerooting_dp.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/sieve.hpp"
+#include "kyopro/sparse_table.hpp"
 #include "kyopro/tree_diameter.hpp"
 #include "kyopro/topological_sort.hpp"
 #include "kyopro/trie.hpp"
