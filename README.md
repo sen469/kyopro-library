@@ -58,6 +58,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/persistent_segtree.md](docs/persistent_segtree.md) を参照してください。
 
+## Persistent Union Find
+
+```cpp
+#include "kyopro/persistent_union_find.hpp"
+```
+
+各併合後の版を残せる Union-Find です。
+`merge` は元の版を変更せず、併合後の版と実際に併合したかを返します。
+
+詳しい使い方は [docs/persistent_union_find.md](docs/persistent_union_find.md) を参照してください。
+
 ## Interval Heap
 
 ```cpp

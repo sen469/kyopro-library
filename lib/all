@@ -17,6 +17,7 @@
 #include "kyopro/manacher.hpp"
 #include "kyopro/matrix.hpp"
 #include "kyopro/persistent_segtree.hpp"
+#include "kyopro/persistent_union_find.hpp"
 #include "kyopro/rerooting_dp.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/sieve.hpp"
