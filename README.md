@@ -35,6 +35,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/dynamic_segtree.md](docs/dynamic_segtree.md) を参照してください。
 
+## Dynamic Union Find
+
+```cpp
+#include "kyopro/dynamic_union_find.hpp"
+```
+
+出てきた要素だけを管理する Union-Find です。
+`long long` や `string` などのキーをそのまま使え、未登録の要素は `merge`, `same`, `leader`, `size` で自動追加されます。
+
+詳しい使い方は [docs/dynamic_union_find.md](docs/dynamic_union_find.md) を参照してください。
+
 ## Interval Heap
 
 ```cpp

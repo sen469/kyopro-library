@@ -10,6 +10,7 @@
 #include "kyopro/dijkstra.hpp"
 #include "kyopro/doubling.hpp"
 #include "kyopro/dynamic_segtree.hpp"
+#include "kyopro/dynamic_union_find.hpp"
 #include "kyopro/factorial_mod.hpp"
 #include "kyopro/interval_heap.hpp"
 #include "kyopro/lowest_common_ancestor.hpp"
