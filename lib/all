@@ -16,6 +16,7 @@
 #include "kyopro/lowest_common_ancestor.hpp"
 #include "kyopro/manacher.hpp"
 #include "kyopro/matrix.hpp"
+#include "kyopro/persistent_segtree.hpp"
 #include "kyopro/rerooting_dp.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/sieve.hpp"

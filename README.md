@@ -46,6 +46,18 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/dynamic_union_find.md](docs/dynamic_union_find.md) を参照してください。
 
+## Persistent Segtree
+
+```cpp
+#include "kyopro/persistent_segtree.hpp"
+```
+
+各更新後の版を残せるセグメント木です。
+ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
+`set` は元の木を変更せず、新しい版を返します。
+
+詳しい使い方は [docs/persistent_segtree.md](docs/persistent_segtree.md) を参照してください。
+
 ## Interval Heap
 
 ```cpp
