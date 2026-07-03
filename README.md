@@ -91,6 +91,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/interval_heap.md](docs/interval_heap.md) を参照してください。
 
+## Geometry
+
+```cpp
+#include "kyopro/geometry.hpp"
+```
+
+2次元幾何で使う点・直線・円と、公差 `eps` 付きの判定関数集です。
+直線上判定、同一直線判定、円周上判定、円同士の位置関係などが使えます。
+
+詳しい使い方は [docs/geometry.md](docs/geometry.md) を参照してください。
+
 ## Angular Sort
 
 ```cpp
