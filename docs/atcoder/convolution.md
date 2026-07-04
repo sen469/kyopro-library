@@ -1,5 +1,7 @@
 # Convolution
 
+実装: [lib/atcoder/convolution.hpp](../../lib/atcoder/convolution.hpp)
+
 畳み込みを行います。数列 $a_0, a_1, \cdots, a_{N - 1}$ と数列 $b_0, b_1, \cdots, b_{M - 1}$ から、長さ $N + M - 1$ の数列
 
 $$c_i = \sum_{j = 0}^i a_j b_{i - j}$$

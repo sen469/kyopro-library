@@ -1,5 +1,7 @@
 # Sparse Table
 
+実装: [lib/kyopro/sparse_table.hpp](../lib/kyopro/sparse_table.hpp)
+
 静的配列に対して、冪等な区間演算を $O(1)$ で求めるデータ構造です。
 `min`, `max`, `gcd` などに使えます。
 

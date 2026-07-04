@@ -1,5 +1,7 @@
 # Rerooting DP
 
+実装: [lib/kyopro/rerooting_dp.hpp](../lib/kyopro/rerooting_dp.hpp)
+
 木の全方位 DP を行います。
 各頂点を根にしたときの DP 値をまとめて求めます。
 

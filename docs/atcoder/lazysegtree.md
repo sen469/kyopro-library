@@ -1,5 +1,7 @@
 # Lazy Segtree
 
+実装: [lib/atcoder/lazysegtree.hpp](../../lib/atcoder/lazysegtree.hpp)
+
 [モノイド](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89) $(S, \cdot: S \times S \to S, e \in S)$と、$S$ から $S$ への写像の集合 $F$ であって、以下の条件を満たすようなものについて使用できるデータ構造です。
 
 - $F$ は恒等写像 $\mathrm{id}$ を含む。つまり、任意の $x \in S$ に対し $\mathrm{id}(x) = x$ をみたす。

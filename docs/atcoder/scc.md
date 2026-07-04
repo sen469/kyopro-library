@@ -1,5 +1,7 @@
 # SCC
 
+実装: [lib/atcoder/scc.hpp](../../lib/atcoder/scc.hpp)
+
 有向グラフを強連結成分分解します。
 
 ## コンストラクタ

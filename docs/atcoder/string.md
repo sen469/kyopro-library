@@ -1,5 +1,7 @@
 # String
 
+実装: [lib/atcoder/string.hpp](../../lib/atcoder/string.hpp)
+
 文字列アルゴリズム詰め合わせです。
 文字列に関する様々なアルゴリズムが入っています。
 

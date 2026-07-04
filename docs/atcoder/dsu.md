@@ -1,5 +1,7 @@
 # DSU
 
+実装: [lib/atcoder/dsu.hpp](../../lib/atcoder/dsu.hpp)
+
 無向グラフに対して、
 
 - 辺の追加

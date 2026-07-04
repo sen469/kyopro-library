@@ -1,5 +1,7 @@
 # Binomial
 
+実装: [lib/kyopro/binomial.hpp](../lib/kyopro/binomial.hpp)
+
 二項係数を計算するライブラリです。
 素数 mod 用と合成数 mod 対応版があります。
 

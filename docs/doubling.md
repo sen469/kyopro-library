@@ -1,5 +1,7 @@
 # Doubling
 
+実装: [lib/kyopro/doubling.hpp](../lib/kyopro/doubling.hpp)
+
 関数グラフ上で、同じ遷移を何回も適用した結果をダブリングで求めるライブラリです。
 `f^k(v)` の計算や、遷移しながら辺の値を畳み込む処理に使えます。
 

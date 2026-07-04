@@ -1,5 +1,7 @@
 # Math
 
+実装: [lib/atcoder/math.hpp](../../lib/atcoder/math.hpp)
+
 数論的アルゴリズム詰め合わせです。
 
 ## pow_mod

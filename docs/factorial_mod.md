@@ -1,5 +1,7 @@
 # Factorial Mod
 
+実装: [lib/kyopro/factorial_mod.hpp](../lib/kyopro/factorial_mod.hpp)
+
 素数 mod で `n! mod p` を求めます。
 `n < p` のとき、`0` 側または `p - 1` 側の近い方から計算します。
 `n >= p` の場合は `n!` が `p` で割り切れるため `0` を返します。

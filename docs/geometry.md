@@ -1,5 +1,7 @@
 # Geometry
 
+実装: [lib/kyopro/geometry.hpp](../lib/kyopro/geometry.hpp)
+
 2次元幾何で使う点・直線・円と、公差 `eps` 付きの判定関数集です。
 
 ```cpp

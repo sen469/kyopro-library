@@ -1,5 +1,7 @@
 # Modint
 
+実装: [lib/atcoder/modint.hpp](../../lib/atcoder/modint.hpp)
+
 自動でmodを取る構造体です。AC Libraryはmodintを使わなくとも全アルゴリズムが使えるように整備しているので、必ずしもこのファイルの内容を把握する必要はありません。
 
 多くの問題では `modint998244353`, `modint1000000007`, `modint` のどれかを使えば十分で、以下のように使えます。

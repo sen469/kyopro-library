@@ -1,5 +1,7 @@
 # Run Length Encoding
 
+実装: [lib/kyopro/run_length_encoding.hpp](../lib/kyopro/run_length_encoding.hpp)
+
 連続する同じ値を `(値, 個数)` にまとめるランレングス圧縮です。
 文字列、`vector`、iterator 範囲に対して使えます。
 

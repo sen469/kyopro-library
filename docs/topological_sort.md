@@ -1,5 +1,7 @@
 # Topological Sort
 
+実装: [lib/kyopro/topological_sort.hpp](../lib/kyopro/topological_sort.hpp)
+
 DAG の頂点を、すべての有向辺 `u -> v` について `u` が `v` より前に来るように並べます。
 
 ```cpp

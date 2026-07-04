@@ -1,5 +1,7 @@
 # Compress
 
+実装: [lib/kyopro/compress.hpp](../lib/kyopro/compress.hpp)
+
 座標圧縮を行います。
 値を昇順に並べて重複を除き、各値を `0` 以上の添字に変換します。
 

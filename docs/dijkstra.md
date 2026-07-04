@@ -1,5 +1,7 @@
 # Dijkstra
 
+実装: [lib/kyopro/dijkstra.hpp](../lib/kyopro/dijkstra.hpp)
+
 非負重みのグラフで、始点から各頂点への最短距離を求めます。
 
 ```cpp

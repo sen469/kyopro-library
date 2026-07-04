@@ -1,5 +1,7 @@
 # Balanced Binary Search Tree
 
+実装: [lib/kyopro/balanced_binary_search_tree.hpp](../lib/kyopro/balanced_binary_search_tree.hpp)
+
 重複を許す平衡二分探索木です。
 内部実装は treap で、挿入、削除、検索、lower_bound、upper_bound、k 番目の値の取得、値未満の要素数の取得をならし $O(\log n)$ で行えます。
 

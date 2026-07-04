@@ -1,5 +1,7 @@
 # Weighted Union Find
 
+実装: [lib/kyopro/weighted_union_find.hpp](../lib/kyopro/weighted_union_find.hpp)
+
 各頂点にポテンシャルを持つ Union-Find です。
 制約 `potential[b] - potential[a] = w` を追加し、同じ連結成分内のポテンシャル差を取得できます。
 

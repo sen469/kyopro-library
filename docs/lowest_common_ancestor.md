@@ -1,5 +1,7 @@
 # Lowest Common Ancestor
 
+実装: [lib/kyopro/lowest_common_ancestor.hpp](../lib/kyopro/lowest_common_ancestor.hpp)
+
 木の 2 頂点の最小共通祖先をダブリングで求めます。
 森にも対応しています。
 

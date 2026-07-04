@@ -1,5 +1,7 @@
 # Interval Heap
 
+実装: [lib/kyopro/interval_heap.hpp](../lib/kyopro/interval_heap.hpp)
+
 両端優先度付きキューです。
 最小値と最大値を $O(1)$ で取得し、挿入、最小値削除、最大値削除を $O(\log n)$ で行います。
 

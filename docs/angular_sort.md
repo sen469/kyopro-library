@@ -1,5 +1,7 @@
 # Angular Sort
 
+実装: [lib/kyopro/angular_sort.hpp](../lib/kyopro/angular_sort.hpp)
+
 点を偏角の昇順にソートします。
 `atan2` は使わず、半平面と外積で比較します。
 

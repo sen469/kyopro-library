@@ -1,5 +1,7 @@
 # Dynamic Segtree
 
+実装: [lib/kyopro/dynamic_segtree.hpp](../lib/kyopro/dynamic_segtree.hpp)
+
 必要な頂点だけを作るセグメント木です。
 座標が大きい場合や、座標圧縮せずにオンラインで点更新・区間取得をしたい場合に使えます。
 

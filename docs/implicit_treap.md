@@ -1,5 +1,7 @@
 # Implicit Treap
 
+実装: [lib/kyopro/implicit_treap.hpp](../lib/kyopro/implicit_treap.hpp)
+
 長さが変化する列を管理します。
 列の任意位置への挿入、削除、区間反転、区間作用、区間積の取得をならし $O(\log n)$ で行えます。
 

@@ -1,5 +1,7 @@
 # 2-SAT
 
+実装: [lib/atcoder/twosat.hpp](../../lib/atcoder/twosat.hpp)
+
 2-SATを解きます。
 変数 $x_0, x_1, \cdots, x_{N - 1}$ に関して、
 

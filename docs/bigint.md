@@ -1,5 +1,7 @@
 # BigInt
 
+実装: [lib/kyopro/bigint.hpp](../lib/kyopro/bigint.hpp)
+
 ```cpp
 #include "kyopro/bigint.hpp"
 ```

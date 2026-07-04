@@ -1,5 +1,7 @@
 # Cumulative Sum
 
+実装: [lib/kyopro/cumulative_sum.hpp](../lib/kyopro/cumulative_sum.hpp)
+
 1次元・2次元・3次元の累積和です。
 半開区間の和を $O(1)$ で取得できます。
 

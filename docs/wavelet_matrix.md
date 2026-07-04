@@ -1,5 +1,7 @@
 # Wavelet Matrix
 
+実装: [lib/kyopro/wavelet_matrix.hpp](../lib/kyopro/wavelet_matrix.hpp)
+
 静的配列に対して、区間 k 番目、区間内の値の個数、前駆・後継を求めます。
 内部で座標圧縮するため、負数や `long long` も扱えます。
 

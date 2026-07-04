@@ -1,5 +1,7 @@
 # Fenwick Tree
 
+実装: [lib/atcoder/fenwicktree.hpp](../../lib/atcoder/fenwicktree.hpp)
+
 長さ $n$ の配列に対し、
 
 - 要素の $1$ 点変更

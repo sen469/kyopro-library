@@ -1,5 +1,7 @@
 # Segtree
 
+実装: [lib/atcoder/segtree.hpp](../../lib/atcoder/segtree.hpp)
+
 [モノイド](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89) $(S, \cdot: S \times S \to S, e \in S)$、つまり
 
 - 結合律: $(a \cdot b) \cdot c$ = $a \cdot (b \cdot c)$ for all $a, b, c \in S$
