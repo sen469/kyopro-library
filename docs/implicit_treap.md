@@ -83,6 +83,23 @@ S a[p];
 
 - ならし $O(\log n)$
 
+## front / back
+
+```cpp
+S a.front();
+S a.back();
+```
+
+`a.front()` は先頭の要素、`a.back()` は末尾の要素を返します。
+
+**制約**
+
+- `!a.empty()`
+
+**計算量**
+
+- ならし $O(\log n)$
+
 ## set
 
 ```cpp
@@ -129,6 +146,54 @@ S a.all_prod();
 
 - $O(1)$
 
+## max_right
+
+```cpp
+int a.max_right(int l, G g);
+```
+
+以下の両方を満たす最大の `r` を返します。
+
+- `l <= r <= a.size()`
+- `g(op(a[l], ..., a[r - 1])) == true`
+
+`l == r` のときの積は `e()` です。
+`g` が単調であることを仮定します。
+
+**制約**
+
+- `0 <= l <= a.size()`
+- `g(e()) == true`
+- `g` は副作用を持たない
+
+**計算量**
+
+- ならし $O(\log n)$
+
+## min_left
+
+```cpp
+int a.min_left(int r, G g);
+```
+
+以下の両方を満たす最小の `l` を返します。
+
+- `0 <= l <= r`
+- `g(op(a[l], ..., a[r - 1])) == true`
+
+`l == r` のときの積は `e()` です。
+`g` が単調であることを仮定します。
+
+**制約**
+
+- `0 <= r <= a.size()`
+- `g(e()) == true`
+- `g` は副作用を持たない
+
+**計算量**
+
+- ならし $O(\log n)$
+
 ## apply
 
 ```cpp
@@ -161,6 +226,41 @@ void a.reverse(int l, int r);
 
 - ならし $O(\log n)$
 
+## rotate
+
+```cpp
+void a.rotate(int l, int m, int r);
+```
+
+区間 `[l, m)` と `[m, r)` を入れ替えます。
+実行後の `[l, r)` は、実行前の `[m, r)` の後ろに `[l, m)` をつなげた列になります。
+
+**制約**
+
+- `0 <= l <= m <= r <= a.size()`
+
+**計算量**
+
+- ならし $O(\log n)$
+
+## move
+
+```cpp
+void a.move(int l, int r, int p);
+```
+
+区間 `[l, r)` を切り出し、切り出した後の列の位置 `p` に挿入します。
+`p == a.size() - (r - l)` のときは末尾に挿入します。
+
+**制約**
+
+- `0 <= l <= r <= a.size()`
+- `0 <= p <= a.size() - (r - l)`
+
+**計算量**
+
+- ならし $O(\log n)$
+
 ## insert
 
 ```cpp
@@ -187,20 +287,25 @@ void a.push_back(S x);
 
 ```cpp
 S a.erase(int p);
+S a.pop_front();
+S a.pop_back();
 void a.erase(int l, int r);
 ```
 
 `a.erase(p)` は `a[p]` を削除し、削除した値を返します。
+`a.pop_front()` は先頭の要素、`a.pop_back()` は末尾の要素を削除して返します。
 `a.erase(l, r)` は区間 `[l, r)` を削除します。
 
 **制約**
 
 - `0 <= p < a.size()`
+- `pop_front()`, `pop_back()`: `!a.empty()`
 - `0 <= l <= r <= a.size()`
 
 **計算量**
 
 - `erase(p)`: ならし $O(\log n)$
+- `pop_front()`, `pop_back()`: ならし $O(\log n)$
 - `erase(l, r)`: ならし $O(\log n + (r - l))$
 
 ## to_vector

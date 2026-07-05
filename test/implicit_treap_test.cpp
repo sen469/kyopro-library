@@ -57,7 +57,7 @@ int main() {
 
     for (int step = 0; step < 20000; step++) {
         int n = (int)v.size();
-        int kind = uniform_int_distribution<int>(0, 7)(rng);
+        int kind = uniform_int_distribution<int>(0, 13)(rng);
         if (n == 0) kind = 0;
 
         if (kind == 0) {
@@ -95,9 +95,43 @@ int main() {
             int r = uniform_int_distribution<int>(l, n)(rng);
             t.erase(l, r);
             v.erase(v.begin() + l, v.begin() + r);
-        } else {
+        } else if (kind == 7) {
             int p = uniform_int_distribution<int>(0, n - 1)(rng);
             assert(t[p].sum == v[p]);
+        } else if (kind == 8) {
+            assert(t.front().sum == v.front());
+            S erased = t.pop_front();
+            assert(erased.sum == v.front());
+            v.erase(v.begin());
+        } else if (kind == 9) {
+            assert(t.back().sum == v.back());
+            S erased = t.pop_back();
+            assert(erased.sum == v.back());
+            v.pop_back();
+        } else if (kind == 10) {
+            int l = uniform_int_distribution<int>(0, n)(rng);
+            int m = uniform_int_distribution<int>(l, n)(rng);
+            int r = uniform_int_distribution<int>(m, n)(rng);
+            rotate(v.begin() + l, v.begin() + m, v.begin() + r);
+            t.rotate(l, m, r);
+        } else if (kind == 11) {
+            int l = uniform_int_distribution<int>(0, n)(rng);
+            int r = uniform_int_distribution<int>(l, n)(rng);
+            vector<long long> segment(v.begin() + l, v.begin() + r);
+            v.erase(v.begin() + l, v.begin() + r);
+            int p = uniform_int_distribution<int>(0, (int)v.size())(rng);
+            v.insert(v.begin() + p, segment.begin(), segment.end());
+            t.move(l, r, p);
+        } else if (kind == 12) {
+            int l = uniform_int_distribution<int>(0, n)(rng);
+            int limit = uniform_int_distribution<int>(0, n - l)(rng);
+            int r = t.max_right(l, [&](S x) { return x.size <= limit; });
+            assert(r == l + limit);
+        } else {
+            int r = uniform_int_distribution<int>(0, n)(rng);
+            int limit = uniform_int_distribution<int>(0, r)(rng);
+            int l = t.min_left(r, [&](S x) { return x.size <= limit; });
+            assert(l == r - limit);
         }
 
         check(t, v);
@@ -114,6 +148,8 @@ int main() {
     assert(st.prod(0, 4) == "adcb");
     st.reverse(0, 4);
     assert(st.prod(0, 4) == "bcda");
+    assert(st.max_right(1, [](string x) { return x.size() <= 2; }) == 3);
+    assert(st.min_left(3, [](string x) { return x.size() <= 2; }) == 1);
 
     return 0;
 }

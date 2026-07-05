@@ -176,6 +176,44 @@ private:
         update(t);
     }
 
+    template <class G>
+    static int max_right(node* t, S& sm, G& g) {
+        if (!t) return 0;
+        push(t);
+        S nxt = op(sm, prod(t));
+        if (g(nxt)) {
+            sm = nxt;
+            return size(t);
+        }
+        int left_size = size(t->left);
+        nxt = op(sm, prod(t->left));
+        if (!g(nxt)) return max_right(t->left, sm, g);
+        sm = nxt;
+        nxt = op(sm, t->val);
+        if (!g(nxt)) return left_size;
+        sm = nxt;
+        return left_size + 1 + max_right(t->right, sm, g);
+    }
+
+    template <class G>
+    static int min_left(node* t, S& sm, G& g) {
+        if (!t) return 0;
+        push(t);
+        S nxt = op(prod(t), sm);
+        if (g(nxt)) {
+            sm = nxt;
+            return 0;
+        }
+        int left_size = size(t->left);
+        nxt = op(prod(t->right), sm);
+        if (!g(nxt)) return left_size + 1 + min_left(t->right, sm, g);
+        sm = nxt;
+        nxt = op(t->val, sm);
+        if (!g(nxt)) return left_size + 1;
+        sm = nxt;
+        return min_left(t->left, sm, g);
+    }
+
 public:
     implicit_treap() : root(nullptr), rng_state(2463534242u) {}
 
@@ -213,6 +251,16 @@ public:
 
     S operator[](int p) { return get(p); }
 
+    S front() {
+        assert(!empty());
+        return get(0);
+    }
+
+    S back() {
+        assert(!empty());
+        return get(size() - 1);
+    }
+
     void set(int p, const S& x) {
         assert(0 <= p && p < size());
         set(root, p, x);
@@ -226,6 +274,28 @@ public:
         auto [b, c] = split(bc, r - l);
         S res = prod(b);
         root = merge(merge(a, b), c);
+        return res;
+    }
+
+    template <class G>
+    int max_right(int l, G g) {
+        assert(0 <= l && l <= size());
+        assert(g(e()));
+        auto [a, b] = split(root, l);
+        S sm = e();
+        int res = l + max_right(b, sm, g);
+        root = merge(a, b);
+        return res;
+    }
+
+    template <class G>
+    int min_left(int r, G g) {
+        assert(0 <= r && r <= size());
+        assert(g(e()));
+        auto [a, b] = split(root, r);
+        S sm = e();
+        int res = min_left(a, sm, g);
+        root = merge(a, b);
         return res;
     }
 
@@ -245,6 +315,25 @@ public:
         root = merge(merge(a, b), c);
     }
 
+    void rotate(int l, int m, int r) {
+        assert(0 <= l && l <= m && m <= r && r <= size());
+        auto [a, bcd] = split(root, l);
+        auto [b, cd] = split(bcd, m - l);
+        auto [c, d] = split(cd, r - m);
+        root = merge(merge(merge(a, c), b), d);
+    }
+
+    void move(int l, int r, int p) {
+        assert(0 <= l && l <= r && r <= size());
+        int len = r - l;
+        assert(0 <= p && p <= size() - len);
+        auto [a, bc] = split(root, l);
+        auto [b, c] = split(bc, len);
+        node* rest = merge(a, c);
+        auto [d, f] = split(rest, p);
+        root = merge(merge(d, b), f);
+    }
+
     void insert(int p, const S& x) {
         assert(0 <= p && p <= size());
         auto [a, b] = split(root, p);
@@ -253,6 +342,16 @@ public:
 
     void push_front(const S& x) { insert(0, x); }
     void push_back(const S& x) { insert(size(), x); }
+
+    S pop_front() {
+        assert(!empty());
+        return erase(0);
+    }
+
+    S pop_back() {
+        assert(!empty());
+        return erase(size() - 1);
+    }
 
     S erase(int p) {
         assert(0 <= p && p < size());
