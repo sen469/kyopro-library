@@ -15,8 +15,8 @@ private:
         int left;
         int right;
 
-        node(const S& prod, int left, int right)
-            : prod(prod), left(left), right(right) {}
+        node(const S& prod_, int left_, int right_)
+            : prod(prod_), left(left_), right(right_) {}
     };
 
     int n_;

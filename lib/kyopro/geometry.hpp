@@ -41,7 +41,7 @@ struct point {
     long double y;
 
     point() : x(0), y(0) {}
-    point(long double x, long double y) : x(x), y(y) {}
+    point(long double x_, long double y_) : x(x_), y(y_) {}
 
     point& operator+=(const point& p) {
         x += p.x;
@@ -116,7 +116,7 @@ struct line {
     point b;
 
     line() : a(0, 0), b(1, 0) {}
-    line(point a, point b) : a(a), b(b) {}
+    line(point a_, point b_) : a(a_), b(b_) {}
 };
 
 inline point direction(line l) {
@@ -182,7 +182,7 @@ struct circle {
     long double r;
 
     circle() : center(0, 0), r(0) {}
-    circle(point center, long double r) : center(center), r(r) {}
+    circle(point center_, long double r_) : center(center_), r(r_) {}
 };
 
 inline bool same_circle(circle c1, circle c2, long double eps = default_eps) {

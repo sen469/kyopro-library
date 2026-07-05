@@ -18,8 +18,8 @@ private:
             int left;
             int right;
 
-            node(int value, int left, int right)
-                : value(value), left(left), right(right) {}
+            node(int value_, int left_, int right_)
+                : value(value_), left(left_), right(right_) {}
         };
 
         int n_;
