@@ -58,6 +58,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/persistent_segtree.md](docs/persistent_segtree.md) を参照してください。
 
+## Segtree ND
+
+```cpp
+#include "kyopro/segtree_nd.hpp"
+```
+
+任意次元配列に対する点更新・直方体領域取得ができるセグメント木です。
+`segtree_nd<S, D, op, e>` として、次元数をテンプレート引数で指定して使います。
+
+詳しい使い方は [docs/segtree_nd.md](docs/segtree_nd.md) を参照してください。
+
 ## Persistent Union Find
 
 ```cpp
