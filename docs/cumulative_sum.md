@@ -2,349 +2,180 @@
 
 実装: [lib/kyopro/cumulative_sum.hpp](../lib/kyopro/cumulative_sum.hpp)
 
-1次元・2次元・3次元の累積和です。
-半開区間の和を $O(1)$ で取得できます。
+入力された `D` 次元データの累積和を計算します。
+範囲は各次元について半開区間 `[l[i], r[i])` で指定します。
 
 ```cpp
 #include "kyopro/cumulative_sum.hpp"
 ```
 
-## cumulative_sum
+## cumulative_sum_nd
 
 ```cpp
-template <class T>
-class cumulative_sum;
+template <class T, int D>
+class cumulative_sum_nd;
 ```
 
-1次元配列の累積和です。
+`T` を要素に持つ `D` 次元ベクトルから累積和を構築します。
+次元に応じて、`vector<T>`, `vector<vector<T>>`, `vector<vector<vector<T>>>` のようなネストした `vector` を渡せます。
 
 **制約**
 
+- `1 <= D`
 - `T(0)`, `operator+`, `operator-` が使える
+- 入力された `D` 次元ベクトルは長方形
 
 ## コンストラクタ
 
 ```cpp
-cumulative_sum<T> cs;
-cumulative_sum<T> cs(int n);
-cumulative_sum<T> cs(const vector<T>& v);
+cumulative_sum_nd<T, D> acc;
+cumulative_sum_nd<T, D> acc(const array<int, D>& sizes);
+cumulative_sum_nd<T, D> acc(const vector<...>& v);
+cumulative_sum_nd<T, D> acc(const array<int, D>& sizes, const vector<T>& v);
 ```
 
-- `cumulative_sum()` は空配列の累積和を作ります。
-- `cumulative_sum(n)` は長さ `n` の全要素 `T(0)` の累積和を作ります。
-- `cumulative_sum(v)` は配列 `v` から累積和を作ります。
+- `cumulative_sum_nd()` は各次元の長さが 0 の累積和を作ります。
+- `cumulative_sum_nd(sizes)` は形状 `sizes` の全要素 `T(0)` の累積和を作ります。
+- `cumulative_sum_nd(v)` は `D` 次元ベクトル `v` から累積和を作ります。
+- `cumulative_sum_nd(sizes, v)` は行優先順に平坦化された配列 `v` から累積和を作ります。
 
 **計算量**
 
-- `cumulative_sum()`: $O(1)$
-- `cumulative_sum(n)`: $O(n)$
-- `cumulative_sum(v)`: $O(n)$
+- $O(DN)$
+
+ここで `N = \prod_i (size_i + 1)` です。
 
 ## build
 
 ```cpp
-void cs.build(const vector<T>& v);
+void acc.build(const array<int, D>& sizes);
+void acc.build(const vector<...>& v);
+void acc.build(const array<int, D>& sizes, const vector<T>& v);
 ```
 
-配列 `v` から再構築します。
+累積和を再構築します。
+
+- `build(sizes)` は形状 `sizes` の全要素 `T(0)` の累積和にします。
+- `build(v)` は `D` 次元ベクトル `v` から再構築します。
+- `build(sizes, v)` は行優先順に平坦化された配列 `v` から再構築します。
 
 **計算量**
 
-- $O(n)$
+- $O(DN)$
+
+## get
+
+```cpp
+T acc.get(const vector<int>& indexes) const;
+```
+
+指定されたインデックスに対応する元データの値を取得します。
+
+**制約**
+
+- `indexes.size() == D`
+- 全ての `i` に対して `0 <= indexes[i] < acc.size(i)`
+
+**計算量**
+
+- $O(D)$
+
+## set
+
+```cpp
+void acc.set(const vector<int>& indexes, const T& value);
+```
+
+指定されたインデックスに対応する元データの値を `value` に更新し、累積和を再構築します。
+
+**制約**
+
+- `indexes.size() == D`
+- 全ての `i` に対して `0 <= indexes[i] < acc.size(i)`
+
+**計算量**
+
+- $O(DN)$
 
 ## prefix_sum
 
 ```cpp
-T cs.prefix_sum(int r) const;
+T acc.prefix_sum(vector<long long> r) const;
+T acc.prefix_sum(array<int, D> r) const;
 ```
 
-区間 `[0, r)` の和を返します。
+範囲 `[0, r[0]) x ... x [0, r[D - 1])` の和を返します。
+`acc.prefix_sum({2, 3})` のようにも呼べます。
 
 **制約**
 
-- `0 <= r <= cs.size()`
+- `r` の次元は `D`
+- 全ての `i` に対して `0 <= r[i] <= acc.size(i)`
 
 **計算量**
 
-- $O(1)$
+- $O(D)$
 
 ## sum
 
 ```cpp
-T cs.sum(int l, int r) const;
+T acc.sum(vector<long long> l, vector<long long> r) const;
 ```
 
-区間 `[l, r)` の和を返します。
+範囲 `[l[0], r[0]) x ... x [l[D - 1], r[D - 1])` の和を返します。
 
 **制約**
 
-- `0 <= l <= r <= cs.size()`
+- `l.size() == r.size() == D`
+- 全ての `i` に対して `0 <= l[i] <= r[i] <= acc.size(i)`
 
 **計算量**
 
-- $O(1)$
+- $O(D2^D)$
 
-## all_sum
+## dimension / size / sizes / total_size / empty / all_sum
 
 ```cpp
-T cs.all_sum() const;
+int acc.dimension() const;
+int acc.size(int axis) const;
+vector<int> acc.sizes() const;
+size_t acc.total_size() const;
+bool acc.empty() const;
+T acc.all_sum() const;
 ```
 
-全体の和を返します。
+- `dimension()` は次元数 `D` を返します。
+- `size(axis)` は指定した軸の長さを返します。
+- `sizes()` は各軸の長さを返します。
+- `total_size()` は元データの要素数を返します。
+- `empty()` は元データの要素数が 0 かどうかを返します。
+- `all_sum()` は全体の和を返します。
 
 **計算量**
 
-- $O(1)$
-
-## size / empty
-
-```cpp
-int cs.size() const;
-bool cs.empty() const;
-```
-
-元配列の長さと、空かどうかを返します。
-
-**計算量**
-
-- $O(1)$
-
-## cumulative_sum_2d
-
-```cpp
-template <class T>
-class cumulative_sum_2d;
-```
-
-2次元配列の累積和です。
-長方形領域は半開区間 `[y1, y2) x [x1, x2)` で指定します。
-
-**制約**
-
-- `T(0)`, `operator+`, `operator-` が使える
-- 入力配列は長方形
-
-## コンストラクタ
-
-```cpp
-cumulative_sum_2d<T> cs;
-cumulative_sum_2d<T> cs(int h, int w);
-cumulative_sum_2d<T> cs(const vector<vector<T>>& v);
-```
-
-- `cumulative_sum_2d()` は空の2次元累積和を作ります。
-- `cumulative_sum_2d(h, w)` は `h x w` の全要素 `T(0)` の累積和を作ります。
-- `cumulative_sum_2d(v)` は2次元配列 `v` から累積和を作ります。
-
-**計算量**
-
-- `cumulative_sum_2d()`: $O(1)$
-- `cumulative_sum_2d(h, w)`: $O(hw)$
-- `cumulative_sum_2d(v)`: $O(hw)$
-
-## build
-
-```cpp
-void cs.build(const vector<vector<T>>& v);
-```
-
-2次元配列 `v` から再構築します。
-
-**計算量**
-
-- $O(hw)$
-
-## prefix_sum
-
-```cpp
-T cs.prefix_sum(int y, int x) const;
-```
-
-長方形 `[0, y) x [0, x)` の和を返します。
-
-**制約**
-
-- `0 <= y <= cs.height()`
-- `0 <= x <= cs.width()`
-
-**計算量**
-
-- $O(1)$
-
-## sum
-
-```cpp
-T cs.sum(int y1, int x1, int y2, int x2) const;
-```
-
-長方形 `[y1, y2) x [x1, x2)` の和を返します。
-
-**制約**
-
-- `0 <= y1 <= y2 <= cs.height()`
-- `0 <= x1 <= x2 <= cs.width()`
-
-**計算量**
-
-- $O(1)$
-
-## all_sum
-
-```cpp
-T cs.all_sum() const;
-```
-
-全体の和を返します。
-
-**計算量**
-
-- $O(1)$
-
-## height / width / empty
-
-```cpp
-int cs.height() const;
-int cs.width() const;
-bool cs.empty() const;
-```
-
-元配列の高さ・幅と、空かどうかを返します。
-
-**計算量**
-
-- $O(1)$
-
-## cumulative_sum_3d
-
-```cpp
-template <class T>
-class cumulative_sum_3d;
-```
-
-3次元配列の累積和です。
-直方体領域は半開区間 `[z1, z2) x [y1, y2) x [x1, x2)` で指定します。
-
-**制約**
-
-- `T(0)`, `operator+`, `operator-` が使える
-- 入力配列は直方体
-
-## コンストラクタ
-
-```cpp
-cumulative_sum_3d<T> cs;
-cumulative_sum_3d<T> cs(int d, int h, int w);
-cumulative_sum_3d<T> cs(const vector<vector<vector<T>>>& v);
-```
-
-- `cumulative_sum_3d()` は空の3次元累積和を作ります。
-- `cumulative_sum_3d(d, h, w)` は `d x h x w` の全要素 `T(0)` の累積和を作ります。
-- `cumulative_sum_3d(v)` は3次元配列 `v` から累積和を作ります。
-
-**計算量**
-
-- `cumulative_sum_3d()`: $O(1)$
-- `cumulative_sum_3d(d, h, w)`: $O(dhw)$
-- `cumulative_sum_3d(v)`: $O(dhw)$
-
-## build
-
-```cpp
-void cs.build(const vector<vector<vector<T>>>& v);
-```
-
-3次元配列 `v` から再構築します。
-
-**計算量**
-
-- $O(dhw)$
-
-## prefix_sum
-
-```cpp
-T cs.prefix_sum(int z, int y, int x) const;
-```
-
-直方体 `[0, z) x [0, y) x [0, x)` の和を返します。
-
-**制約**
-
-- `0 <= z <= cs.depth()`
-- `0 <= y <= cs.height()`
-- `0 <= x <= cs.width()`
-
-**計算量**
-
-- $O(1)$
-
-## sum
-
-```cpp
-T cs.sum(int z1, int y1, int x1, int z2, int y2, int x2) const;
-```
-
-直方体 `[z1, z2) x [y1, y2) x [x1, x2)` の和を返します。
-
-**制約**
-
-- `0 <= z1 <= z2 <= cs.depth()`
-- `0 <= y1 <= y2 <= cs.height()`
-- `0 <= x1 <= x2 <= cs.width()`
-
-**計算量**
-
-- $O(1)$
-
-## all_sum
-
-```cpp
-T cs.all_sum() const;
-```
-
-全体の和を返します。
-
-**計算量**
-
-- $O(1)$
-
-## depth / height / width / empty
-
-```cpp
-int cs.depth() const;
-int cs.height() const;
-int cs.width() const;
-bool cs.empty() const;
-```
-
-元配列の奥行き・高さ・幅と、空かどうかを返します。
-
-**計算量**
-
-- $O(1)$
+- `dimension`, `size`, `total_size`, `empty`: $O(1)$
+- `sizes`, `all_sum`: $O(D)$
 
 ## 使用例
 
 ```cpp
-kyopro::cumulative_sum<long long> cs(vector<long long>{1, 2, 3, 4});
-cout << cs.sum(1, 3) << '\n'; // 5
+vector<long long> a = {1, 2, 3, 4};
+kyopro::cumulative_sum_nd<long long, 1> acc1(a);
+cout << acc1.get({2}) << '\n';        // 3
+cout << acc1.prefix_sum({3}) << '\n'; // 6
+cout << acc1.sum({1}, {3}) << '\n';   // 5
 
-vector<vector<long long>> a = {
+vector<vector<long long>> b = {
     {1, 2, 3},
     {4, 5, 6},
 };
-kyopro::cumulative_sum_2d<long long> cs2(a);
-cout << cs2.sum(0, 1, 2, 3) << '\n'; // 16
+kyopro::cumulative_sum_nd<long long, 2> acc2(b);
+cout << acc2.sum({0, 1}, {2, 3}) << '\n'; // 16
 
-vector<vector<vector<long long>>> b = {
-    {
-        {1, 2},
-        {3, 4},
-    },
-    {
-        {5, 6},
-        {7, 8},
-    },
-};
-kyopro::cumulative_sum_3d<long long> cs3(b);
-cout << cs3.sum(0, 0, 0, 2, 2, 2) << '\n'; // 36
+acc2.set({1, 1}, 50);
+cout << acc2.get({1, 1}) << '\n';         // 50
+cout << acc2.sum({0, 1}, {2, 3}) << '\n'; // 61
+
+kyopro::cumulative_sum_nd<long long, 2> zero({2, 3});
+cout << zero.all_sum() << '\n';           // 0
 ```

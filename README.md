@@ -86,8 +86,8 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 #include "kyopro/cumulative_sum.hpp"
 ```
 
-1次元・2次元・3次元の累積和です。
-半開区間の和を $O(1)$ で取得できます。
+任意次元の累積和です。
+`cumulative_sum_nd<T, D>` として、次元数をテンプレート引数で指定して使います。
 
 詳しい使い方は [docs/cumulative_sum.md](docs/cumulative_sum.md) を参照してください。
 

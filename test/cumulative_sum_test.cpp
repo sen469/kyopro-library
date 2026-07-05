@@ -4,204 +4,195 @@
 
 using namespace std;
 
-long long naive_sum(const vector<long long>& v, int l, int r) {
-    long long res = 0;
-    for (int i = l; i < r; i++) res += v[i];
+vector<vector<int>> points(const vector<int>& sizes) {
+    vector<vector<int>> res;
+    vector<int> p(sizes.size(), 0);
+    while (true) {
+        res.push_back(p);
+        int i = (int)sizes.size() - 1;
+        while (0 <= i) {
+            p[i]++;
+            if (p[i] <= sizes[i]) break;
+            p[i] = 0;
+            i--;
+        }
+        if (i < 0) break;
+    }
     return res;
 }
 
-long long naive_sum_2d(const vector<vector<long long>>& v, int y1, int x1,
-                       int y2, int x2) {
+bool leq(const vector<int>& l, const vector<int>& r) {
+    assert(l.size() == r.size());
+    for (int i = 0; i < (int)l.size(); i++) {
+        if (l[i] > r[i]) return false;
+    }
+    return true;
+}
+
+vector<long long> to_long_long(const vector<int>& v) {
+    return vector<long long>(v.begin(), v.end());
+}
+
+long long naive_sum_nd(const vector<int>& sizes, const vector<long long>& v,
+                       const vector<int>& l, const vector<int>& r) {
     long long res = 0;
-    for (int y = y1; y < y2; y++) {
-        for (int x = x1; x < x2; x++) {
-            res += v[y][x];
+    vector<int> p(sizes.size(), 0);
+    for (int pos = 0; pos < (int)v.size(); pos++) {
+        bool inside = true;
+        for (int i = 0; i < (int)sizes.size(); i++) {
+            inside &= l[i] <= p[i] && p[i] < r[i];
+        }
+        if (inside) res += v[pos];
+
+        for (int i = (int)sizes.size() - 1; i >= 0; i--) {
+            p[i]++;
+            if (p[i] < sizes[i]) break;
+            p[i] = 0;
         }
     }
     return res;
 }
 
-long long naive_sum_3d(const vector<vector<vector<long long>>>& v, int z1,
-                       int y1, int x1, int z2, int y2, int x2) {
-    long long res = 0;
-    for (int z = z1; z < z2; z++) {
-        for (int y = y1; y < y2; y++) {
-            for (int x = x1; x < x2; x++) {
-                res += v[z][y][x];
-            }
+vector<long long> make_values(const vector<int>& sizes) {
+    int total = 1;
+    for (int size : sizes) total *= size;
+    vector<long long> v(total);
+    for (int i = 0; i < total; i++) v[i] = i % 7 - 3;
+    return v;
+}
+
+template <int D>
+array<int, D> to_array(const vector<int>& v) {
+    assert((int)v.size() == D);
+    array<int, D> res{};
+    for (int i = 0; i < D; i++) res[i] = v[i];
+    return res;
+}
+
+template <int D>
+void test_all_ranges(const vector<int>& sizes, const vector<long long>& v) {
+    kyopro::cumulative_sum_nd<long long, D> acc(to_array<D>(sizes), v);
+    assert(acc.dimension() == D);
+    assert(acc.sizes() == sizes);
+    assert(acc.total_size() == v.size());
+    for (int i = 0; i < D; i++) {
+        assert(acc.size(i) == sizes[i]);
+    }
+
+    vector<int> zero(D, 0);
+    for (const auto& p : points(sizes)) {
+        vector<int> get_indexes = p;
+        bool valid_get = true;
+        for (int i = 0; i < D; i++) valid_get &= get_indexes[i] < sizes[i];
+        if (valid_get) {
+            assert(acc.get(get_indexes) ==
+                   naive_sum_nd(sizes, v, get_indexes, [&] {
+                       vector<int> r = get_indexes;
+                       for (int& x : r) x++;
+                       return r;
+                   }()));
         }
     }
-    return res;
+
+    for (const auto& l : points(sizes)) {
+        for (const auto& r : points(sizes)) {
+            if (!leq(l, r)) continue;
+            assert(acc.sum(to_long_long(l), to_long_long(r)) ==
+                   naive_sum_nd(sizes, v, l, r));
+        }
+    }
+    assert(acc.all_sum() == naive_sum_nd(sizes, v, zero, sizes));
 }
 
 int main() {
     {
-        kyopro::cumulative_sum<long long> cs;
-        assert(cs.size() == 0);
-        assert(cs.empty());
-        assert(cs.prefix_sum(0) == 0);
-        assert(cs.sum(0, 0) == 0);
-        assert(cs.all_sum() == 0);
+        kyopro::cumulative_sum_nd<long long, 3> acc;
+        assert(acc.dimension() == 3);
+        assert(acc.sizes() == (vector<int>{0, 0, 0}));
+        assert(acc.total_size() == 0);
+        assert(acc.empty());
+        assert(acc.all_sum() == 0);
     }
 
-    {
-        vector<long long> v = {3, -1, 4, 1, -5, 9};
-        kyopro::cumulative_sum<long long> cs(v);
-        assert(cs.size() == (int)v.size());
-        assert(!cs.empty());
-        for (int r = 0; r <= (int)v.size(); r++) {
-            assert(cs.prefix_sum(r) == naive_sum(v, 0, r));
-        }
-        for (int l = 0; l <= (int)v.size(); l++) {
-            for (int r = l; r <= (int)v.size(); r++) {
-                assert(cs.sum(l, r) == naive_sum(v, l, r));
-            }
-        }
-        assert(cs.all_sum() == naive_sum(v, 0, (int)v.size()));
-
-        cs.build(vector<long long>{10, 20, -7});
-        assert(cs.size() == 3);
-        assert(cs.sum(0, 2) == 30);
-        assert(cs.sum(1, 3) == 13);
-    }
+    test_all_ranges<1>({6}, {3, -1, 4, 1, -5, 9});
+    test_all_ranges<2>({3, 4}, make_values({3, 4}));
+    test_all_ranges<3>({2, 2, 3}, make_values({2, 2, 3}));
+    test_all_ranges<4>({2, 3, 2, 4}, make_values({2, 3, 2, 4}));
 
     {
-        kyopro::cumulative_sum<long long> cs(5);
-        assert(cs.size() == 5);
-        assert(cs.sum(0, 5) == 0);
-        assert(cs.sum(2, 4) == 0);
-    }
+        vector<long long> v = {1, 2, 3, 4};
+        kyopro::cumulative_sum_nd<long long, 1> acc(v);
+        assert(acc.sizes() == (vector<int>{4}));
+        assert(acc.get({2}) == 3);
+        assert(acc.prefix_sum({3}) == 6);
+        assert(acc.sum({1}, {3}) == 5);
+        acc.set({2}, 10);
+        assert(acc.get({2}) == 10);
+        assert(acc.prefix_sum({3}) == 13);
+        assert(acc.sum({1}, {3}) == 12);
+        assert(acc.all_sum() == 17);
 
-    {
-        kyopro::cumulative_sum_2d<long long> cs;
-        assert(cs.height() == 0);
-        assert(cs.width() == 0);
-        assert(cs.empty());
-        assert(cs.prefix_sum(0, 0) == 0);
-        assert(cs.sum(0, 0, 0, 0) == 0);
-        assert(cs.all_sum() == 0);
+        acc.build(array<int, 1>{5});
+        assert(acc.sizes() == (vector<int>{5}));
+        assert(acc.total_size() == 5);
+        assert(acc.prefix_sum({5}) == 0);
+        assert(acc.sum({1}, {4}) == 0);
     }
 
     {
         vector<vector<long long>> v = {
-            {1, 2, 3, 4},
-            {5, 6, 7, 8},
-            {-1, -2, -3, -4},
+            {1, 2, 3},
+            {4, 5, 6},
         };
-        kyopro::cumulative_sum_2d<long long> cs(v);
-        int h = (int)v.size();
-        int w = (int)v[0].size();
-        assert(cs.height() == h);
-        assert(cs.width() == w);
-        assert(!cs.empty());
-
-        for (int y = 0; y <= h; y++) {
-            for (int x = 0; x <= w; x++) {
-                assert(cs.prefix_sum(y, x) == naive_sum_2d(v, 0, 0, y, x));
-            }
-        }
-        for (int y1 = 0; y1 <= h; y1++) {
-            for (int y2 = y1; y2 <= h; y2++) {
-                for (int x1 = 0; x1 <= w; x1++) {
-                    for (int x2 = x1; x2 <= w; x2++) {
-                        assert(cs.sum(y1, x1, y2, x2) ==
-                               naive_sum_2d(v, y1, x1, y2, x2));
-                    }
-                }
-            }
-        }
-        assert(cs.all_sum() == naive_sum_2d(v, 0, 0, h, w));
-    }
-
-    {
-        kyopro::cumulative_sum_2d<long long> cs(2, 3);
-        assert(cs.height() == 2);
-        assert(cs.width() == 3);
-        assert(cs.sum(0, 0, 2, 3) == 0);
-        assert(cs.sum(1, 1, 2, 2) == 0);
-
-        cs.build(vector<vector<long long>>{{1}, {2}, {3}});
-        assert(cs.height() == 3);
-        assert(cs.width() == 1);
-        assert(cs.sum(0, 0, 3, 1) == 6);
-        assert(cs.sum(1, 0, 3, 1) == 5);
-    }
-
-    {
-        kyopro::cumulative_sum_3d<long long> cs;
-        assert(cs.depth() == 0);
-        assert(cs.height() == 0);
-        assert(cs.width() == 0);
-        assert(cs.empty());
-        assert(cs.prefix_sum(0, 0, 0) == 0);
-        assert(cs.sum(0, 0, 0, 0, 0, 0) == 0);
-        assert(cs.all_sum() == 0);
+        kyopro::cumulative_sum_nd<long long, 2> acc(v);
+        assert(acc.sizes() == (vector<int>{2, 3}));
+        assert(acc.get({1, 2}) == 6);
+        assert(acc.prefix_sum({2, 2}) == 12);
+        assert(acc.sum({0, 1}, {2, 3}) == 16);
+        acc.set({1, 1}, 50);
+        assert(acc.get({1, 1}) == 50);
+        assert(acc.prefix_sum({2, 2}) == 57);
+        assert(acc.sum({0, 1}, {2, 3}) == 61);
     }
 
     {
         vector<vector<vector<long long>>> v = {
             {
-                {1, 2, 3},
-                {4, 5, 6},
+                {1, 2},
+                {3, 4},
             },
             {
-                {-1, -2, -3},
-                {7, 8, 9},
+                {5, 6},
+                {7, 8},
             },
         };
-        kyopro::cumulative_sum_3d<long long> cs(v);
-        int d = (int)v.size();
-        int h = (int)v[0].size();
-        int w = (int)v[0][0].size();
-        assert(cs.depth() == d);
-        assert(cs.height() == h);
-        assert(cs.width() == w);
-        assert(!cs.empty());
-
-        for (int z = 0; z <= d; z++) {
-            for (int y = 0; y <= h; y++) {
-                for (int x = 0; x <= w; x++) {
-                    assert(cs.prefix_sum(z, y, x) ==
-                           naive_sum_3d(v, 0, 0, 0, z, y, x));
-                }
-            }
-        }
-
-        for (int z1 = 0; z1 <= d; z1++) {
-            for (int z2 = z1; z2 <= d; z2++) {
-                for (int y1 = 0; y1 <= h; y1++) {
-                    for (int y2 = y1; y2 <= h; y2++) {
-                        for (int x1 = 0; x1 <= w; x1++) {
-                            for (int x2 = x1; x2 <= w; x2++) {
-                                assert(cs.sum(z1, y1, x1, z2, y2, x2) ==
-                                       naive_sum_3d(v, z1, y1, x1, z2, y2, x2));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        assert(cs.all_sum() == naive_sum_3d(v, 0, 0, 0, d, h, w));
+        kyopro::cumulative_sum_nd<long long, 3> acc(v);
+        assert(acc.sizes() == (vector<int>{2, 2, 2}));
+        assert(acc.get({1, 0, 1}) == 6);
+        assert(acc.prefix_sum({1, 2, 2}) == 10);
+        assert(acc.sum({0, 0, 0}, {2, 2, 2}) == 36);
+        assert(acc.sum({1, 0, 0}, {2, 2, 1}) == 12);
     }
 
     {
-        kyopro::cumulative_sum_3d<long long> cs(2, 3, 4);
-        assert(cs.depth() == 2);
-        assert(cs.height() == 3);
-        assert(cs.width() == 4);
-        assert(cs.sum(0, 0, 0, 2, 3, 4) == 0);
-        assert(cs.sum(1, 1, 1, 2, 3, 4) == 0);
+        kyopro::cumulative_sum_nd<long long, 2> acc(array<int, 2>{2, 3});
+        assert(acc.total_size() == 6);
+        assert(!acc.empty());
+        assert(acc.all_sum() == 0);
+        assert(acc.prefix_sum({2, 3}) == 0);
+    }
 
-        cs.build(vector<vector<vector<long long>>>{
-            {{1}, {2}},
-            {{3}, {4}},
-            {{5}, {6}},
-        });
-        assert(cs.depth() == 3);
-        assert(cs.height() == 2);
-        assert(cs.width() == 1);
-        assert(cs.sum(0, 0, 0, 3, 2, 1) == 21);
-        assert(cs.sum(1, 0, 0, 3, 1, 1) == 8);
+    {
+        kyopro::cumulative_sum_nd<long long, 3> acc(array<int, 3>{3, 0, 2}, {});
+        assert(acc.total_size() == 0);
+        assert(acc.empty());
+        assert(acc.all_sum() == 0);
+        assert(acc.sum({0, 0, 0}, {3, 0, 2}) == 0);
+    }
+
+    {
+        kyopro::cumulative_sum_nd<long long, 1> acc(vector<long long>{1, 2});
+        assert(acc.sum({0}, {2}) == 3);
     }
 
     return 0;
