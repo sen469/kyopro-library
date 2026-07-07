@@ -214,6 +214,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/manacher.md](docs/manacher.md) を参照してください。
 
+## Rolling Hash
+
+```cpp
+#include "kyopro/rolling_hash.hpp"
+```
+
+$2^{61} - 1$ mod の Rolling Hash です。
+文字列や整数列に対して、部分列ハッシュ、部分列一致判定、LCP を求められます。
+
+詳しい使い方は [docs/rolling_hash.md](docs/rolling_hash.md) を参照してください。
+
 ## Sieve
 
 ```cpp

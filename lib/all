@@ -22,6 +22,7 @@
 #include "kyopro/persistent_segtree.hpp"
 #include "kyopro/persistent_union_find.hpp"
 #include "kyopro/rerooting_dp.hpp"
+#include "kyopro/rolling_hash.hpp"
 #include "kyopro/run_length_encoding.hpp"
 #include "kyopro/segtree_nd.hpp"
 #include "kyopro/sieve.hpp"
