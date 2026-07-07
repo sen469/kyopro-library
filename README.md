@@ -327,7 +327,8 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 ```
 
 木の全方位 DP を $O(n)$ で行います。
-`op`, `f_ve`, `f_ev` を渡して、各頂点を根にしたときの DP 値を求めます。
+ACL の `segtree` / `lazy_segtree` に近い形式で、`op`, `e`, `f_ve`, `f_ev` をテンプレート引数で渡して使います。
+各頂点を根にしたときの DP 値を求めます。
 辺重みなどは辺 ID から外部配列を参照できます。
 
 詳しい使い方は [docs/rerooting_dp.md](docs/rerooting_dp.md) を参照してください。

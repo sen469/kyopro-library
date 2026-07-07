@@ -26,28 +26,29 @@ struct rerooting_edge {
 ## rerooting_dp
 
 ```cpp
-template <class M, class Op, class FVE, class FEV>
+template <class R, class M, auto op, auto e, auto f_ve, auto f_ev>
 vector<R> rerooting_dp(
-    const vector<vector<rerooting_edge>>& graph,
-    M e,
-    Op op,
-    FVE f_ve,
-    FEV f_ev
+    const vector<vector<rerooting_edge>>& graph
 );
 ```
 
 隣接リストで表された木に対して全方位 DP を行います。
 
-`M` は隣接頂点から受け取る寄与の型、`R` は各頂点を根にした DP 値の型です。
-`R` は `f_ev(M, int)` の戻り値の型です。
+ACL の `segtree` / `lazy_segtree` と同じように、型と関数をテンプレート引数で渡して使います。
+`R` は各頂点を根にした DP 値の型、`M` は隣接頂点から受け取る寄与の型です。
 
 **引数**
 
 - `const vector<vector<rerooting_edge>>& graph`: 木の隣接リスト
-- `M e`: `op` の単位元
-- `Op op`: 複数の寄与をまとめる二項演算 `M op(M a, M b)`
-- `FVE f_ve`: 頂点 DP 値を辺方向の寄与に変換する関数 `M f_ve(R vertex_dp, int edge_id)`
-- `FEV f_ev`: まとめた寄与を頂点 DP 値に変換する関数 `R f_ev(M merged, int vertex)`
+
+**テンプレート引数**
+
+- `R`: 各頂点を根にした DP 値の型
+- `M`: 隣接頂点から受け取る寄与の型
+- `op`: 複数の寄与をまとめる二項演算 `M op(M a, M b)`
+- `e`: `op` の単位元を返す関数 `M e()`
+- `f_ve`: 頂点 DP 値を辺方向の寄与に変換する関数 `M f_ve(R vertex_dp, int edge_id)`
+- `f_ev`: まとめた寄与を頂点 DP 値に変換する関数 `R f_ev(M merged, int vertex)`
 
 **戻り値**
 
@@ -60,7 +61,7 @@ vector<R> rerooting_dp(
 - 各無向辺は両方向に追加されている
 - 両方向の辺は同じ `id` を持つ
 - `op` は結合法則を満たす
-- `e` は `op` の単位元
+- `e()` は `op` の単位元
 - `M` はコピー可能
 - `R` はデフォルト構築可能、コピー可能
 
@@ -71,14 +72,10 @@ vector<R> rerooting_dp(
 ## 辺リスト版
 
 ```cpp
-template <class M, class Op, class FVE, class FEV>
+template <class R, class M, auto op, auto e, auto f_ve, auto f_ev>
 vector<R> rerooting_dp(
     int n,
-    const vector<pair<int, int>>& edges,
-    M e,
-    Op op,
-    FVE f_ve,
-    FEV f_ev
+    const vector<pair<int, int>>& edges
 );
 ```
 
@@ -89,10 +86,15 @@ vector<R> rerooting_dp(
 
 - `int n`: 頂点数
 - `const vector<pair<int, int>>& edges`: `{u, v}` 形式の無向辺リスト
-- `M e`: `op` の単位元
-- `Op op`: 複数の寄与をまとめる二項演算
-- `FVE f_ve`: 頂点 DP 値を辺方向の寄与に変換する関数
-- `FEV f_ev`: まとめた寄与を頂点 DP 値に変換する関数
+
+**テンプレート引数**
+
+- `R`: 各頂点を根にした DP 値の型
+- `M`: 隣接頂点から受け取る寄与の型
+- `op`: 複数の寄与をまとめる二項演算 `M op(M a, M b)`
+- `e`: `op` の単位元を返す関数 `M e()`
+- `f_ve`: 頂点 DP 値を辺方向の寄与に変換する関数 `M f_ve(R vertex_dp, int edge_id)`
+- `f_ev`: まとめた寄与を頂点 DP 値に変換する関数 `R f_ev(M merged, int vertex)`
 
 **戻り値**
 
@@ -105,7 +107,7 @@ vector<R> rerooting_dp(
 - 各辺 `(u, v)` について `0 <= u, v < n`
 - 辺全体で木をなす
 - `op` は結合法則を満たす
-- `e` は `op` の単位元
+- `e()` は `op` の単位元
 - `M` はコピー可能
 - `R` はデフォルト構築可能、コピー可能
 
@@ -118,28 +120,33 @@ vector<R> rerooting_dp(
 各頂点から最も遠い頂点までの距離を求めます。
 
 ```cpp
+long long op(long long a, long long b) {
+    return max(a, b);
+}
+
+long long e() {
+    return 0;
+}
+
+vector<long long> cost;
+
+long long f_ve(long long vertex_dp, int edge_id) {
+    return vertex_dp + cost[edge_id];
+}
+
+long long f_ev(long long merged, int vertex) {
+    return merged;
+}
+
 int n = 4;
 vector<pair<int, int>> edges = {
     {0, 1},
     {1, 2},
     {1, 3},
 };
-vector<long long> cost = {2, 3, 4};
+cost = {2, 3, 4};
 
-auto ans = kyopro::rerooting_dp(
-    n,
-    edges,
-    0LL,
-    [](long long a, long long b) {
-        return max(a, b);
-    },
-    [&](long long vertex_dp, int edge_id) {
-        return vertex_dp + cost[edge_id];
-    },
-    [](long long merged, int vertex) {
-        return merged;
-    }
-);
+auto ans = kyopro::rerooting_dp<long long, long long, op, e, f_ve, f_ev>(n, edges);
 
 for (long long x : ans) {
     cout << x << ' ';

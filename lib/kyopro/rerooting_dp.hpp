@@ -2,6 +2,7 @@
 #define KYOPRO_REROOTING_DP_HPP
 
 #include <cassert>
+#include <functional>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -13,10 +14,21 @@ struct rerooting_edge {
     int id;
 };
 
-template <class M, class Op, class FVE, class FEV>
-std::vector<std::invoke_result_t<FEV, M, int>> rerooting_dp(const std::vector<std::vector<rerooting_edge>>& graph,
-                                                           M e, Op op, FVE f_ve, FEV f_ev) {
-    using R = std::invoke_result_t<FEV, M, int>;
+#if __cplusplus >= 201703L
+
+template <class R, class M, auto op, auto e, auto f_ve, auto f_ev>
+std::vector<R> rerooting_dp(const std::vector<std::vector<rerooting_edge>>& graph) {
+    static_assert(std::is_convertible_v<decltype(op), std::function<M(M, M)>>, "op must work as M(M, M)");
+    static_assert(std::is_convertible_v<decltype(e), std::function<M()>>, "e must work as M()");
+    static_assert(std::is_convertible_v<decltype(f_ve), std::function<M(R, int)>>,
+                  "f_ve must work as M(R, int)");
+    static_assert(std::is_convertible_v<decltype(f_ev), std::function<R(M, int)>>,
+                  "f_ev must work as R(M, int)");
+#else
+
+template <class R, class M, M (*op)(M, M), M (*e)(), M (*f_ve)(R, int), R (*f_ev)(M, int)>
+std::vector<R> rerooting_dp(const std::vector<std::vector<rerooting_edge>>& graph) {
+#endif
 
     int n = (int)graph.size();
     if (n == 0) return {};
@@ -42,7 +54,7 @@ std::vector<std::invoke_result_t<FEV, M, int>> rerooting_dp(const std::vector<st
     std::vector<R> dp(n);
     for (int i = n - 1; i >= 0; i--) {
         int v = order[i];
-        M acc = e;
+        M acc = e();
         for (auto edge : graph[v]) {
             if (parent[edge.to] != v) continue;
             acc = op(acc, f_ve(dp[edge.to], edge.id));
@@ -51,11 +63,11 @@ std::vector<std::invoke_result_t<FEV, M, int>> rerooting_dp(const std::vector<st
     }
 
     std::vector<R> ans(n);
-    std::vector<M> parent_contrib(n, e);
+    std::vector<M> parent_contrib(n, e());
     parent[0] = -1;
     for (int v : order) {
         int deg = (int)graph[v].size();
-        std::vector<M> prefix(deg + 1, e), suffix(deg + 1, e);
+        std::vector<M> prefix(deg + 1, e()), suffix(deg + 1, e());
         for (int i = 0; i < deg; i++) {
             auto edge = graph[v][i];
             M val = (edge.to == parent[v]) ? parent_contrib[v] : f_ve(dp[edge.to], edge.id);
@@ -80,20 +92,24 @@ std::vector<std::invoke_result_t<FEV, M, int>> rerooting_dp(const std::vector<st
     return ans;
 }
 
-template <class M, class Op, class FVE, class FEV>
-std::vector<std::invoke_result_t<FEV, M, int>> rerooting_dp(int n, const std::vector<std::pair<int, int>>& edges, M e,
-                                                           Op op, FVE f_ve, FEV f_ev) {
+#if __cplusplus >= 201703L
+template <class R, class M, auto op, auto e, auto f_ve, auto f_ev>
+#else
+template <class R, class M, M (*op)(M, M), M (*e)(), M (*f_ve)(R, int), R (*f_ev)(M, int)>
+#endif
+std::vector<R> rerooting_dp(int n, const std::vector<std::pair<int, int>>& edges) {
     assert(0 <= n);
     assert((int)edges.size() == (n == 0 ? 0 : n - 1));
     std::vector<std::vector<rerooting_edge>> graph(n);
     for (int i = 0; i < (int)edges.size(); i++) {
-        auto [u, v] = edges[i];
+        int u = edges[i].first;
+        int v = edges[i].second;
         assert(0 <= u && u < n);
         assert(0 <= v && v < n);
         graph[u].push_back({v, i});
         graph[v].push_back({u, i});
     }
-    return rerooting_dp(graph, e, op, f_ve, f_ev);
+    return rerooting_dp<R, M, op, e, f_ve, f_ev>(graph);
 }
 
 }  // namespace kyopro
