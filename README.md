@@ -46,6 +46,18 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/dynamic_union_find.md](docs/dynamic_union_find.md) を参照してください。
 
+## Euler Tour
+
+```cpp
+#include "kyopro/euler_tour.hpp"
+```
+
+木または森の Euler Tour を作ります。
+`in`, `out`, `subtree`, `order`, `parent`, `depth`, `is_ancestor` が使えます。
+部分木の頂点集合は `order[in[v]], ..., order[out[v] - 1]` に対応します。
+
+詳しい使い方は [docs/euler_tour.md](docs/euler_tour.md) を参照してください。
+
 ## Persistent Segtree
 
 ```cpp
