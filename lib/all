@@ -10,6 +10,7 @@
 #include "kyopro/cumulative_sum.hpp"
 #include "kyopro/dijkstra.hpp"
 #include "kyopro/doubling.hpp"
+#include "kyopro/dsu.hpp"
 #include "kyopro/dynamic_segtree.hpp"
 #include "kyopro/dynamic_union_find.hpp"
 #include "kyopro/euler_tour.hpp"
