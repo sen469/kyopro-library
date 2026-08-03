@@ -123,6 +123,20 @@ Key uf.leader(Key a);
 
 - ならし $O(\alpha(n))$
 
+## leader_id
+
+```cpp
+int uf.leader_id(Key a);
+```
+
+要素 `a` の属する連結成分の代表元の内部番号を返します。
+未登録の要素は自動で追加されます。
+`uf.key(uf.leader_id(a)) == uf.leader(a)` です。
+
+**計算量**
+
+- ならし $O(\alpha(n))$
+
 ## size
 
 ```cpp

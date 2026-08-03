@@ -31,6 +31,7 @@ int main() {
         assert(uf.group_count() == 1);
         assert(uf.index(10) == 0);
         assert(uf.key(0) == 10);
+        assert(uf.leader_id(10) == uf.index(10));
 
         assert(uf.merge(10, 20));
         assert(uf.same(10, 20));
@@ -47,6 +48,15 @@ int main() {
         assert(uf.size(10) == 3);
         assert(uf.group_count() == 1);
         assert(uf.leader(10) == uf.leader(30));
+        assert(uf.key(uf.leader_id(10)) == uf.leader(10));
+        assert(uf.leader_id(10) == uf.leader_id(30));
+
+        int before_size = uf.size();
+        int new_leader = uf.leader_id(40);
+        assert(uf.size() == before_size + 1);
+        assert(uf.index(40) == new_leader);
+        assert(uf.key(new_leader) == 40);
+        assert(uf.size(40) == 1);
     }
 
     {
@@ -66,8 +76,8 @@ int main() {
         vector<pair<int, int>> edges = {
             {0, 1}, {1, 2}, {4, 5}, {10, 11}, {11, 12},
         };
-        for (auto [a, b] : edges) {
-            assert(uf.merge(a, b));
+        for (auto edge : edges) {
+            assert(uf.merge(edge.first, edge.second));
         }
 
         assert(uf.size() == 8);

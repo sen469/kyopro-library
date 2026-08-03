@@ -85,6 +85,10 @@ public:
         return keys_[leader_index(add(a))];
     }
 
+    int leader_id(const Key& a) {
+        return leader_index(add(a));
+    }
+
     int size() const {
         return (int)keys_.size();
     }
