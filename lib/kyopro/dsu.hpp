@@ -16,6 +16,7 @@ private:
     std::vector<long long> edge_count_;
     std::vector<long long> unique_edge_count_;
     std::unordered_set<std::uint64_t> edges_;
+    int group_count_;
 
     int leader_internal(int a) {
         if (parent_or_size_[a] < 0) return a;
@@ -28,10 +29,10 @@ private:
     }
 
 public:
-    dsu() : n_(0) {}
+    dsu() : n_(0), group_count_(0) {}
 
     explicit dsu(int n)
-        : n_(n), parent_or_size_(n, -1), edge_count_(n, 0), unique_edge_count_(n, 0) {
+        : n_(n), parent_or_size_(n, -1), edge_count_(n, 0), unique_edge_count_(n, 0), group_count_(n) {
         assert(0 <= n);
     }
 
@@ -53,6 +54,7 @@ public:
         parent_or_size_[y] = x;
         edge_count_[x] += edge_count_[y] + 1;
         unique_edge_count_[x] += unique_edge_count_[y] + (is_new_edge ? 1 : 0);
+        group_count_--;
         return x;
     }
 
@@ -80,6 +82,10 @@ public:
     long long unique_edge_count(int a) {
         assert(0 <= a && a < n_);
         return unique_edge_count_[leader(a)];
+    }
+
+    int group_count() const {
+        return group_count_;
     }
 
     std::vector<std::vector<int>> groups() {

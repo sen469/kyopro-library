@@ -7,6 +7,7 @@
 - 辺の追加
 - 2 頂点が連結かの判定
 - 連結成分ごとの辺数の取得
+- 連結成分数の取得
 
 をならし $O(\alpha(n))$ 時間で処理できます。
 
@@ -179,6 +180,18 @@ long long d.unique_edge_count(int a);
 
 - ならし $O(\alpha(n))$
 
+## group_count
+
+```cpp
+int d.group_count() const;
+```
+
+現在の連結成分数を返します。
+
+**計算量**
+
+- $O(1)$
+
 ## groups
 
 ```cpp
@@ -207,6 +220,7 @@ int r = 0;
 cout << d.size(r) << '\n';              // 3
 cout << d.edge_count(r) << '\n';        // 2
 cout << d.unique_edge_count(r) << '\n'; // 2
+cout << d.group_count() << '\n';        // 2
 
 bool is_tree = d.edge_count(r) == d.size(r) - 1;
 cout << is_tree << '\n'; // 1

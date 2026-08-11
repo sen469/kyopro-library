@@ -42,7 +42,7 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 ```
 
 ACL の `dsu` に近い Union-Find です。
-`merge` で追加された辺数を連結成分ごとに管理し、`edge_count`, `unique_edge_count` で取得できます。
+`merge` で追加された辺数を連結成分ごとに管理し、`edge_count`, `unique_edge_count`, `group_count` で取得できます。
 
 詳しい使い方は [docs/dsu.md](docs/dsu.md) を参照してください。
 

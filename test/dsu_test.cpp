@@ -7,6 +7,7 @@ using namespace std;
 int main() {
     {
         kyopro::dsu uf(5);
+        assert(uf.group_count() == 5);
         assert(uf.size(0) == 1);
         assert(uf.edge_count(0) == 0);
         assert(uf.unique_edge_count(0) == 0);
@@ -18,27 +19,33 @@ int main() {
         assert(uf.size(0) == 2);
         assert(uf.edge_count(0) == 1);
         assert(uf.unique_edge_count(0) == 1);
+        assert(uf.group_count() == 4);
 
         uf.merge(1, 2);
         assert(uf.size(0) == 3);
         assert(uf.edge_count(0) == 2);
         assert(uf.unique_edge_count(0) == 2);
         assert(uf.edge_count(0) == uf.size(0) - 1);
+        assert(uf.group_count() == 3);
     }
 
     {
         kyopro::dsu uf(4);
+        assert(uf.group_count() == 4);
         uf.merge(0, 1);
+        assert(uf.group_count() == 3);
         uf.merge(0, 1);
         uf.merge(1, 0);
         assert(uf.size(0) == 2);
         assert(uf.edge_count(0) == 3);
         assert(uf.unique_edge_count(0) == 1);
+        assert(uf.group_count() == 3);
 
         uf.merge(0, 0);
         uf.merge(0, 0);
         assert(uf.edge_count(0) == 5);
         assert(uf.unique_edge_count(0) == 2);
+        assert(uf.group_count() == 3);
     }
 
     {
@@ -59,6 +66,7 @@ int main() {
         assert(uf.unique_edge_count(0) == 4);
         assert(uf.same(0, 4));
         assert(!uf.same(0, 5));
+        assert(uf.group_count() == 2);
     }
 
     {
@@ -73,6 +81,7 @@ int main() {
 
     {
         kyopro::dsu uf;
+        assert(uf.group_count() == 0);
         assert(uf.groups().empty());
     }
 
