@@ -192,6 +192,28 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/binomial.md](docs/binomial.md) を参照してください。
 
+## Binary Search
+
+```cpp
+#include "kyopro/binary_search.hpp"
+```
+
+整数の半開区間 `[first, last)` で、単調な判定が真になる最初の位置を二分探索します。
+該当する位置がなければ `last` を返します。
+
+詳しい使い方は [docs/binary_search.md](docs/binary_search.md) を参照してください。
+
+## Ternary Search
+
+```cpp
+#include "kyopro/ternary_search.hpp"
+```
+
+整数の半開区間 `[first, last)` で、単峰な関数の最小値または最大値を取る位置を三分探索します。
+同じ最適値を取る位置が複数あれば最も左を返します。
+
+詳しい使い方は [docs/ternary_search.md](docs/ternary_search.md) を参照してください。
+
 ## BigInt
 
 ```cpp
