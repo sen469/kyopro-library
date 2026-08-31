@@ -6,6 +6,7 @@
 #include "kyopro/binary_search.hpp"
 #include "kyopro/binomial.hpp"
 #include "kyopro/bigint.hpp"
+#include "kyopro/bipartite_graph.hpp"
 #include "kyopro/cycle_detection.hpp"
 #include "kyopro/compress.hpp"
 #include "kyopro/cumulative_sum.hpp"

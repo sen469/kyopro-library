@@ -295,6 +295,17 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 詳しい使い方は [docs/compress.md](docs/compress.md) を参照してください。
 
+## Bipartite Graph
+
+```cpp
+#include "kyopro/bipartite_graph.hpp"
+```
+
+無向グラフが二部グラフか $O(n + m)$ で判定し、二部グラフなら各頂点の 2 彩色を取得できます。
+非連結グラフ、自己ループ、多重辺を扱えます。
+
+詳しい使い方は [docs/bipartite_graph.md](docs/bipartite_graph.md) を参照してください。
+
 ## Cycle Detection
 
 ```cpp
