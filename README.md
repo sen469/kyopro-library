@@ -400,6 +400,17 @@ ACL の `segtree` / `lazy_segtree` に近い形式で、`op`, `e`, `f_ve`, `f_ev
 
 詳しい使い方は [docs/rerooting_dp.md](docs/rerooting_dp.md) を参照してください。
 
+## Binary Trie
+
+```cpp
+#include "kyopro/binary_trie.hpp"
+```
+
+符号なし整数の多重集合をビット Trie で管理します。
+挿入・削除、XOR 最小/最大、昇順 k 番目、未満個数を $O(BIT\_SIZE)$、全要素への XOR を $O(1)$ で処理できます。
+
+詳しい使い方は [docs/binary_trie.md](docs/binary_trie.md) を参照してください。
+
 ## Trie
 
 ```cpp

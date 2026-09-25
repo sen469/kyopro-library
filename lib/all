@@ -4,6 +4,7 @@
 #include "kyopro/implicit_treap.hpp"
 #include "kyopro/balanced_binary_search_tree.hpp"
 #include "kyopro/binary_search.hpp"
+#include "kyopro/binary_trie.hpp"
 #include "kyopro/binomial.hpp"
 #include "kyopro/bigint.hpp"
 #include "kyopro/bipartite_graph.hpp"
