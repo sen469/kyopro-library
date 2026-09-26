@@ -247,6 +247,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/manacher.md](docs/manacher.md) を参照してください。
 
+## KMP
+
+```cpp
+#include "kyopro/kmp.hpp"
+```
+
+文字列や `vector` からパターンの出現位置を $O(n + m)$ で検索します。
+重なりを含む全出現位置の取得、最初の出現位置の取得、prefix function の計算ができます。
+
+詳しい使い方は [docs/kmp.md](docs/kmp.md) を参照してください。
+
 ## Rolling Hash
 
 ```cpp
