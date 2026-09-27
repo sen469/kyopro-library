@@ -375,6 +375,17 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 詳しい使い方は [docs/matrix.md](docs/matrix.md) を参照してください。
 
+## Mo's Algorithm
+
+```cpp
+#include "kyopro/mo.hpp"
+```
+
+静的配列に対するオフライン区間クエリを、区間の両端を移動させながら処理します。
+左右共通の追加・削除処理だけでなく、左右で異なる処理も指定できます。
+
+詳しい使い方は [docs/mo.md](docs/mo.md) を参照してください。
+
 ## Topological Sort
 
 ```cpp
