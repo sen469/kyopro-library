@@ -136,6 +136,17 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/interval_heap.md](docs/interval_heap.md) を参照してください。
 
+## Interval Set
+
+```cpp
+#include "kyopro/interval_set.hpp"
+```
+
+整数上の半開区間を、互いに重ならず隣接もしない区間へ統合して管理します。
+区間の追加・削除、包含判定、包含区間の取得、`mex`、区間列挙ができます。
+
+詳しい使い方は [docs/interval_set.md](docs/interval_set.md) を参照してください。
+
 ## Geometry
 
 ```cpp
