@@ -1,5 +1,5 @@
-#ifndef KYOPRO_DSU_HPP
-#define KYOPRO_DSU_HPP
+#ifndef KYOPRO_UNION_FIND_HPP
+#define KYOPRO_UNION_FIND_HPP
 
 #include <algorithm>
 #include <cassert>
@@ -9,7 +9,7 @@
 
 namespace kyopro {
 
-class dsu {
+class union_find {
 private:
     int n_;
     std::vector<int> parent_or_size_;
@@ -29,9 +29,9 @@ private:
     }
 
 public:
-    dsu() : n_(0), group_count_(0) {}
+    union_find() : n_(0), group_count_(0) {}
 
-    explicit dsu(int n)
+    explicit union_find(int n)
         : n_(n), parent_or_size_(n, -1), edge_count_(n, 0), unique_edge_count_(n, 0), group_count_(n) {
         assert(0 <= n);
     }
@@ -110,4 +110,4 @@ public:
 
 }  // namespace kyopro
 
-#endif  // KYOPRO_DSU_HPP
+#endif  // KYOPRO_UNION_FIND_HPP

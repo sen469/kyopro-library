@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 
-#include "kyopro/dsu.hpp"
+#include "kyopro/union_find.hpp"
 
 using namespace std;
 
 int main() {
     {
-        kyopro::dsu uf(5);
+        kyopro::union_find uf(5);
         assert(uf.group_count() == 5);
         assert(uf.size(0) == 1);
         assert(uf.edge_count(0) == 0);
@@ -30,7 +30,7 @@ int main() {
     }
 
     {
-        kyopro::dsu uf(4);
+        kyopro::union_find uf(4);
         assert(uf.group_count() == 4);
         uf.merge(0, 1);
         assert(uf.group_count() == 3);
@@ -49,7 +49,7 @@ int main() {
     }
 
     {
-        kyopro::dsu uf(6);
+        kyopro::union_find uf(6);
         uf.merge(0, 1);
         uf.merge(1, 2);
         uf.merge(3, 4);
@@ -70,7 +70,7 @@ int main() {
     }
 
     {
-        kyopro::dsu uf(4);
+        kyopro::union_find uf(4);
         uf.merge(0, 1);
         uf.merge(2, 3);
         auto groups = uf.groups();
@@ -80,7 +80,7 @@ int main() {
     }
 
     {
-        kyopro::dsu uf;
+        kyopro::union_find uf;
         assert(uf.group_count() == 0);
         assert(uf.groups().empty());
     }
