@@ -25,6 +25,10 @@ def gen_unique_array(n, l, r):
     """長さ n, 要素 [l, r] で重複のない配列を生成"""
     return random.sample(range(l, r + 1), n)
 
+def gen_char(alphabet=string.ascii_lowercase):
+    """指定された空でない文字セットから1文字を生成"""
+    return random.choice(alphabet)
+
 def gen_string(length, alphabet=string.ascii_lowercase):
     """指定された文字セットからなる長さ length の文字列を生成"""
     return "".join(random.choices(alphabet, k=length))
@@ -109,6 +113,29 @@ if __name__ == "__main__":
 - `random.shuffle(list)`: リストをインプレースで（中身を直接）シャッフルする。
 
 ## 3. 逆引きテクニック
+
+### 文字（char）の生成
+
+`gen_char(alphabet=string.ascii_lowercase)` は、指定した文字列から1文字をランダムに選びます。
+Python には独立した `char` 型がないため、戻り値は長さ1の `str` です。
+
+```python
+# 英小文字 (a-z)
+c = gen_char()
+# 英大文字 (A-Z)
+c = gen_char(string.ascii_uppercase)
+# 数字の文字 (0-9)。整数ではなく str
+c = gen_char(string.digits)
+# 指定した文字から選択
+c = gen_char("ABC")
+c = gen_char(".#")
+# 1文字を出力
+print(c)
+```
+
+`alphabet` には空でない文字列を渡してください。空文字列の場合は `IndexError` になります。
+各位置が同じ確率で選ばれるため、`"AAB"` のように重複を含む場合は
+`A` の出現確率が `B` の2倍になります。
 
 ### 文字列の生成
 `string` モジュールと組み合わせたり、直接文字セットを指定します。
