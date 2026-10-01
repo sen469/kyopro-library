@@ -33,6 +33,7 @@ def main():
     parser.add_argument("site_dir", nargs="?", default="site")
     parser.add_argument("--offline", action="store_true")
     args = parser.parse_args()
+    site_prefix = "/" if args.offline else "/kyopro-library/"
     repo = Path.cwd().resolve()
     root = Path(args.site_dir).resolve()
     pages = {}
@@ -63,11 +64,10 @@ def main():
                 continue
             target_path = unquote(url.path)
             if target_path.startswith("/"):
-                prefix = "/kyopro-library/"
-                if not target_path.startswith(prefix):
+                if not target_path.startswith(site_prefix):
                     errors.append(f"{path.relative_to(root)}: outside site prefix: {link}")
                     continue
-                target = root / target_path[len(prefix):]
+                target = root / target_path[len(site_prefix):]
             else:
                 target = path.parent / target_path if target_path else path
             target = target.resolve()
