@@ -20,6 +20,68 @@ python -m mkdocs build --strict
 python tool/check_docs.py
 ```
 
+### ICPC などでのオフライン利用
+
+Python 3.12 以降を事前にインストールし、以下はリポジトリのルートで実行します。
+`uv` は不要です。
+
+**ネット接続がある間の準備（当日使う PC で実行）**
+
+```sh
+python3 -m venv .venv-docs
+source .venv-docs/bin/activate
+python -m pip install -r requirements-docs.txt
+python -m mkdocs build --strict -f mkdocs.local.yml
+```
+
+Windows の PowerShell では、仮想環境の有効化に
+`.venv-docs\Scripts\Activate.ps1` を使います。
+
+リポジトリ全体と `.venv-docs/` を当日の PC に残しておいてください。
+生成された `site-local/` には本文・検索データ・数式用 JavaScript・フォント・
+実装コードが含まれます。数式表示にも CDN への接続は不要です。
+
+**ネット接続なしで再ビルド・閲覧**
+
+```sh
+source .venv-docs/bin/activate
+python -m mkdocs build --strict -f mkdocs.local.yml
+python -m http.server 8000 --bind 127.0.0.1 --directory site-local
+```
+
+ブラウザで <http://127.0.0.1:8000/> を開きます。
+`localhost` 内の通信だけなのでインターネット接続は不要です。
+8000 番ポートが使用中なら、例えば 8001 に変更してください。
+終了は `Ctrl+C` です。`index.html` の直接オープンでは検索が動かないため、
+上記のローカルサーバーを使ってください。
+
+文書を編集しながら確認するときは、代わりに
+`python -m mkdocs serve -f mkdocs.local.yml --dev-addr 127.0.0.1:8000` を使えます。
+ビルド済みの `site-local/` を別の PC にコピーする場合は、閲覧用の Python だけでよく、
+MkDocs のインストールや再ビルドは不要です。
+
+ローカル版の「実装」リンクは同梱したコードをテキスト表示します。
+問題サイト・ACL 公式の使用例などへの外部リンクはオフラインでは開けません。
+
+**依存パッケージもオフラインで再インストールしたい場合**
+
+接続できる間に、当日と同じ OS・CPU・Python バージョンの環境で保存します。
+
+```sh
+python -m pip download --only-binary=:all: -r requirements-docs.txt -d wheelhouse-docs
+```
+
+ネット接続のない環境で仮想環境を作成・有効化した後、次を実行します。
+
+```sh
+python -m pip install --no-index --find-links=wheelhouse-docs -r requirements-docs.txt
+```
+
+`.venv-docs/` は別 PC へ移植せず、その PC で作り直してください。
+`site-local/` と `wheelhouse-docs/` は Git 管理対象外です。
+
+### 文書の追加と GitHub Pages への公開
+
 新しいページは `docs/` に Markdown で追加し、`mkdocs.yml` の `nav` と
 `docs/index.md` の一覧に登録します。文書間リンクには `.md` の相対パスを、
 実装へのリンクには GitHub 上の `main` ブランチの URL を使います。

@@ -1,4 +1,6 @@
 tmp/
 site/
+site-local/
+wheelhouse-docs/
 .venv-docs/
 __pycache__/

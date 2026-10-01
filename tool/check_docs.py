@@ -1,6 +1,7 @@
 """Check generated documentation links and unexpanded ACL placeholders."""
 
 from html.parser import HTMLParser
+import argparse
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import sys
@@ -11,6 +12,7 @@ class Page(HTMLParser):
         super().__init__()
         self.ids = set()
         self.links = []
+        self.assets = []
         self.feed(source)
 
     def handle_starttag(self, tag, attrs):
@@ -20,11 +22,19 @@ class Page(HTMLParser):
         for attr in ("href", "src"):
             if attr in attrs:
                 self.links.append(attrs[attr])
+        if tag in ("script", "img", "iframe") and "src" in attrs:
+            self.assets.append(attrs["src"])
+        if tag == "link" and "stylesheet" in attrs.get("rel", "").split():
+            self.assets.append(attrs.get("href", ""))
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("site_dir", nargs="?", default="site")
+    parser.add_argument("--offline", action="store_true")
+    args = parser.parse_args()
     repo = Path.cwd().resolve()
-    root = Path("site").resolve()
+    root = Path(args.site_dir).resolve()
     pages = {}
     errors = []
     for path in root.rglob("*.html"):
@@ -36,10 +46,16 @@ def main():
         sys.exit("No built pages found. Run mkdocs build --strict first.")
 
     for path, page in pages.items():
+        if args.offline:
+            for asset in page.assets:
+                if urlsplit(asset).scheme in ("http", "https") or asset.startswith("//"):
+                    errors.append(f"{path.relative_to(root)}: external asset: {asset}")
         for link in page.links:
             url = urlsplit(link)
             source_prefix = "/sen469/kyopro-library/blob/main/"
             if url.netloc == "github.com" and url.path.startswith(source_prefix):
+                if args.offline:
+                    errors.append(f"{path.relative_to(root)}: external source link: {link}")
                 source = (repo / unquote(url.path[len(source_prefix):])).resolve()
                 if not source.is_relative_to(repo) or not source.is_file():
                     errors.append(f"{path.relative_to(root)}: missing source: {link}")

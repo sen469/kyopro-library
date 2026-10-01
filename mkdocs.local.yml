@@ -1,0 +1,10 @@
+INHERIT: mkdocs.yml
+
+site_url: ''
+site_dir: site-local
+repo_url: ''
+repo_name: ''
+edit_uri: ''
+
+extra:
+  local_docs: true

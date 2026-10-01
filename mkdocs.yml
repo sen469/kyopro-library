@@ -5,6 +5,8 @@ repo_url: https://github.com/sen469/kyopro-library
 repo_name: sen469/kyopro-library
 edit_uri: edit/main/docs/
 strict: true
+hooks:
+  - tool/docs_assets.py
 
 theme:
   name: material
@@ -44,10 +46,12 @@ markdown_extensions:
       generic: true
 
 extra_javascript:
-  - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+  - assets/katex/katex.min.js
+  - assets/katex/auto-render.min.js
+  - javascripts/katex.js
 
 extra_css:
+  - assets/katex/katex.min.css
   - stylesheets/extra.css
 
 exclude_docs: |
