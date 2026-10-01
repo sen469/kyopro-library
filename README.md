@@ -2,6 +2,8 @@
 
 [ドキュメントサイト](https://sen469.github.io/kyopro-library/)
 
+[配置・ランテス・提出用展開のガイド](docs/usage.md)
+
 ## ドキュメントの開発・公開
 
 Python 3.12 以降を使用します。
