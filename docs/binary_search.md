@@ -1,6 +1,6 @@
 # Binary Search
 
-実装: [lib/kyopro/binary_search.hpp](../lib/kyopro/binary_search.hpp)
+実装: [lib/kyopro/binary_search.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binary_search.hpp)
 
 整数の半開区間 `[first, last)` 上で、単調な判定を二分探索します。
 判定が `false` から `true` に切り替わる最初の整数を返します。

@@ -1,6 +1,6 @@
 # Sieve
 
-実装: [lib/kyopro/sieve.hpp](../lib/kyopro/sieve.hpp)
+実装: [lib/kyopro/sieve.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/sieve.hpp)
 
 エラトステネスの篩です。
 素数判定、素数列挙、最小素因数、素因数分解、約数列挙ができます。

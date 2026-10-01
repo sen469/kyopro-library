@@ -1,6 +1,6 @@
 # Cumulative Sum
 
-実装: [lib/kyopro/cumulative_sum.hpp](../lib/kyopro/cumulative_sum.hpp)
+実装: [lib/kyopro/cumulative_sum.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/cumulative_sum.hpp)
 
 入力された `D` 次元データの累積和を計算します。
 範囲は各次元について半開区間 `[l[i], r[i])` で指定します。

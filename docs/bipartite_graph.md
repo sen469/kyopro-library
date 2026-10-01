@@ -1,6 +1,6 @@
 # Bipartite Graph
 
-実装: [lib/kyopro/bipartite_graph.hpp](../lib/kyopro/bipartite_graph.hpp)
+実装: [lib/kyopro/bipartite_graph.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/bipartite_graph.hpp)
 
 無向グラフが二部グラフか判定し、二部グラフなら各頂点の 2 彩色を取得できます。
 非連結グラフ、自己ループ、多重辺を扱えます。

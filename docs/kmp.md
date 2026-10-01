@@ -1,6 +1,6 @@
 # KMP
 
-実装: [lib/kyopro/kmp.hpp](../lib/kyopro/kmp.hpp)
+実装: [lib/kyopro/kmp.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/kmp.hpp)
 
 KMP（Knuth–Morris–Pratt）法により、文字列や配列からパターンを検索します。
 要素を `operator==` で比較できれば、`string` 以外のコンテナにも使えます。

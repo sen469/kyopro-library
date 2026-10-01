@@ -1,6 +1,6 @@
 # Modint
 
-実装: [lib/atcoder/modint.hpp](../../lib/atcoder/modint.hpp)
+実装: [lib/atcoder/modint.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/modint.hpp)
 
 自動でmodを取る構造体です。AC Libraryはmodintを使わなくとも全アルゴリズムが使えるように整備しているので、必ずしもこのファイルの内容を把握する必要はありません。
 
@@ -77,11 +77,11 @@ void modint::set_mod(int m)
 
 modを設定します。最初に呼んでください。
 
-**@{keyword.constraints}**
+**制約**
 
 - $1 \leq m \leq 2 \times 10^9 + 1000$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(1)$
 
@@ -143,11 +143,11 @@ y * z;
 
 も`y * modint(z)`と解釈され、動きます。
 
-**@{keyword.constraints}**
+**制約**
 
 - `a / b`(or `a /= b`)を行なう時、`gcd(b.val(), mod) == 1`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(1)$ (割り算以外)
 - $O(\log \mathrm{mod})$ (割り算)
@@ -160,11 +160,11 @@ modint x.pow(ll n)
 
 $x^n$ を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \le n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
@@ -176,11 +176,11 @@ modint x.inv()
 
 $xy \equiv 1$ なる $y$ を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - `gcd(x.val(), mod) = 1`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log \mathrm{mod})$
 
@@ -232,7 +232,7 @@ int main() {
 
 当然ながら`modint::raw(x)`にmod以上の値を入れたときの挙動は未定義です。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq x \lt \mathrm{mod}$
 
@@ -266,6 +266,6 @@ using mint1 = dynamic_modint<1>;
 using modint = dynamic_modint<-1>;
 ```
 
-## @{keyword.examples}
+## 使用例
 
-@{example.modint_usage}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/modint.html)

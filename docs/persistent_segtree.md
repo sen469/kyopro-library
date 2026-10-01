@@ -1,6 +1,6 @@
 # Persistent Segtree
 
-実装: [lib/kyopro/persistent_segtree.hpp](../lib/kyopro/persistent_segtree.hpp)
+実装: [lib/kyopro/persistent_segtree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/persistent_segtree.hpp)
 
 各更新後の版を残せるセグメント木です。
 `set` は元の木を変更せず、新しい版を返します。

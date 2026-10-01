@@ -1,6 +1,6 @@
 # Dynamic Union Find
 
-実装: [lib/kyopro/dynamic_union_find.hpp](../lib/kyopro/dynamic_union_find.hpp)
+実装: [lib/kyopro/dynamic_union_find.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/dynamic_union_find.hpp)
 
 出てきた要素だけを管理する Union-Find です。
 頂点番号を事前に座標圧縮せず、`long long` や `string` などのキーをそのまま使えます。

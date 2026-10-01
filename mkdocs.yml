@@ -1,0 +1,128 @@
+site_name: 競プロライブラリ
+site_url: https://sen469.github.io/kyopro-library/
+site_description: C++ 競技プログラミングライブラリの API・制約・計算量・使用例
+repo_url: https://github.com/sen469/kyopro-library
+repo_name: sen469/kyopro-library
+edit_uri: edit/main/docs/
+strict: true
+
+theme:
+  name: material
+  language: ja
+  font: false
+  palette:
+    - scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: ダークモードに切り替え
+    - scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: ライトモードに切り替え
+  features:
+    - navigation.top
+    - navigation.indexes
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+
+plugins:
+  - search:
+      lang: [ja, en]
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+
+exclude_docs: |
+  /atcoder/lib/
+  /atcoder/keywords.toml
+
+validation:
+  nav:
+    omitted_files: warn
+  links:
+    not_found: warn
+    unrecognized_links: warn
+    anchors: warn
+
+nav:
+  - ライブラリ一覧: index.md
+  - データ構造:
+      - Union Find: union_find.md
+      - Dynamic Union Find: dynamic_union_find.md
+      - Weighted Union Find: weighted_union_find.md
+      - Persistent Union Find: persistent_union_find.md
+      - Dynamic Segtree: dynamic_segtree.md
+      - Persistent Segtree: persistent_segtree.md
+      - Segtree ND: segtree_nd.md
+      - Implicit Treap: implicit_treap.md
+      - Balanced Binary Search Tree: balanced_binary_search_tree.md
+      - Sparse Table: sparse_table.md
+      - Wavelet Matrix: wavelet_matrix.md
+      - Cumulative Sum: cumulative_sum.md
+      - Interval Set: interval_set.md
+      - Interval Heap: interval_heap.md
+      - Binary Trie: binary_trie.md
+  - グラフ・木:
+      - Dijkstra: dijkstra.md
+      - Topological Sort: topological_sort.md
+      - Cycle Detection: cycle_detection.md
+      - Bipartite Graph: bipartite_graph.md
+      - Euler Tour: euler_tour.md
+      - Lowest Common Ancestor: lowest_common_ancestor.md
+      - Tree Diameter: tree_diameter.md
+      - Rerooting DP: rerooting_dp.md
+      - Doubling: doubling.md
+  - 文字列:
+      - Rolling Hash: rolling_hash.md
+      - KMP: kmp.md
+      - Manacher: manacher.md
+      - Trie: trie.md
+      - Run Length Encoding: run_length_encoding.md
+  - 数学:
+      - Sieve: sieve.md
+      - Binomial: binomial.md
+      - Factorial Mod: factorial_mod.md
+      - Arbitrary Mod Convolution: arbitrary_mod_convolution.md
+      - Matrix: matrix.md
+      - Bigint: bigint.md
+      - Geometry: geometry.md
+      - Angular Sort: angular_sort.md
+  - その他:
+      - Binary Search: binary_search.md
+      - Ternary Search: ternary_search.md
+      - Coordinate Compression: compress.md
+      - Mo: mo.md
+      - Random Test Generator: random_test_generator.md
+  - ACL（同梱版）:
+      - atcoder/index.md
+      - DSU: atcoder/dsu.md
+      - Fenwick Tree: atcoder/fenwicktree.md
+      - Segtree: atcoder/segtree.md
+      - Lazy Segtree: atcoder/lazysegtree.md
+      - Max Flow: atcoder/maxflow.md
+      - Min Cost Flow: atcoder/mincostflow.md
+      - SCC: atcoder/scc.md
+      - Two SAT: atcoder/twosat.md
+      - Math: atcoder/math.md
+      - Modint: atcoder/modint.md
+      - Convolution: atcoder/convolution.md
+      - String: atcoder/string.md
+      - Appendix: atcoder/appendix.md

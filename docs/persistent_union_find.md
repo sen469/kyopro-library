@@ -1,6 +1,6 @@
 # Persistent Union Find
 
-実装: [lib/kyopro/persistent_union_find.hpp](../lib/kyopro/persistent_union_find.hpp)
+実装: [lib/kyopro/persistent_union_find.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/persistent_union_find.hpp)
 
 各併合後の版を残せる Union-Find です。
 `merge` は元の版を変更せず、新しい版を返します。

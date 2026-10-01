@@ -1,6 +1,6 @@
 # Interval Set
 
-実装: [lib/kyopro/interval_set.hpp](../lib/kyopro/interval_set.hpp)
+実装: [lib/kyopro/interval_set.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/interval_set.hpp)
 
 整数上の半開区間を、互いに重ならず隣接もしない区間へ統合して管理します。
 たとえば `[1, 4)` と `[4, 7)` を追加すると `[1, 7)` として保持します。

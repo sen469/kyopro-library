@@ -1,6 +1,6 @@
 # DSU
 
-実装: [lib/atcoder/dsu.hpp](../../lib/atcoder/dsu.hpp)
+実装: [lib/atcoder/dsu.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/dsu.hpp)
 
 無向グラフに対して、
 
@@ -19,11 +19,11 @@ dsu d(int n)
 
 - $n$ 頂点 $0$ 辺の無向グラフを作ります。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -37,12 +37,12 @@ int d.merge(int a, int b)
 
 $a, b$ が連結だった場合はその代表元、非連結だった場合は新たな代表元を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq a < n$
 - $0 \leq b < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(\alpha(n))$
 
@@ -54,12 +54,12 @@ bool d.same(int a, int b)
 
 頂点 $a, b$ が連結かどうかを返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq a < n$
 - $0 \leq b < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(\alpha(n))$
 
@@ -71,11 +71,11 @@ int d.leader(int a)
 
 頂点 $a$ の属する連結成分の代表元を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq a < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(\alpha(n))$
 
@@ -87,11 +87,11 @@ int d.size(int a)
 
 頂点 $a$ の属する連結成分のサイズを返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq a < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(\alpha(n))$
 
@@ -106,10 +106,10 @@ vector<vector<int>> d.groups()
 返り値は「「一つの連結成分の頂点番号のリスト」のリスト」です。
 (内側外側限らず)vector内でどの順番で頂点が格納されているかは未定義です。
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.dsu_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/dsu.html)

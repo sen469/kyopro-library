@@ -1,6 +1,6 @@
 # Matrix
 
-実装: [lib/kyopro/matrix.hpp](../lib/kyopro/matrix.hpp)
+実装: [lib/kyopro/matrix.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/matrix.hpp)
 
 行列の加算、減算、乗算、累乗を行います。
 `long long` や `atcoder::modint` など、`+`, `-`, `*`, `+=`, `-=`, `T()`, `T(1)` が使える型で利用できます。

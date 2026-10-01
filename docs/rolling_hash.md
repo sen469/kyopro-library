@@ -1,6 +1,6 @@
 # Rolling Hash
 
-実装: [lib/kyopro/rolling_hash.hpp](../lib/kyopro/rolling_hash.hpp)
+実装: [lib/kyopro/rolling_hash.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/rolling_hash.hpp)
 
 文字列や整数列の部分列ハッシュを求めます。
 法は $2^{61} - 1$ です。

@@ -1,6 +1,6 @@
 # Euler Tour
 
-実装: [lib/kyopro/euler_tour.hpp](../lib/kyopro/euler_tour.hpp)
+実装: [lib/kyopro/euler_tour.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/euler_tour.hpp)
 
 木または森の Euler Tour を作ります。
 各頂点 `v` について、部分木の頂点集合は `order[in[v]], ..., order[out[v] - 1]` に対応します。

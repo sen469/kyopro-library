@@ -1,6 +1,6 @@
 # Math
 
-実装: [lib/atcoder/math.hpp](../../lib/atcoder/math.hpp)
+実装: [lib/atcoder/math.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/math.hpp)
 
 数論的アルゴリズム詰め合わせです。
 
@@ -12,12 +12,12 @@ ll pow_mod(ll x, ll n, int m)
 
 $x^n \bmod m$ を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \le n$
 - $1 \le m$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
@@ -29,12 +29,12 @@ ll inv_mod(ll x, ll m)
 
 $xy \equiv 1 \pmod m$ なる $y$ のうち、$0 \le y < m$ を満たすものを返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $\gcd(x, m) = 1$
 - $1 \leq m$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log m)$
 
@@ -50,13 +50,13 @@ $$x \equiv r[i] \pmod{m[i]}, \forall i \in \lbrace 0,1,\cdots, n - 1 \rbrace$$
 
 を解きます。答えは(存在するならば) $y, z (0 \leq y < z = \mathrm{lcm}(m[i]))$ を用いて $x \equiv y \pmod z$ の形で書けることが知られており、この $(y, z)$ をpairとして返します。答えがない場合は $(0, 0)$ を返します。$n=0$ の時は $(0, 1)$ を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $|r| = |m|$
 - $1 \le m[i]$
 - $\mathrm{lcm}(m[i])$ が `ll` に収まる。
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n \log{\mathrm{lcm}(m[i])})$
 
@@ -70,15 +70,15 @@ $$\sum_{i = 0}^{n - 1} \left\lfloor \frac{a \times i + b}{m} \right\rfloor$$
 
 を返します。答えがオーバーフローしたならば $\bmod 2^{\mathrm{64}}$ で等しい値を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \lt 2^{32}$
 - $1 \leq m \lt 2^{32}$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log m)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.floor_sum_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/math.html)

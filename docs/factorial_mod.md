@@ -1,6 +1,6 @@
 # Factorial Mod
 
-実装: [lib/kyopro/factorial_mod.hpp](../lib/kyopro/factorial_mod.hpp)
+実装: [lib/kyopro/factorial_mod.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/factorial_mod.hpp)
 
 素数 mod で `n! mod p` を求めます。
 `n < p` のとき、`0` 側または `p - 1` 側の近い方から計算します。

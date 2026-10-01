@@ -1,6 +1,6 @@
 # 2-SAT
 
-実装: [lib/atcoder/twosat.hpp](../../lib/atcoder/twosat.hpp)
+実装: [lib/atcoder/twosat.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/twosat.hpp)
 
 2-SATを解きます。
 変数 $x_0, x_1, \cdots, x_{N - 1}$ に関して、
@@ -17,11 +17,11 @@ two_sat ts(int n)
 
 $n$ 変数の2-SATを作ります。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -33,12 +33,12 @@ void ts.add_clause(int i, bool f, int j, bool g)
 
 $(x_i = f) \lor (x_j = g)$ というクローズを足します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq i \lt n$
 - $0 \leq j \lt n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(1)$
 
@@ -50,11 +50,11 @@ bool ts.satisfiable()
 
 条件を足す割当が存在するかどうかを判定する。割当が存在するならば`true`、そうでないなら`false`を返す。
 
-**@{keyword.constraints}**
+**制約**
 
 - 複数回呼ぶことも可能。
 
-**@{keyword.complexity}**
+**計算量**
 
 足した制約の個数を $m$ として
 
@@ -68,10 +68,10 @@ vector<bool> ts.answer()
 
 最後に呼んだ `satisfiable` の、クローズを満たす割当を返す。`satisfiable` を呼ぶ前や、`satisfiable` で割当が存在しなかったときにこの関数を呼ぶと、中身が未定義の長さ $n$ の vectorを返す。
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.twosat_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/twosat.html)

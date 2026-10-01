@@ -1,6 +1,6 @@
 # Cycle Detection
 
-実装: [lib/kyopro/cycle_detection.hpp](../lib/kyopro/cycle_detection.hpp)
+実装: [lib/kyopro/cycle_detection.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/cycle_detection.hpp)
 
 グラフに含まれるサイクルを 1 つ見つけます。
 サイクルがない場合は空の `vector<int>` を返します。

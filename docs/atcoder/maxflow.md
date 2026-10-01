@@ -1,6 +1,6 @@
 # MaxFlow
 
-実装: [lib/atcoder/maxflow.hpp](../../lib/atcoder/maxflow.hpp)
+実装: [lib/atcoder/maxflow.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/maxflow.hpp)
 
 [最大フロー問題](https://ja.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E3%83%95%E3%83%AD%E3%83%BC%E5%95%8F%E9%A1%8C) を解くライブラリです。
 
@@ -12,12 +12,12 @@ mf_graph<Cap> graph(int n)
 
 `n` 頂点 $0$ 辺のグラフを作る。`Cap`は容量の型。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 - `Cap` は `int`, `ll`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -29,12 +29,12 @@ int graph.add_edge(int from, int to, Cap cap);
 
 `from`から`to`へ最大容量`cap`、流量 $0$ の辺を追加し、何番目に追加された辺かを返す。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq \mathrm{from}, \mathrm{to} \lt n$
 - $0 \leq \mathrm{cap}$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(1)$
 
@@ -47,15 +47,15 @@ int graph.add_edge(int from, int to, Cap cap);
 
 - (1) 頂点 $s$ から $t$ へ流せる限り流し、流せた量を返す。
 - (2) 頂点 $s$ から $t$ へ流量 `flow_limit` に達するまで流せる限り流し、流せた量を返す。
-- 複数回呼ぶことも可能で、その時の挙動は [Appendix](./appendix.html) を参照してください。
+- 複数回呼ぶことも可能で、その時の挙動は [Appendix](appendix.md) を参照してください。
 
-**@{keyword.constraints}**
+**制約**
 
 - $s \neq t$
 - $0 \leq s, t \lt n$
 - 返り値が `Cap` に収まる
 
-**@{keyword.complexity}**
+**計算量**
 
 $m$ を追加された辺数として
 
@@ -69,9 +69,9 @@ $m$ を追加された辺数として
 vector<bool> graph.min_cut(int s)
 ```
 
-長さ $n$ のvectorを返す。$i$ 番目の要素には、頂点 $s$ から $i$ へ残余グラフで到達可能なとき、またその時のみ `true` を返す。`flow(s, t)`をflow_limitなしでちょうど一回呼んだ後に呼ぶと、返り値は $s$, $t$ 間のmincutに対応します。詳細な挙動は [Appendix](./appendix.html) を参照してください。
+長さ $n$ のvectorを返す。$i$ 番目の要素には、頂点 $s$ から $i$ へ残余グラフで到達可能なとき、またその時のみ `true` を返す。`flow(s, t)`をflow_limitなしでちょうど一回呼んだ後に呼ぶと、返り値は $s$, $t$ 間のmincutに対応します。詳細な挙動は [Appendix](appendix.md) を参照してください。
 
-**@{keyword.complexity}**
+**計算量**
 
 $m$ を追加された辺数として
 
@@ -92,11 +92,11 @@ struct mf_graph<Cap>::edge {
 - 今の内部の辺の状態を返す
 - 辺の順番はadd_edgeで追加された順番と同一
 
-**@{keyword.constraints}**
+**制約**
 
 - (1): $0 \leq i \lt m$
 
-**@{keyword.complexity}**
+**計算量**
 
 $m$ を追加された辺数として
 
@@ -109,16 +109,16 @@ $m$ を追加された辺数として
 void graph.change_edge(int i, Cap new_cap, Cap new_flow);
 ```
 
-$i$ 番目に追加された辺の容量、流量を`new_cap`, `new_flow`に変更する。他の辺の容量、流量は変更しない。詳細は [Appendix](./appendix.html) を参照してください
+$i$ 番目に追加された辺の容量、流量を`new_cap`, `new_flow`に変更する。他の辺の容量、流量は変更しない。詳細は [Appendix](appendix.md) を参照してください
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq \mathrm{newflow} \leq \mathrm{newcap}$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(1)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.maxflow_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/maxflow.html)

@@ -1,9 +1,41 @@
 # 競プロライブラリ
 
+[ドキュメントサイト](https://sen469.github.io/kyopro-library/)
+
+## ドキュメントの開発・公開
+
+Python 3.12 以降を使用します。
+
+```sh
+python3 -m venv .venv-docs
+source .venv-docs/bin/activate
+python -m pip install -r requirements-docs.txt
+python -m mkdocs serve
+```
+
+表示されたローカル URL でプレビューできます。公開用の検証は次のコマンドで実行します。
+
+```sh
+python -m mkdocs build --strict
+python tool/check_docs.py
+```
+
+新しいページは `docs/` に Markdown で追加し、`mkdocs.yml` の `nav` と
+`docs/index.md` の一覧に登録します。文書間リンクには `.md` の相対パスを、
+実装へのリンクには GitHub 上の `main` ブランチの URL を使います。
+数式には `$...$` または `$$...$$` を使えます。
+
+初回は GitHub の **Settings > Pages > Build and deployment > Source** を
+**GitHub Actions** に設定してください。`main` への push または
+**Actions > Documentation > Run workflow** で公開されます。
+Pull Request ではビルドとリンク検証だけを実行します。
+公開先は `https://sen469.github.io/kyopro-library/` です。
+
 ## ディレクトリ構成
 
-- `include/kyopro/`: 提出用ヘッダを置くディレクトリ
-- `include/kyopro/all.hpp`: 全ライブラリをまとめて include するヘッダ
+- `lib/kyopro/`: 提出用ヘッダを置くディレクトリ
+- `lib/all`: 全ライブラリをまとめて include するヘッダ
+- `docs/`: ドキュメントの Markdown
 - `test/`: ライブラリの簡易テスト
 
 コンパイル例:
@@ -35,16 +67,16 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/dynamic_segtree.md](docs/dynamic_segtree.md) を参照してください。
 
-## DSU
+## Union Find
 
 ```cpp
-#include "kyopro/dsu.hpp"
+#include "kyopro/union_find.hpp"
 ```
 
-ACL の `dsu` に近い Union-Find です。
+通常の Union-Find です。
 `merge` で追加された辺数を連結成分ごとに管理し、`edge_count`, `unique_edge_count`, `group_count` で取得できます。
 
-詳しい使い方は [docs/dsu.md](docs/dsu.md) を参照してください。
+詳しい使い方は [docs/union_find.md](docs/union_find.md) を参照してください。
 
 ## Dynamic Union Find
 

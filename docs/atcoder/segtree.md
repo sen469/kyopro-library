@@ -1,6 +1,6 @@
 # Segtree
 
-実装: [lib/atcoder/segtree.hpp](../../lib/atcoder/segtree.hpp)
+実装: [lib/atcoder/segtree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/segtree.hpp)
 
 [モノイド](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89) $(S, \cdot: S \times S \to S, e \in S)$、つまり
 
@@ -14,7 +14,7 @@
 - 要素の $1$ 点変更
 - 区間の要素の総積の取得
 
-を $O(\log n)$ で行うことが出来ます。詳細な要件は [Appendix](./appendix.html) を参照してください。
+を $O(\log n)$ で行うことが出来ます。詳細な要件は [Appendix](appendix.md) を参照してください。
 
 また、このライブラリはオラクルとして`op, e`の2種類を使用しますが、これらが定数時間で動くものと仮定したときの計算量を記述します。オラクル内部の計算量が $O(f(n))$ である場合はすべての計算量が $O(f(n))$ 倍となります。
 
@@ -50,11 +50,11 @@ segtree<int, op, e> seg(10);
 
 詳しくは、使用例や [こちら](https://atcoder.jp/contests/practice2/editorial) も参照してください。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -66,11 +66,11 @@ void seg.set(int p, S x)
 
 `a[p]` に `x` を代入します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq p < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
@@ -82,11 +82,11 @@ S seg.get(int p)
 
 `a[p]` を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq p < n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(1)$
 
@@ -98,11 +98,11 @@ S seg.prod(int l, int r)
 
 `op(a[l], ..., a[r - 1])` を、モノイドの性質を満たしていると仮定して計算します。$l = r$ のときは `e()` を返します。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq l \leq r \leq n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
@@ -114,7 +114,7 @@ S seg.all_prod()
 
 `op(a[0], ..., a[n - 1])` を計算します。$n = 0$ のときは `e()` を返します。
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(1)$
 
@@ -135,13 +135,13 @@ S seg.all_prod()
 
 `f`が単調だとすれば、`f(op(a[l], a[l + 1], ..., a[r - 1])) = true` となる最大の `r`、と解釈することが可能です。
 
-**@{keyword.constraints}**
+**制約**
 
 - `f`を同じ引数で呼んだ時、返り値は等しい(=副作用はない)
 - `f(e()) = true`
 - $0 \leq l \leq n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
@@ -162,16 +162,16 @@ S seg.all_prod()
 
 `f`が単調だとすれば、`f(op(a[l], a[l + 1], ..., a[r - 1])) = true` となる最小の `l`、と解釈することが可能です。
 
-**@{keyword.constraints}**
+**制約**
 
 - `f`を同じ引数で呼んだ時、返り値は等しい(=副作用はない)
 - `f(e()) = true`
 - $0 \leq r \leq n$
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(\log n)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.segtree_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/segtree.html)

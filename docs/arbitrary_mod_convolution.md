@@ -1,6 +1,6 @@
 # Arbitrary Mod Convolution
 
-実装: [lib/kyopro/arbitrary_mod_convolution.hpp](../lib/kyopro/arbitrary_mod_convolution.hpp)
+実装: [lib/kyopro/arbitrary_mod_convolution.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/arbitrary_mod_convolution.hpp)
 
 任意 mod で畳み込みを行います。
 3 つの NTT friendly prime で畳み込み、CRT で指定した mod に復元します。

@@ -1,0 +1,24 @@
+:root {
+  --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-code-font: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.md-typeset {
+  font-size: 0.8rem;
+  line-height: 1.75;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.md-typeset h1 {
+  font-size: 1.6rem;
+}
+
+.md-typeset .arithmatex {
+  overflow-x: auto;
+}

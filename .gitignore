@@ -1,1 +1,4 @@
 tmp/
+site/
+.venv-docs/
+__pycache__/

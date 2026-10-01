@@ -1,6 +1,6 @@
 # Binary Trie
 
-実装: [lib/kyopro/binary_trie.hpp](../lib/kyopro/binary_trie.hpp)
+実装: [lib/kyopro/binary_trie.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binary_trie.hpp)
 
 符号なし整数の多重集合を Binary Trie で管理します。
 同じ値を複数回挿入できます。

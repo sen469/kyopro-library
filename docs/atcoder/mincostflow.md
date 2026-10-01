@@ -1,6 +1,6 @@
 # MinCostFlow
 
-実装: [lib/atcoder/mincostflow.hpp](../../lib/atcoder/mincostflow.hpp)
+実装: [lib/atcoder/mincostflow.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/mincostflow.hpp)
 
 [Minimum-cost flow problem](https://en.wikipedia.org/wiki/Minimum-cost_flow_problem)を扱うライブラリです。
 
@@ -12,12 +12,12 @@ mcf_graph<Cap, Cost> graph(int n);
 
 $n$ 頂点 $0$ 辺のグラフを作る。`Cap`は容量の型、`Cost`はコストの型
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 - `Cap, Cost` は `int, ll`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -29,12 +29,12 @@ int graph.add_edge(int from, int to, Cap cap, Cost cost);
 
 `from`から`to`へ最大容量`cap`, コスト`cost`の辺を追加する。何番目に追加された辺かを返す。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq \mathrm{from}, \mathrm{to} \lt n$
 - $0 \leq \mathrm{cap}, \mathrm{cost}$
 
-**@{keyword.complexity}**
+**計算量**
 
 - ならし $O(1)$
 
@@ -50,11 +50,11 @@ $s$ から $t$ へ流せるだけ流し、その流量とコストを返す。
 - (1) $s$ から $t$ へ流せるだけ流す
 - (2) $s$ から $t$ へ流量`flow_limit`まで流せるだけ流す
 
-**@{keyword.constraints}**
+**制約**
 
 - `min_cost_slope`と同じ
 
-**@{keyword.complexity}**
+**計算量**
 
 - `min_cost_slope`と同じ
 
@@ -73,7 +73,7 @@ vector<pair<Cap, Cost>> graph.slope(int s, int t, Cap flow_limit);
 - (1) 返り値の最後の要素は最大流量 $x$ として $(x, g(x))$
 - (2) 返り値の最後の要素は $y = \min(x, \mathrm{flow\\_limit})$ として $(y, g(y))$
 
-**@{keyword.constraints}**
+**制約**
 
 辺のコストの最大を $x$ として
 
@@ -85,7 +85,7 @@ vector<pair<Cap, Cost>> graph.slope(int s, int t, Cap flow_limit);
 - (Cost : `int`): $0 \leq nx \leq 2 \times 10^9 + 1000$
 - (Cost : `ll`): $0 \leq nx \leq 8 \times 10^{18} + 1000$
 
-**@{keyword.complexity}**
+**計算量**
 
 $F$ を流量、$m$ を追加した辺の本数として
 
@@ -109,15 +109,15 @@ struct edge<Cap, Cost> {
 
 $m$ を追加された辺数として
 
-**@{keyword.constraints}**
+**制約**
 
 - (1): $0 \leq i \lt m$
 
-**@{keyword.complexity}**
+**計算量**
 
 - (1): $O(1)$
 - (2): $O(m)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.mincostflow_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/mincostflow.html)

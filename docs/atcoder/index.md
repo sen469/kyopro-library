@@ -1,13 +1,13 @@
-# AC(AtCoder) Library Document (@{keyword.tag})
+# AC(AtCoder) Library Document (同梱版)
 
-@{keyword.info}
+このドキュメントは本リポジトリに同梱した ACL の説明です。AtCoder 上の版とは異なる場合があります。[AtCoder の公式ドキュメント](https://atcoder.github.io/ac-library/production/document_ja/)も参照してください。
 
 ## インストール方法
 
 - zipファイルを解凍すると、`ac-library`フォルダ, そしてその中に`atcoder`フォルダが入っているはずです。
 - g++を使っている場合, `atcoder`フォルダを`main.cpp`と同じ場所に置いて、`g++ main.cpp -std=c++14 -I .`でコンパイルできます。  
   - `-std=c++14`か`-std=c++17`をつけてコンパイルする必要があります。
-- 詳しくは [Appendix](./appendix.html) を参照してください。
+- 詳しくは [Appendix](appendix.md) を参照してください。
 
 ## お約束
 
@@ -25,28 +25,28 @@
 
 ### データ構造
 
-- [`#include <atcoder/fenwicktree>`](./fenwicktree.html)
-- [`#include <atcoder/segtree>`](./segtree.html)
-- [`#include <atcoder/lazysegtree>`](./lazysegtree.html)
-- [`#include <atcoder/string>`](./string.html)
+- [`#include <atcoder/fenwicktree>`](fenwicktree.md)
+- [`#include <atcoder/segtree>`](segtree.md)
+- [`#include <atcoder/lazysegtree>`](lazysegtree.md)
+- [`#include <atcoder/string>`](string.md)
 
 ### 数学
 
-- [`#include <atcoder/math>`](./math.html)
-- [`#include <atcoder/convolution>`](./convolution.html)
-- 💻[`#include <atcoder/modint>`](./modint.html)
+- [`#include <atcoder/math>`](math.md)
+- [`#include <atcoder/convolution>`](convolution.md)
+- 💻[`#include <atcoder/modint>`](modint.md)
 
 ### グラフ
 
-- [`#include <atcoder/dsu>`](./dsu.html)
-- [`#include <atcoder/maxflow>`](./maxflow.html)
-- [`#include <atcoder/mincostflow>`](./mincostflow.html)
-- [`#include <atcoder/scc>`](./scc.html)
-- [`#include <atcoder/twosat>`](./twosat.html)
+- [`#include <atcoder/dsu>`](dsu.md)
+- [`#include <atcoder/maxflow>`](maxflow.md)
+- [`#include <atcoder/mincostflow>`](mincostflow.md)
+- [`#include <atcoder/scc>`](scc.md)
+- [`#include <atcoder/twosat>`](twosat.md)
 
 ## 付録
 
-- [Appendix / FAQ](./appendix.html)
+- [Appendix / FAQ](appendix.md)
 
 ## テスト
 

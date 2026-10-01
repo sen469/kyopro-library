@@ -1,6 +1,6 @@
 # String
 
-実装: [lib/atcoder/string.hpp](../../lib/atcoder/string.hpp)
+実装: [lib/atcoder/string.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/string.hpp)
 
 文字列アルゴリズム詰め合わせです。
 文字列に関する様々なアルゴリズムが入っています。
@@ -18,7 +18,7 @@
 長さ $n$ の文字列 `s` のSuffix Arrayとして、長さ $n$ の vector を返す。
 Suffix Array `sa` は $(0, 1, \dots, n - 1)$ の順列であって、各 $i = 0,1, \cdots ,n-2$ について `s[sa[i]..n) < s[sa[i+1]..n)` を満たすもの。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 - (2) `T` は `int, uint, ll, ull`
@@ -40,13 +40,13 @@ Suffix Array `sa` は $(0, 1, \dots, n - 1)$ の順列であって、各 $i = 0,
 
 長さ $n$ の文字列 `s` のLCP Arrayとして、長さ $n-1$ の配列を返す。$i$ 番目の要素は `s[sa[i]..n), s[sa[i+1]..n)` の LCP(Longest Common Prefix) の長さ。
 
-**@{keyword.constraints}**
+**制約**
 
 - `sa` は `s` のSuffix Array
 - $1 \leq n \leq 10^8$
 - (2): `T` は `int, uint, ll, ull`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
@@ -60,17 +60,15 @@ Suffix Array `sa` は $(0, 1, \dots, n - 1)$ の順列であって、各 $i = 0,
 入力の長さを $n$ として、長さ $n$ の配列を返す。
 $i$ 番目の要素は `s[0..n)`と`s[i..n)`のLCP(Longest Common Prefix)の長さ。
 
-**@{keyword.constraints}**
+**制約**
 
 - $0 \leq n \leq 10^8$
 - (2): `T` は `int, uint, ll, ull`
 
-**@{keyword.complexity}**
+**計算量**
 
 - $O(n)$
 
-## @{keyword.examples}
+## 使用例
 
-@{example.sa_usage}
-
-@{example.sa_practice}
+[公式ドキュメントの使用例](https://atcoder.github.io/ac-library/production/document_ja/string.html)

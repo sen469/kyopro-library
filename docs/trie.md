@@ -1,6 +1,6 @@
 # Trie
 
-実装: [lib/kyopro/trie.hpp](../lib/kyopro/trie.hpp)
+実装: [lib/kyopro/trie.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/trie.hpp)
 
 文字列集合を Trie 木で管理します。
 同じ文字列を複数回挿入できます。

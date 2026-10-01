@@ -1,6 +1,6 @@
 # Segtree ND
 
-実装: [lib/kyopro/segtree_nd.hpp](../lib/kyopro/segtree_nd.hpp)
+実装: [lib/kyopro/segtree_nd.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/segtree_nd.hpp)
 
 `D` 次元配列に対する点更新・直方体領域取得ができるセグメント木です。
 領域は各次元について半開区間 `[l[i], r[i])` で指定します。

@@ -1,6 +1,6 @@
 # Mo's Algorithm
 
-実装: [lib/kyopro/mo.hpp](../lib/kyopro/mo.hpp)
+実装: [lib/kyopro/mo.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/mo.hpp)
 
 静的配列に対するオフライン区間クエリを、Mo のアルゴリズムで並べ替えて処理します。
 現在の区間に要素を 1 個追加・削除する処理を用意することで、各クエリの答えを求められます。
