@@ -127,40 +127,32 @@ int main() {
 
 ## ランテスの実行と失敗ケース
 
-```sh
-cd ~/competitive-programming
-bash rantes.sh main.cpp ans.cpp
-```
-
-スクリプトは `g++ -I. -I./lib -O3` で両方をコンパイルし、以下を繰り返します。
-
-1. `python3 generate.py` の出力を `input.txt` に保存。
-2. `main` の出力を `out1.txt`、`ans` の出力を `out2.txt` に保存。
-3. `diff` で出力を比較。不一致なら `WA found!` と入力を表示して停止。
-
-実行場所は、必ず `generate.py` と `lib` がある作業フォルダにしてください。
-`main`・`ans`・`input.txt`・`out1.txt`・`out2.txt` は実行時に上書きされます。
-
-不一致または解答プログラムの異常終了で停止した場合、入出力ファイルは残ります。
-再実行前に失敗ケースを別名で保存すると、修正後にも再現できます。
+ツールはコンパイルやMakefileの呼び出しを行いません。まず使いたいフラグで
+解答と比較用の解答をコンパイルし、実行ファイル・生成器・結果保存先を指定します。
+絶対パスで指定すれば、どのディレクトリからでも実行できます。
 
 ```sh
-cp input.txt failed-input.txt
-cp out1.txt failed-main.txt
-cp out2.txt failed-ans.txt
-./main < failed-input.txt
-./ans < failed-input.txt
+bash /path/to/kyopro-library/tool/rantes.sh \
+  --run /path/to/work/main /path/to/work/ans \
+  --generator /path/to/work/generate.py \
+  --output-dir /path/to/work/results \
+  --cases 100
 ```
 
-手動停止は `Ctrl+C` です。**手動停止時は `main`・`ans`・`out1.txt`・`out2.txt`・
-`input.txt`・`dbg` が削除されます。** 同じ名前で保存したいファイルを置かないでください。
-引数なしの `bash rantes.sh` も、これらを削除する後片付けコマンドです。
+`--python /path/to/python`でPythonを指定できます。既定はPATH上の`python3`です。
+`--cases`を省略、または`0`にすると、不一致・異常終了・Ctrl+Cまで繰り返します。
 
-現在のスクリプトは試行回数の上限・タイムアウト・浮動小数点の誤差判定を持ちません。
-空白や改行も含めた `diff` 比較なので、複数の正解出力がある問題にもそのままでは使えません。
-また、乱数生成器の終了コードは検査しないため、事前に `python3 generate.py` で入力を確認してください。
-コンパイル時の `-std` 指定はないため、必要な言語規格が既定値と異なる場合は、
-作業フォルダの `rantes.sh` の両方のコンパイルコマンドに `-std=c++17` などを追加します。
+1. 生成器をそのファイルのあるディレクトリで実行し、標準出力を結果保存先の`input.txt`に保存。
+2. 両実行ファイルを結果保存先を作業ディレクトリとして実行し、`out1.txt`・`out2.txt`に保存。
+3. `diff -u`で比較。不一致、生成器や解答の異常終了なら非ゼロで終了。
+
+指定した保存先にある同名の3ファイルはテストごとに上書きします。
+失敗時・Ctrl+C時も削除しません。再実行前に必要な失敗ケースを別名で保存してください。
+生成器の補助ファイルは生成器と同じディレクトリからの相対パスで参照できます。
+
+旧形式の`rantes.sh main.cpp ans.cpp`、`--run`だけの呼び出し、引数なしの削除は
+廃止しました。コンパイル・生成器の選択・後片付けは呼び出し側で管理してください。
+タイムアウト・浮動小数点の誤差判定はありません。空白や改行も含めた完全一致で比較します。
 
 ## 提出用にライブラリを展開
 
@@ -173,9 +165,9 @@ g++ -std=c++17 -O2 -Wall -Wextra submit.cpp -o submit
 ./submit < input.txt
 ```
 
-`input.txt` は確認用の入力を用意してください。ランテスを `Ctrl+C` で終了した場合は削除されています。
+`input.txt` は確認用の入力を用意するか、ランテスの結果保存先から指定してください。
 展開後は `-I./lib` なしでコンパイルし、提出先へは生成された `submit.cpp` を提出します。
-`-o` を省略すると、実行したディレクトリの `combined.cpp` に出力します。
+`-o` を省略すると標準出力へ出力し、ファイルは作成しません。
 出力先は上書きされるため、元の `main.cpp` を指定しないでください。
 
 同梱 ACL とローカルヘッダの `#include` を再帰的に展開し、同じファイルの重複展開は省きます。
@@ -188,10 +180,16 @@ g++ -std=c++17 -O2 -Wall -Wextra submit.cpp -o submit
 | --- | --- |
 | `-o submit.cpp` | 出力ファイルを指定 |
 | `--console` または `-c` | ファイルを作らず標準出力へ出す |
-| `--lib /path/to/includes` | ヘッダの探索先を追加。複数回指定可能 |
+| `--library-dir /path/to/library/lib` | ライブラリの場所を指定。既定はツール配置先から見た同梱lib |
+| `--lib /path/to/includes` または `-I` | ヘッダの探索先を追加。複数回指定可能 |
 | `--ignore /path/to/header.hpp` | 指定ファイル・ディレクトリを展開せず include を残す |
 | `--origname main.cpp` | 元ファイルの行番号を追える `#line` を追加 |
 | `--github-base ""` | 展開開始コメントへの GitHub URL 付与を無効化 |
+
+探索先は明示した`--lib`、入力ソースのディレクトリ、選択したライブラリとその親です。
+呼び出し元のカレントディレクトリや`LIB_DIR`・`CPLUS_INCLUDE_PATH`などの環境変数は
+暗黙に参照しません。相対パスの引数は通常どおり呼び出し元を基準に解決します。
+コピーしたツールを単独で使う場合は`--library-dir`でライブラリを指定してください。
 
 `lib/debug/` は既定で展開対象外です。デバッグ用 include は削除されず残るため、
 提出時に有効にならない `#ifdef LOCAL` などで囲むか、提出用コードから取り除いてください。
@@ -202,7 +200,7 @@ g++ -std=c++17 -O2 -Wall -Wextra submit.cpp -o submit
 | 症状 | 確認すること |
 | --- | --- |
 | `kyopro/...` や `atcoder/...` が見つからない | `lib` のリンク先が存在するか、コンパイル時に `-I./lib` があるか |
-| `generate.py` が見つからない | ランテスを作業フォルダから実行しているか |
+| 生成器が見つからない | `--generator`で正しいファイルを指定したか |
 | ランテスで入力が空になる | 雛形を編集したか、生成器にエラーがないか |
 | 展開後もローカル include が残る | ヘッダの場所、`--lib`、`--ignore`、`lib/debug/` を確認 |
 | コピーしたツールが古い | リポジトリ更新後に `setup.sh` を再実行したか |

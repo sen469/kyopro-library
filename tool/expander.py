@@ -4,10 +4,16 @@ import argparse
 import re
 import sys
 from logging import basicConfig
-from os import environ, getenv, pathsep
 from pathlib import Path
 from typing import Optional
 
+
+# ライブラリ探索先。複数ある場合は1行ずつ追加する。
+LIBRARY_PATHS = [
+    Path("~/kyopro-library/lib"),
+    # Path("/path/to/another-library"),
+    # Path("/path/with spaces/library"),
+]
 
 INCLUDE_RE = re.compile(r'^(\s*)#\s*include\s*([<"])([^>"]+)([>"])\s*(?://.*)?$')
 
@@ -127,11 +133,10 @@ def parse_args() -> argparse.Namespace:
         "-o",
         "--output",
         type=Path,
-        default=Path("combined.cpp"),
-        help="output file when --console is not specified (default: combined.cpp)",
+        help="output file (default: stdout)",
     )
     parser.add_argument(
-        "--lib",
+        "--lib", "-I", "--library-dir",
         action="append",
         type=Path,
         help="additional include path. This option can be specified multiple times",
@@ -148,7 +153,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--github-base",
-        default=getenv("KYOPRO_GITHUB_BASE", "https://github.com/sen469/kyopro-library/blob/main"),
+        default="https://github.com/sen469/kyopro-library/blob/main",
         help="base URL used in expanded include comments. Set empty string to disable",
     )
     return parser.parse_args()
@@ -158,7 +163,7 @@ def main() -> int:
     basicConfig(
         format="%(asctime)s [%(levelname)s] %(message)s",
         datefmt="%H:%M:%S",
-        level=getenv("LOG_LEVEL", "INFO"),
+        level="INFO",
     )
 
     args = parse_args()
@@ -168,38 +173,26 @@ def main() -> int:
         print(f"expander.py: source file not found: {source}", file=sys.stderr)
         return 1
 
-    script_dir = Path(__file__).resolve().parent
-    repo_root = script_dir
-    if not (repo_root / "lib").is_dir() and (repo_root.parent / "lib").is_dir():
-        repo_root = repo_root.parent
+    library_dirs = [directory.resolve() for directory in (args.lib or []) + LIBRARY_PATHS]
+    for directory in args.lib or []:
+        if not directory.is_dir():
+            print(f"expander.py: library directory not found: {directory}", file=sys.stderr)
+            return 1
 
-    include_dirs = []
-
-    if args.lib:
-        include_dirs.extend(args.lib)
-    if "CPLUS_INCLUDE_PATH" in environ:
-        include_dirs.extend(
-            map(Path, filter(None, environ["CPLUS_INCLUDE_PATH"].split(pathsep)))
-        )
-
-    include_dirs.extend([source.parent, repo_root, repo_root / "lib", Path.cwd()])
-
-    ignore_paths = args.ignore or []
-    default_debug_dir = repo_root / "lib/debug"
-    if default_debug_dir.is_dir():
-        ignore_paths.append(default_debug_dir)
-    elif (repo_root / "lib/debug/debug.hpp").is_file():
-        ignore_paths.append(repo_root / "lib/debug/debug.hpp")
+    # カレントディレクトリと指定した全ライブラリを探索する。
+    include_dirs = [*library_dirs, Path.cwd(), source.parent]
+    ignore_paths = list(args.ignore or [])
+    ignore_paths.extend(directory / "debug" for directory in library_dirs
+                        if (directory / "debug").is_dir())
 
     github_base_url = args.github_base or None
-    github_roots = [
-        (repo_root / "lib", "lib"),
-        (repo_root, ""),
-    ]
+    # 他のライブラリにkyopro-libraryのURLを誤って付けない。
+    github_roots = [(directory, "lib") for directory in library_dirs
+                    if (directory / "kyopro").is_dir() and (directory / "atcoder").is_dir()]
     expander = Expander(include_dirs, ignore_paths, github_base_url, github_roots)
     expanded = "".join(expander.expand_file(source, args.origname))
 
-    if args.console:
+    if args.console or args.output is None:
         print(expanded, end="")
     else:
         args.output.write_text(expanded)
