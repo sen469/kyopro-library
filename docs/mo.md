@@ -183,7 +183,7 @@ void answer(int query_id);
 左右共通の `run` と同じです。
 
 ## 使用例
-- 転倒数クエリ[https://judge.yosupo.jp/submission/406461]
+- [転倒数クエリ](https://judge.yosupo.jp/submission/406461)
 
 各区間に含まれる異なる値の個数を求めます。
 
