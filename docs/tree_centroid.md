@@ -104,6 +104,7 @@ vector<int> tree_centroid(int n, const vector<pair<int, int>>& edges,
 - 再帰は使用しません
 
 ## 使用例
+- [ABC348-E Minimize Sum of Distances](https://atcoder.jp/contests/abc348/submissions/79797899)
 
 ```cpp
 #include <iostream>
