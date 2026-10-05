@@ -534,6 +534,7 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 無向木の重心をすべて、頂点番号の昇順で返します。
 `kyopro::tree_centroid(graph)` または `kyopro::tree_centroid(n, edges)` で使えます。
+最後の引数に非負の整数の頂点重み配列 `weights` を渡すと、頂点数ではなく重みの合計で判定します。
 時間・追加空間ともに $O(n)$ で、再帰は使用しません。
 
 詳しい使い方は [docs/tree_centroid.md](docs/tree_centroid.md)、
