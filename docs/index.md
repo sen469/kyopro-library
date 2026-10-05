@@ -13,6 +13,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 
 | ライブラリ | 用途 |
 | --- | --- |
+| [Convex Hull Trick](convex_hull_trick.md) | 直線追加・指定座標での最小値／最大値 |
 | [Union Find](union_find.md) | 連結判定・成分ごとの辺数・連結成分数 |
 | [Dynamic Union Find](dynamic_union_find.md) | 任意のキーを使った連結管理 |
 | [Weighted Union Find](weighted_union_find.md) | 重み付きの連結管理 |

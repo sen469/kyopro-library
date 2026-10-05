@@ -108,6 +108,18 @@ Pull Request ではビルドとリンク検証だけを実行します。
 g++ -std=c++17 -O2 -Wall -Wextra -Ilib test/implicit_treap_test.cpp
 ```
 
+## Convex Hull Trick
+
+```cpp
+#include "kyopro/convex_hull_trick.hpp"
+```
+
+傾きが単調な順序で直線を追加し、任意の順序の座標に対する最小値・最大値を求めます。
+`add_line` はならし O(1)、`query` は O(log N) です。
+最小値では傾きを非増加、最大値では非減少の順に追加してください。
+
+詳しい使い方は [docs/convex_hull_trick.md](docs/convex_hull_trick.md) を参照してください。
+
 ## Implicit Treap
 
 ```cpp

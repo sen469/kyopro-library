@@ -70,6 +70,7 @@ nav:
   - ライブラリ一覧: index.md
   - 配置・ランテス・提出用展開: usage.md
   - データ構造:
+      - Convex Hull Trick: convex_hull_trick.md
       - Union Find: union_find.md
       - Dynamic Union Find: dynamic_union_find.md
       - Weighted Union Find: weighted_union_find.md
