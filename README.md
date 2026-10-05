@@ -526,6 +526,19 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 詳しい使い方は [docs/topological_sort.md](docs/topological_sort.md) を参照してください。
 
+## Tree Centroid
+
+```cpp
+#include "kyopro/tree_centroid.hpp"
+```
+
+無向木の重心をすべて、頂点番号の昇順で返します。
+`kyopro::tree_centroid(graph)` または `kyopro::tree_centroid(n, edges)` で使えます。
+時間・追加空間ともに $O(n)$ で、再帰は使用しません。
+
+詳しい使い方は [docs/tree_centroid.md](docs/tree_centroid.md)、
+実装の解説は [docs/explanations/tree_centroid.md](docs/explanations/tree_centroid.md) を参照してください。
+
 ## Tree Diameter
 
 ```cpp

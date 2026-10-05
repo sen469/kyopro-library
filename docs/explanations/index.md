@@ -4,7 +4,7 @@
 各ページでは、基本原理、内部データ、処理の流れと不変条件、計算量の根拠、改造時の注意点、改造後の確認例を説明します。
 引数・戻り値・制約などの API 仕様は、対応する使用法ページを参照してください。
 
-対象は `lib/kyopro/` の全42ライブラリと、同梱 ACL の公開12ライブラリです。
+対象は `lib/kyopro/` の全43ライブラリと、同梱 ACL の公開12ライブラリです。
 解説はこのリポジトリの実装に対応しており、同名の一般的なアルゴリズムと実装方法が異なる場合もあります。
 ローカル版にも解説と実装コードが含まれるため、オフラインで参照できます。
 
@@ -45,6 +45,7 @@
 | Euler Tour | [使用法](../euler_tour.md) | [解説](euler_tour.md) |
 | Lowest Common Ancestor | [使用法](../lowest_common_ancestor.md) | [解説](lowest_common_ancestor.md) |
 | Tree Diameter | [使用法](../tree_diameter.md) | [解説](tree_diameter.md) |
+| Tree Centroid | [使用法](../tree_centroid.md) | [解説](tree_centroid.md) |
 | Rerooting DP | [使用法](../rerooting_dp.md) | [解説](rerooting_dp.md) |
 | Doubling | [使用法](../doubling.md) | [解説](doubling.md) |
 
@@ -96,4 +97,3 @@
 | Modint | [使用法](../atcoder/modint.md) | [解説](atcoder/modint.md) |
 | Convolution | [使用法](../atcoder/convolution.md) | [解説](atcoder/convolution.md) |
 | String | [使用法](../atcoder/string.md) | [解説](atcoder/string.md) |
-

@@ -36,6 +36,7 @@
 #include "kyopro/sparse_table.hpp"
 #include "kyopro/ternary_search.hpp"
 #include "kyopro/tree_diameter.hpp"
+#include "kyopro/tree_centroid.hpp"
 #include "kyopro/topological_sort.hpp"
 #include "kyopro/trie.hpp"
 #include "kyopro/union_find.hpp"

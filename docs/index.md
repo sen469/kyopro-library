@@ -46,6 +46,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Euler Tour](euler_tour.md) | 部分木を連続区間に変換 |
 | [Lowest Common Ancestor](lowest_common_ancestor.md) | 最小共通祖先 |
 | [Tree Diameter](tree_diameter.md) | 木の直径 |
+| [Tree Centroid](tree_centroid.md) | 木の重心をすべて列挙 |
 | [Rerooting DP](rerooting_dp.md) | 全方位木 DP |
 | [Doubling](doubling.md) | 遷移の繰り返し |
 

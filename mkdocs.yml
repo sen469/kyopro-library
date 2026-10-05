@@ -94,6 +94,7 @@ nav:
       - Euler Tour: euler_tour.md
       - Lowest Common Ancestor: lowest_common_ancestor.md
       - Tree Diameter: tree_diameter.md
+      - Tree Centroid: tree_centroid.md
       - Rerooting DP: rerooting_dp.md
       - Doubling: doubling.md
   - 文字列:
@@ -159,6 +160,7 @@ nav:
           - Euler Tour: explanations/euler_tour.md
           - Lowest Common Ancestor: explanations/lowest_common_ancestor.md
           - Tree Diameter: explanations/tree_diameter.md
+          - Tree Centroid: explanations/tree_centroid.md
           - Rerooting DP: explanations/rerooting_dp.md
           - Doubling: explanations/doubling.md
       - 文字列:
