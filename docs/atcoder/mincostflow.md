@@ -1,5 +1,7 @@
 # MinCostFlow
 
+[実装の解説](../explanations/atcoder/mincostflow.md)
+
 実装: [lib/atcoder/mincostflow.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/mincostflow.hpp)
 
 [Minimum-cost flow problem](https://en.wikipedia.org/wiki/Minimum-cost_flow_problem)を扱うライブラリです。

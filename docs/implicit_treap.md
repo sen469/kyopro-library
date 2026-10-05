@@ -1,5 +1,7 @@
 # Implicit Treap
 
+[実装の解説](explanations/implicit_treap.md)
+
 実装: [lib/kyopro/implicit_treap.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/implicit_treap.hpp)
 
 長さが変化する列を管理します。

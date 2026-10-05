@@ -1,5 +1,7 @@
 # BigInt
 
+[実装の解説](explanations/bigint.md)
+
 実装: [lib/kyopro/bigint.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/bigint.hpp)
 
 ```cpp

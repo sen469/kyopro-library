@@ -1,5 +1,7 @@
 # Binomial
 
+[実装の解説](explanations/binomial.md)
+
 実装: [lib/kyopro/binomial.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binomial.hpp)
 
 二項係数を計算するライブラリです。

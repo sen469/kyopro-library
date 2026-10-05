@@ -1,5 +1,7 @@
 # Rerooting DP
 
+[実装の解説](explanations/rerooting_dp.md)
+
 実装: [lib/kyopro/rerooting_dp.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/rerooting_dp.hpp)
 
 木の全方位 DP を行います。

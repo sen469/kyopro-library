@@ -1,5 +1,7 @@
 # String
 
+[実装の解説](../explanations/atcoder/string.md)
+
 実装: [lib/atcoder/string.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/string.hpp)
 
 文字列アルゴリズム詰め合わせです。

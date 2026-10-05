@@ -1,5 +1,7 @@
 # Angular Sort
 
+[実装の解説](explanations/angular_sort.md)
+
 実装: [lib/kyopro/angular_sort.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/angular_sort.hpp)
 
 点を偏角の昇順にソートします。

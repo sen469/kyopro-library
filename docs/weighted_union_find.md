@@ -1,5 +1,7 @@
 # Weighted Union Find
 
+[実装の解説](explanations/weighted_union_find.md)
+
 実装: [lib/kyopro/weighted_union_find.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/weighted_union_find.hpp)
 
 各頂点にポテンシャルを持つ Union-Find です。

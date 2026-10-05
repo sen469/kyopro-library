@@ -1,5 +1,7 @@
 # Persistent Segtree
 
+[実装の解説](explanations/persistent_segtree.md)
+
 実装: [lib/kyopro/persistent_segtree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/persistent_segtree.hpp)
 
 各更新後の版を残せるセグメント木です。

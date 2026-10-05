@@ -1,5 +1,7 @@
 # Convolution
 
+[実装の解説](../explanations/atcoder/convolution.md)
+
 実装: [lib/atcoder/convolution.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/convolution.hpp)
 
 畳み込みを行います。数列 $a_0, a_1, \cdots, a_{N - 1}$ と数列 $b_0, b_1, \cdots, b_{M - 1}$ から、長さ $N + M - 1$ の数列

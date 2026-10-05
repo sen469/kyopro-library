@@ -1,5 +1,7 @@
 # Sieve
 
+[実装の解説](explanations/sieve.md)
+
 実装: [lib/kyopro/sieve.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/sieve.hpp)
 
 エラトステネスの篩です。

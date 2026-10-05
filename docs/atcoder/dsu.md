@@ -1,5 +1,7 @@
 # DSU
 
+[実装の解説](../explanations/atcoder/dsu.md)
+
 実装: [lib/atcoder/dsu.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/dsu.hpp)
 
 無向グラフに対して、

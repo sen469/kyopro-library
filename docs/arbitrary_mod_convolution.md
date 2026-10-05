@@ -1,5 +1,7 @@
 # Arbitrary Mod Convolution
 
+[実装の解説](explanations/arbitrary_mod_convolution.md)
+
 実装: [lib/kyopro/arbitrary_mod_convolution.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/arbitrary_mod_convolution.hpp)
 
 任意 mod で畳み込みを行います。

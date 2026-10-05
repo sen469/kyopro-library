@@ -1,5 +1,7 @@
 # KMP
 
+[実装の解説](explanations/kmp.md)
+
 実装: [lib/kyopro/kmp.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/kmp.hpp)
 
 KMP（Knuth–Morris–Pratt）法により、文字列や配列からパターンを検索します。

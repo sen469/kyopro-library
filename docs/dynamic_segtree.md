@@ -1,5 +1,7 @@
 # Dynamic Segtree
 
+[実装の解説](explanations/dynamic_segtree.md)
+
 実装: [lib/kyopro/dynamic_segtree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/dynamic_segtree.hpp)
 
 必要な頂点だけを作るセグメント木です。

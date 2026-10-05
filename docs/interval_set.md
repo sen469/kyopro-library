@@ -1,5 +1,7 @@
 # Interval Set
 
+[実装の解説](explanations/interval_set.md)
+
 実装: [lib/kyopro/interval_set.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/interval_set.hpp)
 
 整数上の半開区間を、互いに重ならず隣接もしない区間へ統合して管理します。

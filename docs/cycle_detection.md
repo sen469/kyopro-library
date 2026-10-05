@@ -1,5 +1,7 @@
 # Cycle Detection
 
+[実装の解説](explanations/cycle_detection.md)
+
 実装: [lib/kyopro/cycle_detection.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/cycle_detection.hpp)
 
 グラフに含まれるサイクルを 1 つ見つけます。

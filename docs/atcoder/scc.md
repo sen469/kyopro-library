@@ -1,5 +1,7 @@
 # SCC
 
+[実装の解説](../explanations/atcoder/scc.md)
+
 実装: [lib/atcoder/scc.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/scc.hpp)
 
 有向グラフを強連結成分分解します。

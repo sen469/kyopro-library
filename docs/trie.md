@@ -1,5 +1,7 @@
 # Trie
 
+[実装の解説](explanations/trie.md)
+
 実装: [lib/kyopro/trie.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/trie.hpp)
 
 文字列集合を Trie 木で管理します。

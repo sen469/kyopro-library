@@ -1,5 +1,7 @@
 # Math
 
+[実装の解説](../explanations/atcoder/math.md)
+
 実装: [lib/atcoder/math.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/math.hpp)
 
 数論的アルゴリズム詰め合わせです。

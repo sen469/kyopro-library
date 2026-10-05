@@ -1,5 +1,7 @@
 # Rolling Hash
 
+[実装の解説](explanations/rolling_hash.md)
+
 実装: [lib/kyopro/rolling_hash.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/rolling_hash.hpp)
 
 文字列や整数列の部分列ハッシュを求めます。

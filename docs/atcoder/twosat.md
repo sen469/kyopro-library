@@ -1,5 +1,7 @@
 # 2-SAT
 
+[実装の解説](../explanations/atcoder/twosat.md)
+
 実装: [lib/atcoder/twosat.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/twosat.hpp)
 
 2-SATを解きます。

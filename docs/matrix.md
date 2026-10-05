@@ -1,5 +1,7 @@
 # Matrix
 
+[実装の解説](explanations/matrix.md)
+
 実装: [lib/kyopro/matrix.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/matrix.hpp)
 
 行列の加算、減算、乗算、累乗を行います。

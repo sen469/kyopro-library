@@ -1,5 +1,7 @@
 # MaxFlow
 
+[実装の解説](../explanations/atcoder/maxflow.md)
+
 実装: [lib/atcoder/maxflow.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/maxflow.hpp)
 
 [最大フロー問題](https://ja.wikipedia.org/wiki/%E6%9C%80%E5%A4%A7%E3%83%95%E3%83%AD%E3%83%BC%E5%95%8F%E9%A1%8C) を解くライブラリです。

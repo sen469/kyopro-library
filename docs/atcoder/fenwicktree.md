@@ -1,5 +1,7 @@
 # Fenwick Tree
 
+[実装の解説](../explanations/atcoder/fenwicktree.md)
+
 実装: [lib/atcoder/fenwicktree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/fenwicktree.hpp)
 
 長さ $n$ の配列に対し、

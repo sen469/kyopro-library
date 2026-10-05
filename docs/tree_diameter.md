@@ -1,5 +1,7 @@
 # Tree Diameter
 
+[実装の解説](explanations/tree_diameter.md)
+
 実装: [lib/kyopro/tree_diameter.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/tree_diameter.hpp)
 
 重み付き木の直径を求めます。

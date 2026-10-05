@@ -1,5 +1,7 @@
 # Dijkstra
 
+[実装の解説](explanations/dijkstra.md)
+
 実装: [lib/kyopro/dijkstra.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/dijkstra.hpp)
 
 非負重みのグラフで、始点から各頂点への最短距離を求めます。

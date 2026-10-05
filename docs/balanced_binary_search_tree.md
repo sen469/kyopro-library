@@ -1,5 +1,7 @@
 # Balanced Binary Search Tree
 
+[実装の解説](explanations/balanced_binary_search_tree.md)
+
 実装: [lib/kyopro/balanced_binary_search_tree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/balanced_binary_search_tree.hpp)
 
 重複を許す平衡二分探索木です。

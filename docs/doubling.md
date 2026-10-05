@@ -1,5 +1,7 @@
 # Doubling
 
+[実装の解説](explanations/doubling.md)
+
 実装: [lib/kyopro/doubling.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/doubling.hpp)
 
 関数グラフ上で、同じ遷移を何回も適用した結果をダブリングで求めるライブラリです。

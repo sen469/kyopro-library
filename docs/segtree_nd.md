@@ -1,5 +1,7 @@
 # Segtree ND
 
+[実装の解説](explanations/segtree_nd.md)
+
 実装: [lib/kyopro/segtree_nd.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/segtree_nd.hpp)
 
 `D` 次元配列に対する点更新・直方体領域取得ができるセグメント木です。

@@ -1,5 +1,7 @@
 # Mo's Algorithm
 
+[実装の解説](explanations/mo.md)
+
 実装: [lib/kyopro/mo.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/mo.hpp)
 
 静的配列に対するオフライン区間クエリを、Mo のアルゴリズムで並べ替えて処理します。

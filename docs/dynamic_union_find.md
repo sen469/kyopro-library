@@ -1,5 +1,7 @@
 # Dynamic Union Find
 
+[実装の解説](explanations/dynamic_union_find.md)
+
 実装: [lib/kyopro/dynamic_union_find.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/dynamic_union_find.hpp)
 
 出てきた要素だけを管理する Union-Find です。

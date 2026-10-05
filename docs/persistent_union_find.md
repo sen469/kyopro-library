@@ -1,5 +1,7 @@
 # Persistent Union Find
 
+[実装の解説](explanations/persistent_union_find.md)
+
 実装: [lib/kyopro/persistent_union_find.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/persistent_union_find.hpp)
 
 各併合後の版を残せる Union-Find です。

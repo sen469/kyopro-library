@@ -1,5 +1,7 @@
 # Manacher
 
+[実装の解説](explanations/manacher.md)
+
 実装: [lib/kyopro/manacher.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/manacher.hpp)
 
 文字列や `vector` の各中心について、最長回文の半径を $O(n)$ で求めます。

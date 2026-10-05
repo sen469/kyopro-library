@@ -1,5 +1,7 @@
 # Interval Heap
 
+[実装の解説](explanations/interval_heap.md)
+
 実装: [lib/kyopro/interval_heap.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/interval_heap.hpp)
 
 両端優先度付きキューです。

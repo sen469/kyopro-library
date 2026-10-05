@@ -1,5 +1,7 @@
 # Segtree
 
+[実装の解説](../explanations/atcoder/segtree.md)
+
 実装: [lib/atcoder/segtree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/segtree.hpp)
 
 [モノイド](https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89) $(S, \cdot: S \times S \to S, e \in S)$、つまり

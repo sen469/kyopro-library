@@ -1,5 +1,7 @@
 # Wavelet Matrix
 
+[実装の解説](explanations/wavelet_matrix.md)
+
 実装: [lib/kyopro/wavelet_matrix.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/wavelet_matrix.hpp)
 
 静的配列に対して、区間 k 番目、区間内の値の個数、前駆・後継を求めます。

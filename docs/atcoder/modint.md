@@ -1,5 +1,7 @@
 # Modint
 
+[実装の解説](../explanations/atcoder/modint.md)
+
 実装: [lib/atcoder/modint.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/atcoder/modint.hpp)
 
 自動でmodを取る構造体です。AC Libraryはmodintを使わなくとも全アルゴリズムが使えるように整備しているので、必ずしもこのファイルの内容を把握する必要はありません。

@@ -1,5 +1,7 @@
 # Ternary Search
 
+[実装の解説](explanations/ternary_search.md)
+
 実装: [lib/kyopro/ternary_search.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/ternary_search.hpp)
 
 整数の半開区間 `[first, last)` 上で単峰な関数の最適値を取る位置を三分探索します。

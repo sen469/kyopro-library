@@ -1,5 +1,7 @@
 # Cumulative Sum
 
+[実装の解説](explanations/cumulative_sum.md)
+
 実装: [lib/kyopro/cumulative_sum.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/cumulative_sum.hpp)
 
 入力された `D` 次元データの累積和を計算します。

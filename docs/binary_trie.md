@@ -1,5 +1,7 @@
 # Binary Trie
 
+[実装の解説](explanations/binary_trie.md)
+
 実装: [lib/kyopro/binary_trie.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binary_trie.hpp)
 
 符号なし整数の多重集合を Binary Trie で管理します。

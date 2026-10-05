@@ -1,5 +1,7 @@
 # Compress
 
+[実装の解説](explanations/compress.md)
+
 実装: [lib/kyopro/compress.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/compress.hpp)
 
 座標圧縮を行います。

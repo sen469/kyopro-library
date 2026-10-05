@@ -1,5 +1,7 @@
 # Factorial Mod
 
+[実装の解説](explanations/factorial_mod.md)
+
 実装: [lib/kyopro/factorial_mod.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/factorial_mod.hpp)
 
 素数 mod で `n! mod p` を求めます。

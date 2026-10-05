@@ -132,3 +132,65 @@ nav:
       - Convolution: atcoder/convolution.md
       - String: atcoder/string.md
       - Appendix: atcoder/appendix.md
+  - 実装の解説:
+      - explanations/index.md
+      - データ構造:
+          - Convex Hull Trick: explanations/convex_hull_trick.md
+          - Union Find: explanations/union_find.md
+          - Dynamic Union Find: explanations/dynamic_union_find.md
+          - Weighted Union Find: explanations/weighted_union_find.md
+          - Persistent Union Find: explanations/persistent_union_find.md
+          - Dynamic Segtree: explanations/dynamic_segtree.md
+          - Persistent Segtree: explanations/persistent_segtree.md
+          - Segtree ND: explanations/segtree_nd.md
+          - Implicit Treap: explanations/implicit_treap.md
+          - Balanced Binary Search Tree: explanations/balanced_binary_search_tree.md
+          - Sparse Table: explanations/sparse_table.md
+          - Wavelet Matrix: explanations/wavelet_matrix.md
+          - Cumulative Sum: explanations/cumulative_sum.md
+          - Interval Set: explanations/interval_set.md
+          - Interval Heap: explanations/interval_heap.md
+          - Binary Trie: explanations/binary_trie.md
+      - グラフ・木:
+          - Dijkstra: explanations/dijkstra.md
+          - Topological Sort: explanations/topological_sort.md
+          - Cycle Detection: explanations/cycle_detection.md
+          - Bipartite Graph: explanations/bipartite_graph.md
+          - Euler Tour: explanations/euler_tour.md
+          - Lowest Common Ancestor: explanations/lowest_common_ancestor.md
+          - Tree Diameter: explanations/tree_diameter.md
+          - Rerooting DP: explanations/rerooting_dp.md
+          - Doubling: explanations/doubling.md
+      - 文字列:
+          - Rolling Hash: explanations/rolling_hash.md
+          - KMP: explanations/kmp.md
+          - Manacher: explanations/manacher.md
+          - Trie: explanations/trie.md
+          - Run Length Encoding: explanations/run_length_encoding.md
+      - 数学:
+          - Sieve: explanations/sieve.md
+          - Binomial: explanations/binomial.md
+          - Factorial Mod: explanations/factorial_mod.md
+          - Arbitrary Mod Convolution: explanations/arbitrary_mod_convolution.md
+          - Matrix: explanations/matrix.md
+          - Bigint: explanations/bigint.md
+          - Geometry: explanations/geometry.md
+          - Angular Sort: explanations/angular_sort.md
+      - その他:
+          - Binary Search: explanations/binary_search.md
+          - Ternary Search: explanations/ternary_search.md
+          - Coordinate Compression: explanations/compress.md
+          - Mo: explanations/mo.md
+      - ACL（同梱版）:
+          - DSU: explanations/atcoder/dsu.md
+          - Fenwick Tree: explanations/atcoder/fenwicktree.md
+          - Segtree: explanations/atcoder/segtree.md
+          - Lazy Segtree: explanations/atcoder/lazysegtree.md
+          - Max Flow: explanations/atcoder/maxflow.md
+          - Min Cost Flow: explanations/atcoder/mincostflow.md
+          - SCC: explanations/atcoder/scc.md
+          - Two SAT: explanations/atcoder/twosat.md
+          - Math: explanations/atcoder/math.md
+          - Modint: explanations/atcoder/modint.md
+          - Convolution: explanations/atcoder/convolution.md
+          - String: explanations/atcoder/string.md

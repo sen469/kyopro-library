@@ -1,5 +1,7 @@
 # Bipartite Graph
 
+[実装の解説](explanations/bipartite_graph.md)
+
 実装: [lib/kyopro/bipartite_graph.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/bipartite_graph.hpp)
 
 無向グラフが二部グラフか判定し、二部グラフなら各頂点の 2 彩色を取得できます。

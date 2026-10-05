@@ -1,5 +1,7 @@
 # Convex Hull Trick
 
+[実装の解説](explanations/convex_hull_trick.md)
+
 実装: [lib/kyopro/convex_hull_trick.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/convex_hull_trick.hpp)
 
 直線 $y = ax + b$ の集合を管理し、指定した $x$ における最小値または最大値を求めます。

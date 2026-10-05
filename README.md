@@ -4,6 +4,8 @@
 
 [配置・ランテス・提出用展開のガイド](docs/usage.md)
 
+[各ライブラリの実装解説](docs/explanations/index.md)
+
 ## ドキュメントの開発・公開
 
 Python 3.12 以降を使用します。
@@ -89,6 +91,12 @@ python -m pip install --no-index --find-links=wheelhouse-docs -r requirements-do
 実装へのリンクには GitHub 上の `main` ブランチの URL を使います。
 数式には `$...$` または `$$...$$` を使えます。
 
+ライブラリを追加・変更するときは、使用法とあわせて実装解説も更新します。
+自作ライブラリの解説は `docs/explanations/<ヘッダ名>.md`、
+同梱 ACL の解説は `docs/explanations/atcoder/<ヘッダ名>.md` に置き、
+使用法ページと解説ページを相互リンクします。
+解説は `docs/explanations/index.md` と `mkdocs.yml` の「実装の解説」にも登録してください。
+
 初回は GitHub の **Settings > Pages > Build and deployment > Source** を
 **GitHub Actions** に設定してください。`main` への push または
 **Actions > Documentation > Run workflow** で公開されます。
@@ -100,6 +108,7 @@ Pull Request ではビルドとリンク検証だけを実行します。
 - `lib/kyopro/`: 提出用ヘッダを置くディレクトリ
 - `lib/all`: 全ライブラリをまとめて include するヘッダ
 - `docs/`: ドキュメントの Markdown
+- `docs/explanations/`: 基本原理・内部実装・改造時の注意点の解説
 - `test/`: ライブラリの簡易テスト
 
 コンパイル例:
