@@ -119,6 +119,8 @@ vector<R> rerooting_dp(
 
 ## 使用例
 
+- [ABC220-F Destance Sum 2](https://atcoder.jp/contests/abc220/submissions/79823526)
+
 各頂点から最も遠い頂点までの距離を求めます。
 
 ```cpp
