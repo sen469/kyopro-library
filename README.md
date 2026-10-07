@@ -559,8 +559,10 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 木の全方位 DP を $O(n)$ で行います。
 ACL の `segtree` / `lazy_segtree` に近い形式で、`op`, `e`, `f_ve`, `f_ev` をテンプレート引数で渡して使います。
-各頂点を根にしたときの DP 値を求めます。
-辺重みなどは辺 ID から外部配列を参照できます。
+`kyopro::rerooting_dp<R, M, op, e, f_ve, f_ev> g(n)` を作り、`add_edge` で辺を追加します。
+`g.build(root)` は部分木 DP の配列、`g.reroot()` は各頂点を根にしたときの答えを返します。
+どちらも複数回呼べます。外部の重みなどを変更した場合は `build` を呼び直してください。
+`add_edge(u, v, idx, xdi)` で方向別の辺 ID も指定できます。
 
 詳しい使い方は [docs/rerooting_dp.md](docs/rerooting_dp.md) を参照してください。
 
