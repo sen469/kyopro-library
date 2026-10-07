@@ -407,6 +407,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 素数判定、素数列挙、最小素因数、素因数分解、約数列挙ができます。
 `kyopro::sieve<long long>` のように、素因数分解や約数列挙の値の型を指定できます。
 `factorize(x)` は篩の上限を超える値も Miller-Rabin と Pollard Rho で分解します。
+`segmented_sieve(first, last)` で大きな半開区間 `[first, last)` の区間篩も構築できます。
 
 詳しい使い方は [docs/sieve.md](docs/sieve.md) を参照してください。
 

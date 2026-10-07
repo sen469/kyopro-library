@@ -6,6 +6,7 @@
 
 エラトステネスの篩です。
 素数判定、素数列挙、最小素因数、素因数分解、約数列挙ができます。
+大きな整数から始まる短い区間には区間篩も使えます。
 
 ```cpp
 #include "kyopro/sieve.hpp"
@@ -73,6 +74,87 @@ long long cnt = kyopro::prime_count_less(n);
 
 - 初回呼び出し時に前計算 $O(M \log \log M)$
 - 各クエリは高速
+
+## segmented_sieve
+
+```cpp
+kyopro::segmented_sieve<> segment(first, last);
+kyopro::segmented_sieve<unsigned long long> unsigned_segment(first, last);
+```
+
+半開区間 `[first, last)` について区間篩を構築します。
+テンプレート引数 `T` の既定値は `long long` です。
+
+```cpp
+kyopro::segmented_sieve<> segment(1000000000000LL, 1000000000100LL);
+
+if (segment.is_prime(1000000000039LL)) {
+    cout << "prime\n";
+}
+for (long long p : segment.primes()) {
+    cout << p << '\n';
+}
+```
+
+### build
+
+```cpp
+void segment.build(T first, T last);
+```
+
+別の半開区間 `[first, last)` について区間篩を再構築します。
+
+**制約**
+
+- `0 <= first <= last`
+- `last - first` と $\sqrt{last}$ に比例する領域を確保できる
+
+**計算量**
+
+- 時間: $O(\sqrt{last}\log\log\sqrt{last} + (last-first)\log\log last)$
+- 空間: $O(\sqrt{last} + last-first)$
+
+### is_prime
+
+```cpp
+bool segment.is_prime(T x) const;
+```
+
+`x` が素数なら `true` を返します。
+
+**制約**
+
+- `first <= x < last`
+
+**計算量**
+
+- $O(1)$
+
+### primes
+
+```cpp
+const vector<T>& ps = segment.primes();
+```
+
+`[first, last)` に含まれる素数を昇順で返します。
+
+**計算量**
+
+- $O(1)$
+
+### first / last / size
+
+```cpp
+T first = segment.first();
+T last = segment.last();
+size_t size = segment.size();
+```
+
+構築済み区間の両端と、区間に含まれる整数の個数を返します。
+
+**計算量**
+
+- $O(1)$
 
 ## spf
 

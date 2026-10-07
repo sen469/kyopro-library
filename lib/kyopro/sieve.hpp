@@ -5,6 +5,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstdint>
+#include <limits>
 #include <numeric>
 #include <type_traits>
 #include <unordered_map>
@@ -205,6 +206,121 @@ public:
         std::sort(res.begin(), res.end());
         return res;
     }
+};
+
+template <class T = long long>
+class segmented_sieve {
+private:
+    static_assert(std::is_integral<T>::value,
+                  "segmented_sieve<T>: T must be an integral type");
+    static_assert(!std::is_same<typename std::remove_cv<T>::type, bool>::value,
+                  "segmented_sieve<T>: T must not be bool");
+
+    T first_ = 0;
+    T last_ = 0;
+    std::vector<bool> is_prime_;
+    std::vector<T> primes_;
+
+    static bool is_nonnegative(T x) {
+        if constexpr (std::is_signed<T>::value) {
+            return 0 <= x;
+        } else {
+            (void)x;
+            return true;
+        }
+    }
+
+    static uint64_t isqrt(uint64_t x) {
+        uint64_t low = 0;
+        uint64_t high =
+            std::min<uint64_t>(x, std::numeric_limits<uint32_t>::max()) + 1;
+        while (high - low > 1) {
+            uint64_t middle = low + (high - low) / 2;
+            if (middle <= x / middle) {
+                low = middle;
+            } else {
+                high = middle;
+            }
+        }
+        return low;
+    }
+
+public:
+    using value_type = T;
+
+    segmented_sieve() = default;
+
+    segmented_sieve(T first, T last) { build(first, last); }
+
+    void build(T first, T last) {
+        assert(is_nonnegative(first));
+        assert(first <= last);
+
+        uint64_t first_u = (uint64_t)first;
+        uint64_t last_u = (uint64_t)last;
+        uint64_t length = last_u - first_u;
+        assert(length <= std::numeric_limits<std::size_t>::max());
+
+        first_ = first;
+        last_ = last;
+        is_prime_.assign((std::size_t)length, 1);
+        primes_.clear();
+        if (length == 0) return;
+
+        if (first_u == 0) {
+            is_prime_[0] = 0;
+            if (length >= 2) is_prime_[1] = 0;
+        } else if (first_u == 1) {
+            is_prime_[0] = 0;
+        }
+
+        uint64_t maximum = last_u - 1;
+        uint64_t limit = isqrt(maximum);
+        assert(limit < std::numeric_limits<std::size_t>::max());
+        std::vector<bool> base_is_prime((std::size_t)limit + 1, true);
+        base_is_prime[0] = 0;
+        if (limit >= 1) base_is_prime[1] = 0;
+
+        for (uint64_t p = 2; p <= limit; p++) {
+            if (!base_is_prime[(std::size_t)p]) continue;
+
+            if (p <= limit / p) {
+                for (uint64_t multiple = p * p; multiple <= limit;
+                     multiple += p) {
+                    base_is_prime[(std::size_t)multiple] = 0;
+                }
+            }
+
+            uint64_t remainder = first_u % p;
+            uint64_t offset = remainder == 0 ? 0 : p - remainder;
+            if (offset > maximum - first_u) continue;
+            uint64_t start = first_u + offset;
+            start = std::max(start, p * p);
+
+            for (uint64_t multiple = start; multiple <= maximum;) {
+                is_prime_[(std::size_t)(multiple - first_u)] = 0;
+                if (maximum - multiple < p) break;
+                multiple += p;
+            }
+        }
+
+        for (std::size_t i = 0; i < is_prime_.size(); i++) {
+            if (is_prime_[i]) primes_.push_back((T)(first_u + i));
+        }
+    }
+
+    T first() const { return first_; }
+
+    T last() const { return last_; }
+
+    std::size_t size() const { return is_prime_.size(); }
+
+    bool is_prime(T x) const {
+        assert(first_ <= x && x < last_);
+        return is_prime_[(std::size_t)((uint64_t)x - (uint64_t)first_)];
+    }
+
+    const std::vector<T>& primes() const { return primes_; }
 };
 
 template <class T>

@@ -96,5 +96,42 @@ int main() {
     assert(sv.primes() == primes_10);
     assert(sv.factorize(10) == factor_10);
 
+    {
+        kyopro::segmented_sieve<> segment(0, 30);
+        vector<long long> expected = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};
+        assert(segment.first() == 0);
+        assert(segment.last() == 30);
+        assert(segment.size() == 30);
+        assert(segment.primes() == expected);
+        for (long long x = 0; x < 30; x++) {
+            assert(segment.is_prime(x) == sv.is_prime(x));
+        }
+    }
+
+    {
+        kyopro::segmented_sieve<long long> segment(1000000000000LL,
+                                                    1000000000100LL);
+        kyopro::sieve<long long> primality_test;
+        for (long long x = segment.first(); x < segment.last(); x++) {
+            assert(segment.is_prime(x) == primality_test.is_prime(x));
+        }
+        vector<long long> expected = {
+            1000000000039LL, 1000000000061LL, 1000000000063LL,
+            1000000000091LL};
+        assert(segment.primes() == expected);
+    }
+
+    {
+        kyopro::segmented_sieve<unsigned long long> segment(1, 10);
+        vector<unsigned long long> expected = {2, 3, 5, 7};
+        assert(segment.primes() == expected);
+
+        segment.build(10, 10);
+        assert(segment.first() == 10);
+        assert(segment.last() == 10);
+        assert(segment.size() == 0);
+        assert(segment.primes().empty());
+    }
+
     return 0;
 }
