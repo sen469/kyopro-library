@@ -140,6 +140,19 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 
 詳しい使い方は [docs/implicit_treap.md](docs/implicit_treap.md) を参照してください。
 
+## Dynamic Range Kth
+
+```cpp
+#include "kyopro/dynamic_range_kth.hpp"
+```
+
+整数配列の点更新と区間 Kth をオンラインで処理します。
+`set`, `kth_smallest`, `kth_largest`, `range_freq`, `count` が使えます。
+更新先の値の事前登録は不要で、区間は半開区間、順位は 0-indexed です。
+
+詳しい使い方は [docs/dynamic_range_kth.md](docs/dynamic_range_kth.md)、
+実装の解説は [docs/explanations/dynamic_range_kth.md](docs/explanations/dynamic_range_kth.md) を参照してください。
+
 ## Dynamic Segtree
 
 ```cpp

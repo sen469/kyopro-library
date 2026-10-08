@@ -4,7 +4,7 @@
 各ページでは、基本原理、内部データ、処理の流れと不変条件、計算量の根拠、改造時の注意点、改造後の確認例を説明します。
 引数・戻り値・制約などの API 仕様は、対応する使用法ページを参照してください。
 
-対象は `lib/kyopro/` の全43ライブラリと、同梱 ACL の公開12ライブラリです。
+対象は `lib/kyopro/` の全44ライブラリと、同梱 ACL の公開12ライブラリです。
 解説はこのリポジトリの実装に対応しており、同名の一般的なアルゴリズムと実装方法が異なる場合もあります。
 ローカル版にも解説と実装コードが含まれるため、オフラインで参照できます。
 
@@ -29,6 +29,7 @@
 | Balanced Binary Search Tree | [使用法](../balanced_binary_search_tree.md) | [解説](balanced_binary_search_tree.md) |
 | Sparse Table | [使用法](../sparse_table.md) | [解説](sparse_table.md) |
 | Wavelet Matrix | [使用法](../wavelet_matrix.md) | [解説](wavelet_matrix.md) |
+| Dynamic Range Kth | [使用法](../dynamic_range_kth.md) | [解説](dynamic_range_kth.md) |
 | Cumulative Sum | [使用法](../cumulative_sum.md) | [解説](cumulative_sum.md) |
 | Interval Set | [使用法](../interval_set.md) | [解説](interval_set.md) |
 | Interval Heap | [使用法](../interval_heap.md) | [解説](interval_heap.md) |

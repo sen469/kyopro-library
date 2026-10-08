@@ -30,6 +30,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Balanced Binary Search Tree](balanced_binary_search_tree.md) | 順序付き集合 |
 | [Sparse Table](sparse_table.md) | 静的な区間クエリ |
 | [Wavelet Matrix](wavelet_matrix.md) | 区間内の順位・頻度クエリ |
+| [Dynamic Range Kth](dynamic_range_kth.md) | 点更新・オンライン区間 Kth・頻度クエリ |
 | [Cumulative Sum](cumulative_sum.md) | 多次元累積和 |
 | [Interval Set](interval_set.md) | 整数区間の集合管理 |
 | [Interval Heap](interval_heap.md) | 両端優先度付きキュー |

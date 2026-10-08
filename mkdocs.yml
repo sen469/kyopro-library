@@ -82,6 +82,7 @@ nav:
       - Balanced Binary Search Tree: balanced_binary_search_tree.md
       - Sparse Table: sparse_table.md
       - Wavelet Matrix: wavelet_matrix.md
+      - Dynamic Range Kth: dynamic_range_kth.md
       - Cumulative Sum: cumulative_sum.md
       - Interval Set: interval_set.md
       - Interval Heap: interval_heap.md
@@ -148,6 +149,7 @@ nav:
           - Balanced Binary Search Tree: explanations/balanced_binary_search_tree.md
           - Sparse Table: explanations/sparse_table.md
           - Wavelet Matrix: explanations/wavelet_matrix.md
+          - Dynamic Range Kth: explanations/dynamic_range_kth.md
           - Cumulative Sum: explanations/cumulative_sum.md
           - Interval Set: explanations/interval_set.md
           - Interval Heap: explanations/interval_heap.md
