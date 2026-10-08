@@ -602,6 +602,19 @@ ACL の `segtree` / `lazy_segtree` に近い形式で、`op`, `e`, `f_ve`, `f_ev
 
 詳しい使い方は [docs/trie.md](docs/trie.md) を参照してください。
 
+## Dynamic Wavelet Matrix
+
+```cpp
+#include "kyopro/dynamic_wavelet_matrix.hpp"
+```
+
+整数列の挿入・削除・点更新と区間 Kth をオンラインで処理します。
+`insert`, `erase`, `set`, `kth_smallest`, `kth_largest`, `range_freq`, `count` が使えます。
+値の事前登録は不要で、区間は半開区間、順位は 0-indexed です。
+
+詳しい使い方は [docs/dynamic_wavelet_matrix.md](docs/dynamic_wavelet_matrix.md)、
+実装の解説は [docs/explanations/dynamic_wavelet_matrix.md](docs/explanations/dynamic_wavelet_matrix.md) を参照してください。
+
 ## Wavelet Matrix
 
 ```cpp
