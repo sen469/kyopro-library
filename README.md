@@ -187,6 +187,20 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/dynamic_union_find.md](docs/dynamic_union_find.md) を参照してください。
 
+## Heavy Light Decomposition
+
+```cpp
+#include "kyopro/heavy_light_decomposition.hpp"
+```
+
+`kyopro::hld h(n)` に辺を追加し、`build(root)` で木・森を重軽分解します。
+`path(u, v)` は走査方向付きのパス区間列、`subtree(v)` は部分木の半開区間を返します。
+辺モード、LCA、距離、k段祖先、パス上のk番目の頂点にも対応します。
+構築は再帰なしの $O(n)$、パス分解・LCAは $O(\log(n+1))$ です。
+
+詳しい使い方は [docs/heavy_light_decomposition.md](docs/heavy_light_decomposition.md)、
+実装の解説は [docs/explanations/heavy_light_decomposition.md](docs/explanations/heavy_light_decomposition.md) を参照してください。
+
 ## Euler Tour
 
 ```cpp

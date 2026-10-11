@@ -46,6 +46,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Cycle Detection](cycle_detection.md) | 閉路検出 |
 | [Bipartite Graph](bipartite_graph.md) | 二部グラフ判定 |
 | [Euler Tour](euler_tour.md) | 部分木を連続区間に変換 |
+| [Heavy Light Decomposition](heavy_light_decomposition.md) | 重軽分解・パス区間・LCA |
 | [Lowest Common Ancestor](lowest_common_ancestor.md) | 最小共通祖先 |
 | [Tree Diameter](tree_diameter.md) | 木の直径 |
 | [Tree Centroid](tree_centroid.md) | 木の重心をすべて列挙（頂点重み付き対応） |
