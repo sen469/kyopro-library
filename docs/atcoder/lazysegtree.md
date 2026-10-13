@@ -31,7 +31,8 @@
 - $e$ を返す関数 `S e()`
 - 写像の型 `F`
 - $f(x)$ を返す関数 `S mapping(F f, S x)`
-- $f \circ g$ を返す関数 `F composition(F f, F g)`
+- $f \circ g$ を返す関数 `F composition(F f, F g)` 
+    - 写像が非可換のとき、新しい写像が $f$ , 古い方の写像が $g$
 - $id$ を返す関数 `F id()`
 
 を定義する必要があります。
