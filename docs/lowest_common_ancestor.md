@@ -1,6 +1,6 @@
 # Lowest Common Ancestor
 
-[実装の解説](explanations/lowest_common_ancestor.md) / [共通API](graph_tree.md)
+[実装の解説](explanations/lowest_common_ancestor.md)
 
 実装: [lib/kyopro/lowest_common_ancestor.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/lowest_common_ancestor.hpp)
 

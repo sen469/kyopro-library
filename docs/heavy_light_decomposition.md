@@ -1,6 +1,6 @@
 # Heavy Light Decomposition
 
-[実装の解説](explanations/heavy_light_decomposition.md) / [共通API](graph_tree.md)
+[実装の解説](explanations/heavy_light_decomposition.md)
 
 実装: [lib/kyopro/heavy_light_decomposition.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/heavy_light_decomposition.hpp)
 

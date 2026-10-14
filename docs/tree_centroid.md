@@ -1,6 +1,6 @@
 # Tree Centroid
 
-[実装の解説](explanations/tree_centroid.md) / [共通API](graph_tree.md)
+[実装の解説](explanations/tree_centroid.md)
 
 実装: [lib/kyopro/tree_centroid.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/tree_centroid.hpp)
 

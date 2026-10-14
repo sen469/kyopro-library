@@ -1,6 +1,6 @@
 # Minimum Spanning Tree
 
-[実装の解説](explanations/minimum_spanning_tree.md) / [共通API](graph_tree.md)
+[実装の解説](explanations/minimum_spanning_tree.md)
 
 実装: [lib/kyopro/minimum_spanning_tree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/minimum_spanning_tree.hpp)
 

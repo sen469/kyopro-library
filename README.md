@@ -6,8 +6,6 @@
 
 [各ライブラリの実装解説](docs/explanations/index.md)
 
-[グラフ・木の共通API](docs/graph_tree.md)
-
 自作のグラフ・木クラスは、コンストラクタで登録し、`add_edge` で辺を追加して
 `build` で明示的に計算する形式です。配列からのDoubling構築や二部グラフ判定も
 `build` が必要です。同梱ACLのAPIは変更していません。
