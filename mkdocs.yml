@@ -91,6 +91,7 @@ nav:
   - グラフ・木:
       - Dijkstra: dijkstra.md
       - Minimum Spanning Tree: minimum_spanning_tree.md
+      - Directed MST: directed_mst.md
       - Topological Sort: topological_sort.md
       - Cycle Detection: cycle_detection.md
       - Bipartite Graph: bipartite_graph.md
@@ -161,6 +162,7 @@ nav:
       - グラフ・木:
           - Dijkstra: explanations/dijkstra.md
           - Minimum Spanning Tree: explanations/minimum_spanning_tree.md
+          - Directed MST: explanations/directed_mst.md
           - Topological Sort: explanations/topological_sort.md
           - Cycle Detection: explanations/cycle_detection.md
           - Bipartite Graph: explanations/bipartite_graph.md
