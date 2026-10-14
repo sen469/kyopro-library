@@ -1,132 +1,79 @@
 # Tree Centroid
 
-[実装の解説](explanations/tree_centroid.md)
+[実装の解説](explanations/tree_centroid.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/tree_centroid.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/tree_centroid.hpp)
 
-無向木の重心をすべて求めます。
-重心とは、その頂点と接続する辺を取り除いたとき、残る各連結成分の頂点数が元の頂点数の半分以下になる頂点です。
-重みなしの非空の木の重心は1個または2個です。
-頂点重み付きの場合は、頂点数の代わりに非負の頂点重みの合計で判定します。
-辺の重みは扱いません。
-直径の中央にある「木の中心」とは異なります。
-
 ```cpp
 #include "kyopro/tree_centroid.hpp"
 ```
 
-## tree_centroid
+無向木の重心をすべて求めるクラスです。
+重心とは、その頂点を除いた各連結成分の頂点数が、元の頂点数の半分以下になる頂点です。
+非負の頂点重みを渡すと、頂点数の代わりに重みの合計で判定します。
+辺重みは扱いません。直径の中央にある「木の中心」とは異なります。
+
+## コンストラクタ
 
 ```cpp
-vector<int> tree_centroid(const vector<vector<int>>& graph);
+tree_centroid g(int n = 0);
+tree_centroid g(const vector<vector<int>>& graph);
+tree_centroid g(int n, const vector<pair<int, int>>& edges);
 ```
 
-隣接リスト `graph` で表された木の重心を、頂点番号の昇順で返します。
-入力は変更しません。頂点数を $n$ とします。
+辺を保存するだけで重心は計算しません。
+`n >= 0`、端点は `[0,n)` とします。
+無向辺を、辺リストでは1回、隣接リストでは両方向に登録してください。
+頂点数のみなら $O(n)$、それ以外は $O(n+m)$ です。
 
-**戻り値**
-
-- 重心の頂点番号を格納した `vector<int>`
-- $n=0$ の場合は空配列
-- $n=1$ の場合は `{0}`
-
-**制約**
-
-- 頂点数は `int` に収まる
-- `graph` は連結な無向木、または頂点数0の空グラフ
-- 各隣接頂点 `to` は `0 <= to < n`
-- 無向辺は両方向に1回ずつ追加されている
-- 自己ループ・多重辺はない
-
-**計算量**
-
-- 時間 $O(n)$
-- 追加空間 $O(n)$
-- 再帰は使用しません
-
-## 辺リスト版
+## add_edge・size
 
 ```cpp
-vector<int> tree_centroid(int n, const vector<pair<int, int>>& edges);
+void g.add_edge(int u, int v);
+int g.size() const;
 ```
 
-頂点数 `n` と無向辺 `{u, v}` のリストから、重心を頂点番号の昇順で返します。
-各無向辺は1回だけ渡します。戻り値は隣接リスト版と同じです。
+無向辺を追加します。`u,v` は `[0,n)`、`u != v` とします。
+追加はならし $O(1)$、頂点数取得は $O(1)$ です。
 
-**制約**
-
-- `0 <= n`
-- `edges.size() == max(0, n - 1)`
-- 各辺について `0 <= u, v < n`
-- 辺全体で連結な無向木をなす（`n == 0` の場合は空の辺リスト）
-
-**計算量**
-
-- 時間・追加空間ともに $O(n)$
-
-## 頂点重み付き版
+## build
 
 ```cpp
-template <class T>
-vector<int> tree_centroid(const vector<vector<int>>& graph,
-                          const vector<T>& weights);
+vector<int> g.build() const;
 
 template <class T>
-vector<int> tree_centroid(int n, const vector<pair<int, int>>& edges,
-                          const vector<T>& weights);
+vector<int> g.build(const vector<T>& weights) const;
 ```
 
-`weights[v]` を頂点 `v` の重みとします。頂点を除いた後の各連結成分の重みの合計が、
-除く前の全頂点の重みの合計の半分以下になる頂点を、番号の昇順で返します。
-取り除いた頂点自身の重みは残存成分に含めません。入力は変更しません。
-重みを省略する既存のAPIは、全頂点の重みを1とした場合と同じです。
-
-**戻り値**
-
-- 条件を満たす全頂点。空グラフでは空配列、1頂点なら `{0}`
-- 重み0の頂点を許すため、重心が3個以上になることがあります
-- 全頂点の重みが0なら、全頂点が重心です
+重心を頂点番号の昇順で返します。
+重みなし版は全頂点の重みが1の場合と同じです。
+`weights[v]` は頂点vの重みで、除去後の各成分の重みが、除去前の全体重みの半分以下かを判定します。
 
 **制約**
 
-- 木の構造に関する制約は各重みなし版と同じ
-- `weights.size() == n`（隣接リスト版では `n = graph.size()`）
-- `T` は `bool` を除く整数型（例: `int`, `long long`, `unsigned long long`）
-- `weights[v] >= 0`
-- 全頂点の重みの合計が `T` に収まる
+- 計算時のグラフは連結な無向木、または空グラフ
+- 自己ループ・多重辺・閉路は不可
+- 重み付きでは `weights.size() == n`
+- `T` はbool以外の整数型、各重みは非負
+- 全重みの合計が `T` に収まる（自動拡張しない）
 
-負の重み・浮動小数点数は対象外です。合計用の型への自動拡張は行いません。
-合計が `int` に収まらない場合は、`vector<long long>` などを渡してください。
+空グラフは空配列、1頂点は `{0}` を返します。
+重みなしの非空木では重心は1個または2個です。
+重み0を許す場合は3個以上になることがあり、全重み0なら全頂点が重心です。
+同じ木に異なる重みを渡して何度でも再計算できます。
+入力の重みと過去の返り値は変更しません。
 
-**計算量**
-
-- 時間・追加空間ともに $O(n)$（`T` の演算を $O(1)$ とする）
-- 再帰は使用しません
+**計算量**: 時間・追加空間ともに $O(n)$。再帰なし。`T` の演算は定数時間とします。
 
 ## 使用例
-- [ABC348-E Minimize Sum of Distances](https://atcoder.jp/contests/abc348/submissions/79797899)
 
 ```cpp
-#include <iostream>
-#include <utility>
-#include <vector>
-#include "kyopro/tree_centroid.hpp"
-
-int main() {
-    std::vector<std::pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 3}};
-    auto centroids = kyopro::tree_centroid(4, edges);
-    for (int v : centroids) std::cout << v << ' ';
-    std::cout << '\n'; // 1 2
-
-    std::vector<std::vector<int>> graph = {{1}, {0, 2}, {1}};
-    auto c = kyopro::tree_centroid(graph); // {1}
-
-    std::vector<long long> weights = {10, 1, 1};
-    auto weighted = kyopro::tree_centroid(graph, weights); // {0}
-    std::vector<std::pair<int, int>> path = {{0, 1}, {1, 2}};
-    auto weighted_edges = kyopro::tree_centroid(3, path, weights); // {0}
-}
+kyopro::tree_centroid g(3);
+g.add_edge(0, 1);
+g.add_edge(1, 2);
+auto a = g.build(); // {1}
+std::vector<long long> weights = {10, 1, 1};
+auto b = g.build(weights); // {0}
 ```
 
-重心が1個あればよい場合は、非空の木について戻り値の `front()` を使えます。
-森・一般グラフの重心や重心分解を行う関数ではありません。
+型Tは重み配列から推論し、クラスのテンプレート引数には指定しません。

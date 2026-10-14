@@ -1,6 +1,6 @@
 # Rerooting DP
 
-[実装の解説](explanations/rerooting_dp.md)
+[実装の解説](explanations/rerooting_dp.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/rerooting_dp.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/rerooting_dp.hpp)
 
@@ -18,7 +18,7 @@ kyopro::rerooting_dp<R, M, op, e, f_ve, f_ev> g(int n = 0);
 ```
 
 頂点数 `n`、辺数0のグラフを作ります。
-ACL のように型と関数をテンプレート引数で渡します。型の順序は従来どおり `R, M` です。
+ACL のように型と関数をテンプレート引数で渡します。型の順序は `R, M` です。
 
 - `R`: 頂点を根にした DP 値の型
 - `M`: 隣接頂点から受け取る寄与の型

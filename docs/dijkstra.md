@@ -1,29 +1,57 @@
 # Dijkstra
 
-[実装の解説](explanations/dijkstra.md)
+[実装の解説](explanations/dijkstra.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/dijkstra.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/dijkstra.hpp)
-
-非負重みのグラフで、始点から各頂点への最短距離を求めます。
 
 ```cpp
 #include "kyopro/dijkstra.hpp"
 ```
 
-## dijkstra_edge
+非負辺重みの最短経路を求めるクラスです。構築時には探索せず、`build(start)` のたびに計算します。
+
+## コンストラクタ
 
 ```cpp
-template <class T>
-struct dijkstra_edge {
-    int to;
-    T cost;
-};
+dijkstra<T> g(int n = 0, bool directed = true);
+dijkstra<T> g(const vector<vector<dijkstra_edge<T>>>& graph, bool directed = true);
+dijkstra<T> g(int n, const vector<tuple<int, int, T>>& edges, bool directed = true);
 ```
 
-**メンバ変数**
+`dijkstra_edge<T>` は `{int to; T cost;}`、辺リストは `{from,to,cost}` 形式です。
+`directed == false` の場合、辺リストと `add_edge` は両方向へ登録します。
+隣接リストはそのままコピーするため、無向なら既に両方向の辺を含めてください。
+`directed` はその後の `add_edge` の動作にも適用されます。
 
-- `int to`: 行き先の頂点
-- `T cost`: 辺の重み
+**制約**: `n >= 0`、端点は `[0,n)`、重みは非負の有限値。
+`T` は0からの構築、加減算、比較、コピーが可能な数値型です。
+コンストラクタは頂点数のみなら $O(n)$、グラフ・辺リスト版は $O(n+m)$ です。
+
+## add_edge・size
+
+```cpp
+void g.add_edge(int from, int to, T cost);
+int g.size() const;
+```
+
+辺の追加はならし $O(1)$、頂点数取得は $O(1)$ です。
+自己ループ・多重辺を許します。計算後も追加でき、次の `build` に反映されます。
+
+## build
+
+```cpp
+dijkstra_result<T> g.build(int start = 0,
+                         T inf = numeric_limits<T>::max() / 4) const;
+```
+
+毎回、距離配列を初期化してDijkstra法を実行します。
+`0 <= start < n`、`inf > 0` が必要です。
+空グラフでは `start == 0` とし、距離・復元配列が空の結果を返します。
+距離が `inf` 以上の頂点は到達不能扱いになるため、必要な距離より大きい `inf` を指定してください。
+加算前に `cost < inf - distance` を確認し、非負整数での距離加算のオーバーフローを避けます。
+
+**計算量**: 時間 $O(n + m\log(m+1))$、追加空間 $O(n+m)$。
+重みの演算・比較を定数時間とします。返した結果は辺追加・再計算によって変わりません。
 
 ## dijkstra_result
 
@@ -33,158 +61,24 @@ struct dijkstra_result {
     vector<T> dist;
     vector<int> prev;
     T inf;
+    bool reachable(int v) const;
+    vector<int> path(int goal) const;
 };
 ```
 
-**メンバ変数**
-
-- `vector<T> dist`: `dist[v]` は始点から頂点 `v` への最短距離。到達不能なら `inf`
-- `vector<int> prev`: 最短経路木での直前の頂点。始点や到達不能な頂点は `-1`
-- `T inf`: 到達不能を表す値
-
-## reachable
-
-```cpp
-bool res.reachable(int v) const;
-```
-
-頂点 `v` が始点から到達可能か判定します。
-
-**引数**
-
-- `int v`: 調べる頂点
-
-**戻り値**
-
-- `dist[v] != inf` なら `true`
-- そうでなければ `false`
-
-**制約**
-
-- `0 <= v < dist.size()`
-
-**計算量**
-
-- $O(1)$
-
-## path
-
-```cpp
-vector<int> res.path(int goal) const;
-```
-
-始点から `goal` への最短経路の頂点列を復元します。
-
-**引数**
-
-- `int goal`: 終点
-
-**戻り値**
-
-- 到達可能な場合は、始点から `goal` までの頂点列
-- 到達不能な場合は空の `vector<int>`
-
-**制約**
-
-- `0 <= goal < dist.size()`
-
-**計算量**
-
-- $O(L)$
-
-`L` は返すパスの頂点数です。
-
-## dijkstra
-
-```cpp
-template <class T>
-dijkstra_result<T> dijkstra(
-    const vector<vector<dijkstra_edge<T>>>& graph,
-    int start,
-    T inf = numeric_limits<T>::max() / 4
-);
-```
-
-隣接リストで表されたグラフに対して Dijkstra 法を実行します。
-
-**引数**
-
-- `const vector<vector<dijkstra_edge<T>>>& graph`: グラフの隣接リスト
-- `int start`: 始点
-- `T inf`: 到達不能を表す値
-
-**戻り値**
-
-- 最短距離、経路復元用の直前頂点、`inf` を持つ `dijkstra_result<T>`
-
-**制約**
-
-- `0 <= start < graph.size()`
-- 各辺 `e` について `0 <= e.to < graph.size()`
-- 各辺の重みは非負
-- `inf` は取りうる最短距離より大きい
-- `T` は `T(0)`, `operator+`, `operator<`, `operator!=` が使える
-
-**計算量**
-
-- $O((n + m) \log n)$
-
-## 辺リスト版
-
-```cpp
-template <class T>
-dijkstra_result<T> dijkstra(
-    int n,
-    const vector<tuple<int, int, T>>& edges,
-    int start,
-    bool directed = true,
-    T inf = numeric_limits<T>::max() / 4
-);
-```
-
-辺リストからグラフを作って Dijkstra 法を実行します。
-
-**引数**
-
-- `int n`: 頂点数
-- `const vector<tuple<int, int, T>>& edges`: `{from, to, cost}` 形式の辺リスト
-- `int start`: 始点
-- `bool directed`: `true` なら有向グラフ、`false` なら無向グラフ
-- `T inf`: 到達不能を表す値
-
-**戻り値**
-
-- 最短距離、経路復元用の直前頂点、`inf` を持つ `dijkstra_result<T>`
-
-**制約**
-
-- `0 <= n`
-- `0 <= start < n`
-- 各辺 `(from, to, cost)` について `0 <= from, to < n`
-- 各辺の重みは非負
-- `inf` は取りうる最短距離より大きい
-- `T` は `T(0)`, `operator+`, `operator<`, `operator!=` が使える
-
-**計算量**
-
-- $O((n + m) \log n)$
+`dist[v]` は距離、`prev[v]` は最短経路上の直前の頂点です。
+始点・到達不能頂点の `prev` は-1、到達不能頂点の距離は `inf` です。
+`reachable(v)` は $O(1)$。始点からgoalまでの頂点列を返す `path(goal)` は経路長に比例し、
+到達不能なら空配列を返します。頂点引数は `[0,n)` としてください。
 
 ## 使用例
 
 ```cpp
-int n = 4;
-vector<tuple<int, int, long long>> edges = {
-    {0, 1, 2},
-    {0, 2, 5},
-    {1, 2, 1},
-    {2, 3, 4},
-};
-
-auto res = kyopro::dijkstra(n, edges, 0);
-cout << res.dist[3] << '\n'; // 7
-
-for (int v : res.path(3)) {
-    cout << v << ' ';
-}
-cout << '\n'; // 0 1 2 3
+kyopro::dijkstra<long long> g(3);
+g.add_edge(0, 1, 5);
+g.add_edge(1, 2, 2);
+auto first = g.build(0); // dist = {0, 5, 7}
+g.add_edge(0, 2, 1);
+auto second = g.build(0); // dist = {0, 5, 1}
+auto from_one = g.build(1); // dist[2] = 2
 ```

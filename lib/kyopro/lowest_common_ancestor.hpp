@@ -2,6 +2,7 @@
 #define KYOPRO_LOWEST_COMMON_ANCESTOR_HPP
 
 #include <algorithm>
+#include <cassert>
 #include <utility>
 #include <vector>
 
@@ -19,7 +20,7 @@ class lowest_common_ancestor {
 
     void init_lift() {
         log_ = 1;
-        while ((1 << log_) <= std::max(1, n_)) log_++;
+        while ((1LL << log_) <= std::max(1, n_)) log_++;
         parent_.assign(log_, std::vector<int>(n_, -1));
         depth_.assign(n_, 0);
         component_.assign(n_, -1);
@@ -45,12 +46,19 @@ class lowest_common_ancestor {
     }
 
     void add_edge(int u, int v) {
+        assert(0 <= u && u < n_);
+        assert(0 <= v && v < n_);
         graph_[u].push_back(v);
         graph_[v].push_back(u);
         built_ = false;
     }
 
     void build(int root = 0) {
+        if (n_ == 0) {
+            assert(root == 0);
+            build(std::vector<int>{});
+            return;
+        }
         build(std::vector<int>{root});
     }
 
@@ -59,6 +67,7 @@ class lowest_common_ancestor {
 
         int comp = 0;
         for (int root : roots) {
+            assert(0 <= root && root < n_);
             if (component_[root] != -1) continue;
 
             std::vector<int> stack = {root};
@@ -117,6 +126,7 @@ class lowest_common_ancestor {
     }
 
     int kth_ancestor(int v, long long k) const {
+        assert(built_ && 0 <= v && v < n_ && 0 <= k);
         for (int i = 0; i < log_ && v != -1; i++) {
             if ((k >> i) & 1LL) v = parent_[i][v];
         }
@@ -125,7 +135,8 @@ class lowest_common_ancestor {
     }
 
     int lca(int u, int v) const {
-        if (!built_ || component_[u] != component_[v]) return -1;
+        assert(built_ && 0 <= u && u < n_ && 0 <= v && v < n_);
+        if (component_[u] != component_[v]) return -1;
         if (depth_[u] < depth_[v]) std::swap(u, v);
 
         u = kth_ancestor(u, depth_[u] - depth_[v]);
@@ -147,15 +158,18 @@ class lowest_common_ancestor {
     }
 
     int depth(int v) const {
+        assert(built_ && 0 <= v && v < n_);
         return depth_[v];
     }
 
     int parent(int v) const {
+        assert(built_ && 0 <= v && v < n_);
         return parent_[0][v];
     }
 
     bool same_tree(int u, int v) const {
-        return built_ && component_[u] == component_[v];
+        assert(built_ && 0 <= u && u < n_ && 0 <= v && v < n_);
+        return component_[u] == component_[v];
     }
 };
 

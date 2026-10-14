@@ -43,7 +43,7 @@ int main() {
     {
         int n = 4;
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 0}, {2, 3}};
-        auto cycle = kyopro::directed_cycle(n, edges);
+        auto cycle = kyopro::directed_cycle(n, edges).build();
         assert(is_directed_cycle(edges, cycle));
     }
 
@@ -54,28 +54,28 @@ int main() {
             {3},
             {},
         };
-        auto cycle = kyopro::directed_cycle(graph);
+        auto cycle = kyopro::directed_cycle(graph).build();
         assert(cycle.empty());
     }
 
     {
         int n = 4;
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 3}, {3, 1}};
-        auto cycle = kyopro::undirected_cycle(n, edges);
+        auto cycle = kyopro::undirected_cycle(n, edges).build();
         assert(is_undirected_cycle(edges, cycle));
     }
 
     {
         int n = 2;
         vector<pair<int, int>> edges = {{0, 1}, {0, 1}};
-        auto cycle = kyopro::undirected_cycle(n, edges);
+        auto cycle = kyopro::undirected_cycle(n, edges).build();
         assert(is_undirected_cycle(edges, cycle));
     }
 
     {
         int n = 3;
         vector<pair<int, int>> edges = {{1, 1}};
-        auto cycle = kyopro::undirected_cycle(n, edges);
+        auto cycle = kyopro::undirected_cycle(n, edges).build();
         assert(cycle == vector<int>({1}));
     }
 
@@ -85,7 +85,7 @@ int main() {
             {0, 2},
             {0, 1},
         };
-        auto cycle = kyopro::undirected_cycle(graph);
+        auto cycle = kyopro::undirected_cycle(graph).build();
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 0}};
         assert(is_undirected_cycle(edges, cycle));
     }
@@ -93,7 +93,7 @@ int main() {
     {
         int n = 5;
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {3, 4}};
-        auto cycle = kyopro::undirected_cycle(n, edges);
+        auto cycle = kyopro::undirected_cycle(n, edges).build();
         assert(cycle.empty());
     }
 

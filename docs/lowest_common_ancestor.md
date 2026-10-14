@@ -1,11 +1,12 @@
 # Lowest Common Ancestor
 
-[実装の解説](explanations/lowest_common_ancestor.md)
+[実装の解説](explanations/lowest_common_ancestor.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/lowest_common_ancestor.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/lowest_common_ancestor.hpp)
 
 木の 2 頂点の最小共通祖先をダブリングで求めます。
-森にも対応しています。
+森にも対応しています。すべての問い合わせは最後の辺追加後に `build` 済みであることが必要です。
+`build` は根を変えて何度でも実行できます。
 
 ```cpp
 #include "kyopro/lowest_common_ancestor.hpp"
@@ -120,8 +121,8 @@ void lca.build(int root = 0);
 
 **制約**
 
-- `n > 0`
-- `0 <= root < n`
+- 非空グラフでは `0 <= root < n`
+- 空グラフでは `build()` または `build(vector<int>{})` を使う
 - グラフ全体が森である
 
 **計算量**
@@ -193,7 +194,6 @@ int lca.lca(int u, int v) const;
 
 - `u`, `v` が同じ連結成分にある場合は最小共通祖先
 - `u`, `v` が別の連結成分にある場合は `-1`
-- `build` していない場合は `-1`
 
 **制約**
 
@@ -220,7 +220,6 @@ int lca.dist(int u, int v) const;
 
 - `u`, `v` が同じ連結成分にある場合は距離
 - `u`, `v` が別の連結成分にある場合は `-1`
-- `build` していない場合は `-1`
 
 **制約**
 
@@ -296,7 +295,7 @@ bool lca.same_tree(int u, int v) const;
 
 **戻り値**
 
-- `build` 済みで、`u`, `v` が同じ連結成分にある場合は `true`
+- `u`, `v` が同じ連結成分にある場合は `true`
 - そうでなければ `false`
 
 **制約**

@@ -1,6 +1,6 @@
 # Minimum Spanning Tree
 
-[実装の解説](explanations/minimum_spanning_tree.md)
+[実装の解説](explanations/minimum_spanning_tree.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/minimum_spanning_tree.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/minimum_spanning_tree.hpp)
 
@@ -151,13 +151,3 @@ int main() {
 
 非連結の場合も結果は有効です。例えば5頂点に辺 `(0,1,2)` と `(2,3,-1)` だけがある場合、
 コストは1、成分数は3で、`is_connected()` は `false` になります。
-
-## 旧APIからの移行
-
-関数形式はクラス形式に置き換えました。
-従来の辺リストもコンストラクタで渡せます。
-
-```cpp
-kyopro::minimum_spanning_tree<long long> g(n, edges);
-auto result = g.build();
-```

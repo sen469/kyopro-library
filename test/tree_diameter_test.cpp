@@ -17,7 +17,7 @@ int main() {
         add_edge(3, 4, 6);
         add_edge(3, 5, 1);
 
-        auto res = kyopro::tree_diameter(graph);
+        auto res = kyopro::tree_diameter(graph).build();
         assert(res.diameter == 12);
         assert(res.from == 4);
         assert(res.to == 2);
@@ -33,7 +33,7 @@ int main() {
             {3, 4, 3},
         };
 
-        auto res = kyopro::tree_diameter(n, edges);
+        auto res = kyopro::tree_diameter(n, edges).build();
         assert(res.diameter == 15);
         assert(res.from == 4);
         assert(res.to == 2);
@@ -42,7 +42,7 @@ int main() {
 
     {
         vector<vector<kyopro::tree_diameter_edge<int>>> graph(1);
-        auto res = kyopro::tree_diameter(graph);
+        auto res = kyopro::tree_diameter(graph).build();
         assert(res.diameter == 0);
         assert(res.from == 0);
         assert(res.to == 0);
@@ -51,7 +51,7 @@ int main() {
 
     {
         vector<vector<kyopro::tree_diameter_edge<int>>> graph;
-        auto res = kyopro::tree_diameter(graph);
+        auto res = kyopro::tree_diameter(graph).build();
         assert(res.diameter == 0);
         assert(res.from == -1);
         assert(res.to == -1);

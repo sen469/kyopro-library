@@ -12,12 +12,13 @@ class bipartite_graph {
 private:
     int n_;
     std::vector<std::vector<int>> graph_;
-    mutable std::vector<int> colors_;
-    mutable bool checked_;
-    mutable bool bipartite_;
+    std::vector<int> colors_;
+    bool checked_;
+    bool bipartite_;
 
-    void build() const {
-        if (checked_) return;
+public:
+    bool build() {
+        checked_ = false;
 
         colors_.assign(n_, -1);
         bipartite_ = true;
@@ -43,9 +44,9 @@ private:
             }
         }
         checked_ = true;
+        return bipartite_;
     }
 
-public:
     bipartite_graph() : n_(0), checked_(false), bipartite_(true) {}
 
     explicit bipartite_graph(int n) : n_(n), graph_(n), checked_(false), bipartite_(true) {
@@ -79,19 +80,19 @@ public:
     bool empty() const { return n_ == 0; }
 
     bool is_bipartite() const {
-        build();
+        assert(checked_);
         return bipartite_;
     }
 
     int color(int v) const {
         assert(0 <= v && v < n_);
-        build();
+        assert(checked_);
         assert(bipartite_);
         return colors_[v];
     }
 
     const std::vector<int>& colors() const {
-        build();
+        assert(checked_);
         assert(bipartite_);
         return colors_;
     }

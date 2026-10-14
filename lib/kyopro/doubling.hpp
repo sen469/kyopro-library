@@ -39,8 +39,9 @@ public:
         for (int v = 0; v < n_; v++) {
             set_next(v, next[v]);
         }
-        build();
     }
+
+    void add_edge(int v, int to) { set_next(v, to); }
 
     void set_next(int v, int to) {
         assert(0 <= v && v < n_);
@@ -128,8 +129,9 @@ public:
         for (int v = 0; v < n_; v++) {
             set_next(v, next[v], value[v]);
         }
-        build();
     }
+
+    void add_edge(int v, int to, const S& value) { set_next(v, to, value); }
 
     void set_next(int v, int to, const S& value) {
         assert(0 <= v && v < n_);

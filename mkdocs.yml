@@ -89,6 +89,7 @@ nav:
       - Interval Heap: interval_heap.md
       - Binary Trie: binary_trie.md
   - グラフ・木:
+      - 共通API: graph_tree.md
       - Dijkstra: dijkstra.md
       - Minimum Spanning Tree: minimum_spanning_tree.md
       - Directed MST: directed_mst.md

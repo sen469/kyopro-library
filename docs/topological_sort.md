@@ -1,60 +1,58 @@
 # Topological Sort
 
-[実装の解説](explanations/topological_sort.md)
+[実装の解説](explanations/topological_sort.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/topological_sort.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/topological_sort.hpp)
-
-DAG の頂点を、すべての有向辺 `u -> v` について `u` が `v` より前に来るように並べます。
 
 ```cpp
 #include "kyopro/topological_sort.hpp"
 ```
 
-## topological_sort
+有向グラフのトポロジカル順序を求めるクラスです。
+
+## コンストラクタ
 
 ```cpp
-auto order = kyopro::topological_sort(graph);
+topological_sort g(int n = 0);
+topological_sort g(const vector<vector<int>>& graph);
+topological_sort g(int n, const vector<pair<int, int>>& edges);
 ```
 
-`graph[v]` に頂点 `v` から出る辺の行き先を入れた隣接リストを渡します。
-閉路がある場合は空の `vector<int>` を返します。
+隣接リスト・辺リストを保存するだけで、探索は行いません。
+`n >= 0`、端点は `[0,n)` とします。
+頂点数のみなら $O(n)$、それ以外は $O(n+m)$ です。
 
-**計算量**
-
-- $O(n + m)$
-
-## 辺リストから使う
+## add_edge・size
 
 ```cpp
-vector<pair<int, int>> edges = {
-    {0, 2},
-    {1, 2},
-};
-
-auto order = kyopro::topological_sort(n, edges);
+void g.add_edge(int from, int to);
+int g.size() const;
 ```
 
-`edges` は `{from, to}` の形式です。
+有向辺を追加します。自己ループ・多重辺も扱います。
+辺追加はならし $O(1)$、頂点数取得は $O(1)$ です。
 
-**計算量**
+## build
 
-- $O(n + m)$
+```cpp
+vector<int> g.build() const;
+```
+
+入次数を毎回計算し直し、Kahn法で頂点の順序を返します。
+DAGなら全頂点を1回ずつ含み、すべての辺の始点が終点より前になります。
+閉路がある場合は空配列です。空グラフも空配列を返すため、両者の区別には頂点数を使います。
+同時に処理可能な頂点が複数ある場合の順序は辞書順最小とは限りません。
+計算後に辺を追加して再実行でき、以前の返り値は変更されません。
+
+**計算量**: 時間 $O(n+m)$、追加空間 $O(n)$。
 
 ## 使用例
 
 ```cpp
-int n = 4;
-vector<pair<int, int>> edges = {
-    {0, 1},
-    {0, 2},
-    {1, 3},
-    {2, 3},
-};
-
-auto order = kyopro::topological_sort(n, edges);
-if (order.empty() && n > 0) {
-    cout << "cycle\n";
-} else {
-    for (int v : order) cout << v << '\n';
-}
+kyopro::topological_sort g(3);
+g.add_edge(0, 1);
+g.add_edge(1, 2);
+auto order = g.build(); // {0, 1, 2}
+g.add_edge(2, 0);
+auto failed = g.build(); // {}
 ```

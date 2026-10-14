@@ -33,7 +33,7 @@ int main() {
             {4, 5},
         };
 
-        auto order = kyopro::topological_sort(n, edges);
+        auto order = kyopro::topological_sort(n, edges).build();
         assert(is_topological_order(n, edges, order));
     }
 
@@ -46,27 +46,27 @@ int main() {
         };
         vector<pair<int, int>> edges = {{0, 1}, {0, 2}, {1, 3}, {2, 3}};
 
-        auto order = kyopro::topological_sort(graph);
+        auto order = kyopro::topological_sort(graph).build();
         assert(is_topological_order((int)graph.size(), edges, order));
     }
 
     {
         int n = 3;
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 0}};
-        auto order = kyopro::topological_sort(n, edges);
+        auto order = kyopro::topological_sort(n, edges).build();
         assert(order.empty());
     }
 
     {
         vector<vector<int>> graph(0);
-        auto order = kyopro::topological_sort(graph);
+        auto order = kyopro::topological_sort(graph).build();
         assert(order.empty());
     }
 
     {
         int n = 4;
         vector<pair<int, int>> edges;
-        auto order = kyopro::topological_sort(n, edges);
+        auto order = kyopro::topological_sort(n, edges).build();
         assert(is_topological_order(n, edges, order));
     }
 

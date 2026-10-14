@@ -6,6 +6,8 @@
 
 無向グラフが二部グラフか判定し、二部グラフなら各頂点の 2 彩色を取得できます。
 非連結グラフ、自己ループ、多重辺を扱えます。
+コンストラクタでは探索しません。最後の辺追加後に明示的に `build()` を呼んでください。
+[共通API](graph_tree.md)
 
 ```cpp
 #include "kyopro/bipartite_graph.hpp"
@@ -128,6 +130,16 @@ bool graph.empty() const;
 
 - $O(1)$
 
+## build
+
+```cpp
+bool graph.build();
+```
+
+毎回、彩色配列を初期化して二部グラフ判定を行い、判定結果を返します。
+空グラフではtrueです。結果と彩色は内部にも保存され、次の辺追加で無効になります。
+何度でも実行できます。時間・追加空間はそれぞれ $O(n+m)$・$O(n)$ です。
+
 ## is_bipartite
 
 ```cpp
@@ -141,8 +153,7 @@ bool graph.is_bipartite() const;
 
 **計算量**
 
-- 前回の判定後に辺が追加された、または初回の呼び出し: $O(n + m)$
-- それ以外: $O(1)$
+- $O(1)$。最後の辺追加後に `build` 済みであることが必要です。
 
 ## color
 
@@ -161,8 +172,7 @@ int graph.color(int v) const;
 
 **計算量**
 
-- 判定結果が保存されている: $O(1)$
-- それ以外: $O(n + m)$
+- $O(1)$。最後の辺追加後に `build` 済みであることが必要です。
 
 ## colors
 
@@ -179,8 +189,7 @@ const vector<int>& graph.colors() const;
 
 **計算量**
 
-- 判定結果が保存されている: $O(1)$
-- それ以外: $O(n + m)$
+- $O(1)$。最後の辺追加後に `build` 済みであることが必要です。
 
 ## 使用例
 
@@ -194,7 +203,7 @@ vector<pair<int, int>> edges = {
 };
 
 kyopro::bipartite_graph graph(n, edges);
-if (graph.is_bipartite()) {
+if (graph.build()) {
     for (int v = 0; v < n; v++) {
         cout << graph.color(v) << '\n';
     }

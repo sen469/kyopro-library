@@ -41,11 +41,11 @@ void check(int n, const vector<pair<int, int>>& edges, const vector<int>& expect
         graph[v].push_back(u);
     }
     auto before = graph;
-    assert(kyopro::tree_centroid(graph) == expected);
+    assert(kyopro::tree_centroid(graph).build() == expected);
     assert(graph == before);
-    assert(kyopro::tree_centroid(n, edges) == expected);
-    assert(kyopro::tree_centroid(graph, vector<int>(n, 1)) == expected);
-    assert(kyopro::tree_centroid(n, edges, vector<int>(n, 1)) == expected);
+    assert(kyopro::tree_centroid(n, edges).build() == expected);
+    assert(kyopro::tree_centroid(graph).build(vector<int>(n, 1)) == expected);
+    assert(kyopro::tree_centroid(n, edges).build(vector<int>(n, 1)) == expected);
 }
 
 template <class T>
@@ -58,8 +58,8 @@ void check_weighted(int n, const vector<pair<int, int>>& edges,
     }
     auto before_graph = graph;
     auto before_weights = weights;
-    assert(kyopro::tree_centroid(graph, weights) == expected);
-    assert(kyopro::tree_centroid(n, edges, weights) == expected);
+    assert(kyopro::tree_centroid(graph).build(weights) == expected);
+    assert(kyopro::tree_centroid(n, edges).build(weights) == expected);
     assert(graph == before_graph);
     assert(weights == before_weights);
 }

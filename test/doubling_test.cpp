@@ -24,6 +24,7 @@ int main() {
     {
         vector<int> next = {1, 2, 0};
         kyopro::doubling db(next, 100);
+        db.build();
 
         assert(db.size() == 3);
         assert(db.jump(0, 0) == 0);
@@ -53,6 +54,7 @@ int main() {
         vector<int> next = {1, 2, 3, -1};
         vector<long long> weight = {5, 7, 11, 100};
         kyopro::doubling_monoid<long long, add_ll, zero_ll> db(next, weight, 20);
+        db.build();
 
         assert(db.jump(0, 0) == make_pair(0, 0LL));
         assert(db.jump(0, 1) == make_pair(1, 5LL));
@@ -66,6 +68,7 @@ int main() {
         vector<int> next = {1, 2, 0};
         vector<string> value = {"a", "b", "c"};
         kyopro::doubling_monoid<string, concat_string, empty_string> db(next, value, 10);
+        db.build();
 
         assert(db.jump(0, 3) == make_pair(0, string("abc")));
         assert(db.jump(1, 4) == make_pair(2, string("bcab")));

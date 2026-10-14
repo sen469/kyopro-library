@@ -1,6 +1,6 @@
 # Euler Tour
 
-[実装の解説](explanations/euler_tour.md)
+[実装の解説](explanations/euler_tour.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/euler_tour.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/euler_tour.hpp)
 

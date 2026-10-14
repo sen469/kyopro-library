@@ -1,6 +1,6 @@
 # Doubling
 
-[実装の解説](explanations/doubling.md)
+[実装の解説](explanations/doubling.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/doubling.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/doubling.hpp)
 
@@ -58,7 +58,7 @@ explicit doubling(int n, long long max_step = (1LL << 60));
 explicit doubling(const vector<int>& next, long long max_step = (1LL << 60));
 ```
 
-遷移先配列 `next` から構造体を作り、前計算まで行います。
+遷移先配列 `next` を登録します。前計算は行わないため、明示的に `build()` を呼んでください。
 `next[v]` は頂点 `v` から 1 回遷移した先です。
 遷移先がない場合は `-1` にします。
 
@@ -80,9 +80,11 @@ explicit doubling(const vector<int>& next, long long max_step = (1LL << 60));
 
 ```cpp
 void db.set_next(int v, int to);
+void db.add_edge(int v, int to);
 ```
 
 頂点 `v` から 1 回遷移した先を `to` に設定します。
+`add_edge` は `set_next` の別名で、同じ頂点へ複数回呼ぶと上書きします。
 設定後にクエリを使う場合は `build` してください。
 
 **引数**
@@ -105,7 +107,7 @@ void db.set_next(int v, int to);
 void db.build();
 ```
 
-設定済みの遷移からダブリングテーブルを前計算します。
+設定済みの遷移からダブリングテーブルを前計算します。毎回計算し直すため何度でも実行できます。
 
 **計算量**
 
@@ -209,6 +211,7 @@ doubling_monoid(const vector<int>& next, const vector<S>& value, long long max_s
 
 `next[v]` は頂点 `v` から 1 回遷移した先、`value[v]` はその遷移の値です。
 `next[v] == -1` の場合、`value[v]` は使われず `e()` として扱います。
+配列コンストラクタも前計算は行いません。使用前に `build()` が必要です。
 
 **制約**
 
@@ -226,9 +229,11 @@ doubling_monoid(const vector<int>& next, const vector<S>& value, long long max_s
 
 ```cpp
 void db.set_next(int v, int to, const S& value);
+void db.add_edge(int v, int to, const S& value);
 ```
 
 頂点 `v` から 1 回遷移した先と、その遷移の値を設定します。
+`add_edge` は `set_next` の別名で、遷移先と値を上書きします。
 設定後にクエリを使う場合は `build` してください。
 
 **制約**
@@ -246,7 +251,7 @@ void db.set_next(int v, int to, const S& value);
 void db.build();
 ```
 
-設定済みの遷移と値からダブリングテーブルを前計算します。
+設定済みの遷移と値からダブリングテーブルを前計算します。毎回計算し直すため何度でも実行できます。
 
 **計算量**
 
@@ -307,6 +312,7 @@ S db.value(int v, int power) const;
 ```cpp
 vector<int> next = {1, 2, 0};
 kyopro::doubling db(next);
+db.build();
 
 cout << db.jump(0, 5) << '\n'; // 2
 ```
@@ -326,6 +332,7 @@ vector<int> next = {1, 2, -1};
 vector<long long> weight = {10, 20, 0};
 
 kyopro::doubling_monoid<long long, op, e> db(next, weight);
+db.build();
 auto [to, sum] = db.jump(0, 3);
 
 cout << to << ' ' << sum << '\n'; // -1 30

@@ -6,6 +6,12 @@
 
 [各ライブラリの実装解説](docs/explanations/index.md)
 
+[グラフ・木の共通API](docs/graph_tree.md)
+
+自作のグラフ・木クラスは、コンストラクタで登録し、`add_edge` で辺を追加して
+`build` で明示的に計算する形式です。配列からのDoubling構築や二部グラフ判定も
+`build` が必要です。同梱ACLのAPIは変更していません。
+
 ## ドキュメントの開発・公開
 
 Python 3.12 以降を使用します。
@@ -468,6 +474,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 #include "kyopro/bipartite_graph.hpp"
 ```
 
+`add_edge` で辺を登録し、`build()` を明示的に呼びます。
 無向グラフが二部グラフか $O(n + m)$ で判定し、二部グラフなら各頂点の 2 彩色を取得できます。
 非連結グラフ、自己ループ、多重辺を扱えます。
 
@@ -479,6 +486,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 #include "kyopro/cycle_detection.hpp"
 ```
 
+`kyopro::directed_cycle` / `kyopro::undirected_cycle` に `add_edge` で辺を登録し、`build()` で計算します。
 有向グラフと無向グラフのサイクルを $O(n + m)$ で検出します。
 見つかったサイクルの頂点列を返し、サイクルがない場合は空の `vector<int>` を返します。
 辺リスト版の無向グラフでは自己ループと多重辺も検出できます。
@@ -522,6 +530,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 #include "kyopro/dijkstra.hpp"
 ```
 
+`kyopro::dijkstra<T> g(n)` に `add_edge(from, to, cost)` で辺を登録し、`g.build(start)` で計算します。
 非負重みのグラフで、始点から各頂点への最短距離を $O((n + m) \log n)$ で求めます。
 隣接リストまたは `{from, to, cost}` の辺リストから使えます。
 到達判定と最短経路復元もできます。
@@ -534,6 +543,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 #include "kyopro/doubling.hpp"
 ```
 
+コンストラクタは遷移の登録のみです。`add_edge`（`set_next` と同義）で設定し、`build()` 後に問い合わせます。
 関数グラフ上で同じ遷移を何回も適用した結果を $O(\log k)$ で求めます。
 遷移先がない場合は `-1` を使えます。
 辺の値を畳み込みながら移動する `doubling_monoid` もあります。
@@ -579,6 +589,7 @@ $2^{61} - 1$ mod の Rolling Hash です。
 #include "kyopro/topological_sort.hpp"
 ```
 
+`kyopro::topological_sort g(n)` に `add_edge(from, to)` で辺を登録し、`g.build()` で計算します。
 DAG のトポロジカル順序を $O(n + m)$ で求めます。
 隣接リストまたは `{from, to}` の辺リストから使えます。
 閉路がある場合は空の `vector<int>` を返します。
@@ -592,8 +603,8 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 ```
 
 無向木の重心をすべて、頂点番号の昇順で返します。
-`kyopro::tree_centroid(graph)` または `kyopro::tree_centroid(n, edges)` で使えます。
-最後の引数に非負の整数の頂点重み配列 `weights` を渡すと、頂点数ではなく重みの合計で判定します。
+`kyopro::tree_centroid g(n)` に `add_edge(u, v)` で辺を登録し、`g.build()` で重心を求めます。
+`g.build(weights)` に非負整数の頂点重み配列を渡すと、重みの合計で判定します。
 時間・追加空間ともに $O(n)$ で、再帰は使用しません。
 
 詳しい使い方は [docs/tree_centroid.md](docs/tree_centroid.md)、
@@ -605,6 +616,7 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 #include "kyopro/tree_diameter.hpp"
 ```
 
+`kyopro::tree_diameter<T> g(n)` に `add_edge(u, v, cost)` で辺を登録し、`g.build()` で計算します。
 重み付き木の直径を $O(n)$ で求めます。
 直径の長さ、両端の頂点、両端を結ぶパスを返します。
 

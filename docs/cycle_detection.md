@@ -1,103 +1,70 @@
 # Cycle Detection
 
-[実装の解説](explanations/cycle_detection.md)
+[実装の解説](explanations/cycle_detection.md) / [共通API](graph_tree.md)
 
 実装: [lib/kyopro/cycle_detection.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/cycle_detection.hpp)
-
-グラフに含まれるサイクルを 1 つ見つけます。
-サイクルがない場合は空の `vector<int>` を返します。
 
 ```cpp
 #include "kyopro/cycle_detection.hpp"
 ```
 
-## directed_cycle
+有向・無向グラフから閉路を1つ求めるクラスです。探索は明示的なスタックで行います。
+
+## コンストラクタ
 
 ```cpp
-auto cycle = kyopro::directed_cycle(graph);
+directed_cycle g(int n = 0);
+directed_cycle g(const vector<vector<int>>& graph);
+directed_cycle g(int n, const vector<pair<int, int>>& edges);
+
+undirected_cycle g(int n = 0);
+undirected_cycle g(const vector<vector<int>>& graph);
+undirected_cycle g(int n, const vector<pair<int, int>>& edges);
 ```
 
-有向グラフのサイクルを検出します。
-`graph[v]` に頂点 `v` から出る辺の行き先を入れた隣接リストを渡します。
+`directed_cycle` は `cycle_detection<true>`、
+`undirected_cycle` は `cycle_detection<false>` の別名です。
+構築時には登録だけを行います。`n >= 0`、端点は `[0,n)` とします。
+コンストラクタは頂点数のみなら $O(n)$、それ以外は $O(n+m)$ です。
 
-返り値はサイクルに含まれる頂点列です。
-`cycle[i] -> cycle[(i + 1) % cycle.size()]` がすべて辺になります。
+無向の辺リストは各辺を1回、隣接リストは両方向に同じ本数ずつ渡してください。
+隣接リストからは `u < v` の側を登録し、逆向きは自動生成します。
+自己ループは現れるごとに登録します。自己ループを両方向相当の2回渡しても検出結果に影響しません。
 
-**計算量**
-
-- $O(n + m)$
-
-## directed_cycle を辺リストから使う
+## add_edge・size
 
 ```cpp
-vector<pair<int, int>> edges = {
-    {0, 1},
-    {1, 2},
-    {2, 0},
-};
-
-auto cycle = kyopro::directed_cycle(n, edges);
+int g.add_edge(int u, int v);
+int g.size() const;
 ```
 
-`edges` は `{from, to}` の形式です。
+辺を追加し、0始まりの追加順番号を返します。
+有向版はuからv、無向版は両方向へ登録します。
+自己ループ・多重辺を許します。追加はならし $O(1)$、頂点数取得は $O(1)$ です。
 
-**計算量**
-
-- $O(n + m)$
-
-## undirected_cycle
+## build
 
 ```cpp
-auto cycle = kyopro::undirected_cycle(graph);
+vector<int> g.build() const;
 ```
 
-無向グラフのサイクルを検出します。
-`graph[v]` に頂点 `v` と隣接する頂点を入れた隣接リストを渡します。
+閉路の頂点列を返します。末尾と先頭の間にも辺があり、先頭頂点は末尾に重複させません。
+閉路がなければ空配列です。自己ループは1頂点、多重辺による無向閉路は2頂点で返します。
+無向版は隣接リスト・辺リスト・逐次追加のいずれも多重辺に対応します。
+探索順に応じた1つの閉路を返します。列の開始位置は保証しません。
 
-返り値はサイクルに含まれる頂点列です。
-`cycle[i]` と `cycle[(i + 1) % cycle.size()]` がすべて辺になります。
-
-**計算量**
-
-- $O(n + m)$
-
-## undirected_cycle を辺リストから使う
-
-```cpp
-vector<pair<int, int>> edges = {
-    {0, 1},
-    {1, 2},
-    {2, 0},
-};
-
-auto cycle = kyopro::undirected_cycle(n, edges);
-```
-
-`edges` は `{u, v}` の形式です。
-辺リスト版は自己ループと多重辺も検出できます。
-
-**計算量**
-
-- $O(n + m)$
-
-[Cycle Detection (Directed)](https://judge.yosupo.jp/problem/cycle_detection)  
-[Cycle Detection (Undirected)](https://judge.yosupo.jp/problem/cycle_undetection)
+何度でも再計算でき、計算後に辺を追加しても以前の返り値は変わりません。
+**計算量**: 時間 $O(n+m)$、追加空間 $O(n)$。再帰は使用しません。
 
 ## 使用例
 
 ```cpp
-int n = 3;
-vector<pair<int, int>> edges = {
-    {0, 1},
-    {1, 2},
-    {2, 0},
-};
-
-auto cycle = kyopro::directed_cycle(n, edges);
-if (cycle.empty()) {
-    cout << "acyclic\n";
-} else {
-    for (int v : cycle) cout << v << ' ';
-    cout << '\n';
-}
+kyopro::directed_cycle g(3);
+g.add_edge(0, 1);
+g.add_edge(1, 2);
+auto before = g.build(); // {}
+g.add_edge(2, 0);
+auto after = g.build(); // {0, 1, 2}
 ```
+
+無向版も同様です。

@@ -1,51 +1,69 @@
 #ifndef KYOPRO_TOPOLOGICAL_SORT_HPP
 #define KYOPRO_TOPOLOGICAL_SORT_HPP
 
+#include <cassert>
 #include <queue>
 #include <utility>
 #include <vector>
 
 namespace kyopro {
 
-template <class Graph>
-std::vector<int> topological_sort(const Graph& graph) {
-    int n = (int)graph.size();
-    std::vector<int> indegree(n);
-    for (int v = 0; v < n; v++) {
-        for (int to : graph[v]) {
-            indegree[to]++;
+class topological_sort {
+    std::vector<std::vector<int>> graph_;
+
+public:
+    explicit topological_sort(int n = 0) {
+        assert(0 <= n);
+        graph_.resize(n);
+    }
+    explicit topological_sort(const std::vector<std::vector<int>>& graph) : graph_(graph) {
+        for (const auto& adj : graph_) for (int to : adj) {
+            assert(0 <= to && to < size());
+            (void)to;
         }
     }
-
-    std::queue<int> que;
-    for (int v = 0; v < n; v++) {
-        if (indegree[v] == 0) que.push(v);
+    topological_sort(int n, const std::vector<std::pair<int, int>>& edges) : topological_sort(n) {
+        for (auto edge : edges) add_edge(edge.first, edge.second);
     }
+    void add_edge(int from, int to) {
+        assert(0 <= from && from < size());
+        assert(0 <= to && to < size());
+        graph_[from].push_back(to);
+    }
+    int size() const { return (int)graph_.size(); }
 
-    std::vector<int> order;
-    order.reserve(n);
-    while (!que.empty()) {
-        int v = que.front();
-        que.pop();
-        order.push_back(v);
-
-        for (int to : graph[v]) {
-            indegree[to]--;
-            if (indegree[to] == 0) que.push(to);
+    std::vector<int> build() const {
+        const auto& graph = graph_;
+        int n = size();
+        std::vector<int> indegree(n);
+        for (int v = 0; v < n; v++) {
+            for (int to : graph[v]) {
+                indegree[to]++;
+            }
         }
-    }
 
-    if ((int)order.size() != n) return {};
-    return order;
-}
+        std::queue<int> que;
+        for (int v = 0; v < n; v++) {
+            if (indegree[v] == 0) que.push(v);
+        }
 
-inline std::vector<int> topological_sort(int n, const std::vector<std::pair<int, int>>& edges) {
-    std::vector<std::vector<int>> graph(n);
-    for (auto [from, to] : edges) {
-        graph[from].push_back(to);
+        std::vector<int> order;
+        order.reserve(n);
+        while (!que.empty()) {
+            int v = que.front();
+            que.pop();
+            order.push_back(v);
+
+            for (int to : graph[v]) {
+                indegree[to]--;
+                if (indegree[to] == 0) que.push(to);
+            }
+        }
+
+        if ((int)order.size() != n) return {};
+        return order;
     }
-    return topological_sort(graph);
-}
+};
 
 }  // namespace kyopro
 

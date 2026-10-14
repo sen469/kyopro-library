@@ -17,6 +17,7 @@ int main() {
     {
         kyopro::bipartite_graph graph;
         assert(graph.empty());
+        graph.build();
         assert(graph.is_bipartite());
         assert(graph.colors().empty());
     }
@@ -32,6 +33,7 @@ int main() {
         };
         kyopro::bipartite_graph graph(n, edges);
         assert(graph.size() == n);
+        graph.build();
         check_coloring(graph, edges);
     }
 
@@ -43,6 +45,7 @@ int main() {
             {0, 2},
         };
         kyopro::bipartite_graph bg(graph);
+        bg.build();
         assert(bg.is_bipartite());
         for (int v = 0; v < (int)graph.size(); v++) {
             for (int to : graph[v]) assert(bg.color(v) != bg.color(to));
@@ -52,27 +55,35 @@ int main() {
     {
         vector<pair<int, int>> edges = {{0, 1}, {1, 2}, {2, 0}};
         kyopro::bipartite_graph graph(3, edges);
+        graph.build();
         assert(!graph.is_bipartite());
     }
 
     {
         kyopro::bipartite_graph graph(2);
         graph.add_edge(0, 1);
+        graph.build();
         assert(graph.is_bipartite());
         graph.add_edge(0, 1);
+        graph.build();
         assert(graph.is_bipartite());
         graph.add_edge(0, 0);
+        graph.build();
         assert(!graph.is_bipartite());
     }
 
     {
         kyopro::bipartite_graph graph(3);
+        graph.build();
         assert(graph.is_bipartite());
         graph.add_edge(0, 1);
+        graph.build();
         assert(graph.is_bipartite());
         graph.add_edge(1, 2);
+        graph.build();
         assert(graph.is_bipartite());
         graph.add_edge(2, 0);
+        graph.build();
         assert(!graph.is_bipartite());
     }
 

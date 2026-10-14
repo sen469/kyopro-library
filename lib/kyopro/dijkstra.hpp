@@ -2,6 +2,7 @@
 #define KYOPRO_DIJKSTRA_HPP
 
 #include <algorithm>
+#include <cassert>
 #include <functional>
 #include <limits>
 #include <queue>
@@ -40,44 +41,72 @@ struct dijkstra_result {
 };
 
 template <class T>
-dijkstra_result<T> dijkstra(const std::vector<std::vector<dijkstra_edge<T>>>& graph, int start,
-                            T inf = std::numeric_limits<T>::max() / 4) {
-    int n = (int)graph.size();
-    std::vector<T> dist(n, inf);
-    std::vector<int> prev(n, -1);
-    std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>, std::greater<std::pair<T, int>>> que;
+class dijkstra {
+    std::vector<std::vector<dijkstra_edge<T>>> graph_;
+    bool directed_;
 
-    dist[start] = 0;
-    que.emplace(0, start);
+public:
+    explicit dijkstra(int n = 0, bool directed = true) : directed_(directed) {
+        assert(0 <= n);
+        graph_.resize(n);
+    }
 
-    while (!que.empty()) {
-        auto [d, v] = que.top();
-        que.pop();
-        if (dist[v] != d) continue;
-
-        for (auto e : graph[v]) {
-            T nd = d + e.cost;
-            if (nd < dist[e.to]) {
-                dist[e.to] = nd;
-                prev[e.to] = v;
-                que.emplace(nd, e.to);
-            }
+    explicit dijkstra(const std::vector<std::vector<dijkstra_edge<T>>>& graph, bool directed = true)
+        : graph_(graph), directed_(directed) {
+        for (const auto& adj : graph_) for (const auto& edge : adj) {
+            assert(0 <= edge.to && edge.to < size());
+            assert(!(edge.cost < T(0)));
+            (void)edge;
         }
     }
 
-    return {dist, prev, inf};
-}
-
-template <class T>
-dijkstra_result<T> dijkstra(int n, const std::vector<std::tuple<int, int, T>>& edges, int start, bool directed = true,
-                            T inf = std::numeric_limits<T>::max() / 4) {
-    std::vector<std::vector<dijkstra_edge<T>>> graph(n);
-    for (auto [from, to, cost] : edges) {
-        graph[from].push_back({to, cost});
-        if (!directed) graph[to].push_back({from, cost});
+    dijkstra(int n, const std::vector<std::tuple<int, int, T>>& edges, bool directed = true)
+        : dijkstra(n, directed) {
+        for (const auto& edge : edges) add_edge(std::get<0>(edge), std::get<1>(edge), std::get<2>(edge));
     }
-    return dijkstra(graph, start, inf);
-}
+
+    void add_edge(int from, int to, T cost) {
+        assert(0 <= from && from < size());
+        assert(0 <= to && to < size());
+        assert(!(cost < T(0)));
+        graph_[from].push_back({to, cost});
+        if (!directed_) graph_[to].push_back({from, cost});
+    }
+
+    int size() const { return (int)graph_.size(); }
+
+    dijkstra_result<T> build(int start = 0, T inf = std::numeric_limits<T>::max() / 4) const {
+        const auto& graph = graph_;
+        int n = size();
+        assert(n == 0 ? start == 0 : (0 <= start && start < n));
+        assert(T(0) < inf);
+        if (n == 0) return {{}, {}, inf};
+        std::vector<T> dist(n, inf);
+        std::vector<int> prev(n, -1);
+        std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>, std::greater<std::pair<T, int>>> que;
+
+        dist[start] = 0;
+        que.emplace(0, start);
+
+        while (!que.empty()) {
+            auto [d, v] = que.top();
+            que.pop();
+            if (dist[v] != d) continue;
+
+            for (auto e : graph[v]) {
+                if (!(e.cost < inf - d)) continue;
+                T nd = d + e.cost;
+                if (nd < dist[e.to]) {
+                    dist[e.to] = nd;
+                    prev[e.to] = v;
+                    que.emplace(nd, e.to);
+                }
+            }
+        }
+
+        return {dist, prev, inf};
+    }
+};
 
 }  // namespace kyopro
 
