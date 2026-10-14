@@ -26,22 +26,75 @@ struct directed_mst_result {
 
 template <class T>
 class directed_mst {
-    struct work_edge {
-        int from, to;
-        T cost;
-        int original;
-        int previous;
+    struct heap_node {
+        T cost, lazy;
+        int left, right, rank, id;
     };
-    struct level {
-        std::vector<work_edge> edges;
-        std::vector<int> incoming;
+
+    struct incoming_heap {
+        std::vector<heap_node> nodes;
+        std::vector<int> path;
+
+        explicit incoming_heap(int m) {
+            nodes.reserve((std::size_t)m + 1);
+            nodes.push_back({T(0), T(0), 0, 0, 0, -1});
+        }
+
+        int make(T cost, int id) {
+            int index = (int)nodes.size();
+            nodes.push_back({cost, T(0), 0, 0, 1, id});
+            return index;
+        }
+
+        void subtract(int v, T value) {
+            if (v == 0) return;
+            nodes[v].cost = nodes[v].cost - value;
+            nodes[v].lazy = nodes[v].lazy + value;
+        }
+
+        void push(int v) {
+            subtract(nodes[v].left, nodes[v].lazy);
+            subtract(nodes[v].right, nodes[v].lazy);
+            nodes[v].lazy = T(0);
+        }
+
+        int meld(int a, int b) {
+            path.clear();
+            while (a != 0 && b != 0) {
+                if (nodes[b].cost < nodes[a].cost ||
+                    (!(nodes[a].cost < nodes[b].cost) && nodes[b].id < nodes[a].id)) {
+                    std::swap(a, b);
+                }
+                push(a);
+                path.push_back(a);
+                a = nodes[a].right;
+            }
+            int result = a == 0 ? b : a;
+            for (int i = (int)path.size() - 1; i >= 0; i--) {
+                int v = path[i];
+                nodes[v].right = result;
+                if (nodes[nodes[v].left].rank < nodes[nodes[v].right].rank) {
+                    std::swap(nodes[v].left, nodes[v].right);
+                }
+                nodes[v].rank = nodes[nodes[v].right].rank + 1;
+                result = v;
+            }
+            return result;
+        }
+
+        int pop(int v) {
+            push(v);
+            return meld(nodes[v].left, nodes[v].right);
+        }
     };
 
     int n_;
     std::vector<std::tuple<int, int, T>> edges_;
 
 public:
-    explicit directed_mst(int n = 0) : n_(n) { assert(0 <= n); }
+    explicit directed_mst(int n = 0) : n_(n) {
+        assert(0 <= n && n <= std::numeric_limits<int>::max() / 2);
+    }
 
     directed_mst(int n, const std::vector<std::tuple<int, int, T>>& edges)
         : directed_mst(n) {
@@ -72,101 +125,112 @@ public:
         assert(n_ == 0 ? root == 0 : (0 <= root && root < n_));
         if (n_ == 0) return {false, T(0), {}, {}};
 
-        std::vector<std::vector<int>> graph(n_);
-        for (const auto& edge : edges_) graph[std::get<0>(edge)].push_back(std::get<1>(edge));
-        std::vector<char> seen(n_, false);
-        std::vector<int> order = {root};
-        seen[root] = true;
-        for (int i = 0; i < (int)order.size(); i++) {
-            for (int to : graph[order[i]]) {
-                if (seen[to]) continue;
-                seen[to] = true;
-                order.push_back(to);
+        int capacity = 2 * n_;
+        incoming_heap heap(edge_count());
+        std::vector<int> heaps(capacity, 0), uf(capacity), visited(capacity, -1);
+        std::vector<int> chosen(capacity, -1), tree_parent(capacity, -1);
+        std::vector<int> leaf_count(capacity, 1);
+        std::vector<std::vector<int>> children(capacity);
+        for (int v = 0; v < capacity; v++) uf[v] = v;
+        auto leader = [&](int v) {
+            int r = v;
+            while (uf[r] != r) r = uf[r];
+            while (uf[v] != v) {
+                int next = uf[v];
+                uf[v] = r;
+                v = next;
             }
-        }
-        if ((int)order.size() != n_) return {false, T(0), {}, {}};
-
-        std::vector<work_edge> current;
-        current.reserve(edges_.size());
+            return r;
+        };
         for (int id = 0; id < edge_count(); id++) {
             int u = std::get<0>(edges_[id]), v = std::get<1>(edges_[id]);
-            if (u != v && v != root) current.push_back({u, v, std::get<2>(edges_[id]), id, -1});
+            if (u == v || v == root) continue;
+            heaps[v] = heap.meld(heaps[v], heap.make(std::get<2>(edges_[id]), id));
         }
-        std::vector<level> history;
-        int n = n_, r = root;
-        while (true) {
-            std::vector<int> incoming(n, -1);
-            for (int i = 0; i < (int)current.size(); i++) {
-                const auto& edge = current[i];
-                int old = incoming[edge.to];
-                if (old == -1 || edge.cost < current[old].cost) incoming[edge.to] = i;
-            }
-            for (int v = 0; v < n; v++) {
-                if (v != r && incoming[v] == -1) return {false, T(0), {}, {}};
-            }
 
-            // Follow the chosen parent edges; each vertex is visited once per level.
-            std::vector<int> visited(n, -1), component(n, -1);
-            int cycles = 0;
-            for (int start = 0; start < n; start++) {
-                int v = start;
-                while (v != r && visited[v] == -1) {
-                    visited[v] = start;
-                    v = current[incoming[v]].from;
+        int count = n_;
+        visited[root] = -2;
+        for (int start = 0; start < n_; start++) {
+            int v = leader(start);
+            while (visited[v] == -1) {
+                visited[v] = start;
+                // Edges internal to a contracted component cannot be incoming edges.
+                while (heaps[v] != 0) {
+                    int id = heap.nodes[heaps[v]].id;
+                    if (leader(std::get<0>(edges_[id])) != v) break;
+                    heaps[v] = heap.pop(heaps[v]);
                 }
-                if (v == r || visited[v] != start) continue;
-                int u = v;
+                if (heaps[v] == 0) return {false, T(0), {}, {}};
+                int id = heap.nodes[heaps[v]].id;
+                T cost = heap.nodes[heaps[v]].cost;
+                chosen[v] = id;
+                heaps[v] = heap.pop(heaps[v]);
+                heap.subtract(heaps[v], cost);
+                int from = leader(std::get<0>(edges_[id]));
+                if (visited[from] != start) {
+                    v = from;
+                    continue;
+                }
+
+                // Record all cycle members before changing their DSU representatives.
+                int cycle = count++;
+                leaf_count[cycle] = 0;
+                int u = from;
                 do {
-                    component[u] = cycles;
-                    u = current[incoming[u]].from;
-                } while (u != v);
-                cycles++;
+                    children[cycle].push_back(u);
+                    leaf_count[cycle] += leaf_count[u];
+                    heaps[cycle] = heap.meld(heaps[cycle], heaps[u]);
+                    u = leader(std::get<0>(edges_[chosen[u]]));
+                } while (u != from);
+                for (int child : children[cycle]) {
+                    uf[child] = cycle;
+                    tree_parent[child] = cycle;
+                }
+                v = cycle;
             }
-            if (cycles == 0) {
-                history.push_back({std::move(current), std::move(incoming)});
-                break;
-            }
-            int next_n = cycles;
-            for (int v = 0; v < n; v++) {
-                if (component[v] == -1) component[v] = next_n++;
-            }
-            std::vector<work_edge> next;
-            next.reserve(current.size());
-            for (int i = 0; i < (int)current.size(); i++) {
-                const auto& edge = current[i];
-                int u = component[edge.from], v = component[edge.to];
-                if (u == v) continue;
-                T cost = edge.cost - current[incoming[edge.to]].cost;
-                next.push_back({u, v, cost, edge.original, i});
-            }
-            history.push_back({std::move(current), std::move(incoming)});
-            current = std::move(next);
-            r = component[r];
-            n = next_n;
         }
 
-        std::vector<int> chosen = history.back().incoming;
-        for (int k = (int)history.size() - 1; k > 0; k--) {
-            const auto& previous = history[k - 1];
-            std::vector<int> expanded = previous.incoming;
-            for (int id : chosen) {
-                if (id == -1) continue;
-                int old = history[k].edges[id].previous;
-                // The entering edge replaces the chosen incoming edge at its target.
-                expanded[previous.edges[old].to] = old;
-            }
-            chosen = std::move(expanded);
+        // Number leaves of the contraction forest to locate the target child in O(1).
+        std::vector<int> begin(count), traversal, stack;
+        traversal.reserve(count);
+        for (int v = count - 1; v >= 0; v--) {
+            if (tree_parent[v] == -1) stack.push_back(v);
         }
+        int position = 0;
+        while (!stack.empty()) {
+            int v = stack.back();
+            stack.pop_back();
+            begin[v] = position;
+            traversal.push_back(v);
+            if (v < n_) {
+                position++;
+            } else {
+                for (auto it = children[v].rbegin(); it != children[v].rend(); ++it) stack.push_back(*it);
+            }
+        }
+
         directed_mst_result<T> result{true, T(0), {}, std::vector<int>(n_, -1)};
         result.edge_ids.reserve(n_ - 1);
-        for (int id : chosen) {
-            if (id != -1) result.edge_ids.push_back(history[0].edges[id].original);
+        for (int v : traversal) {
+            int id = chosen[v];
+            if (v < n_) {
+                if (id != -1) {
+                    result.edge_ids.push_back(id);
+                    result.parents[v] = std::get<0>(edges_[id]);
+                }
+            } else {
+                assert(id != -1);
+                int target = begin[std::get<1>(edges_[id])];
+                for (int child : children[v]) {
+                    if (begin[child] <= target && target < begin[child] + leaf_count[child]) {
+                        chosen[child] = id;
+                        break;
+                    }
+                }
+            }
         }
         std::sort(result.edge_ids.begin(), result.edge_ids.end());
-        for (int id : result.edge_ids) {
-            result.cost = result.cost + std::get<2>(edges_[id]);
-            result.parents[std::get<1>(edges_[id])] = std::get<0>(edges_[id]);
-        }
+        for (int id : result.edge_ids) result.cost = result.cost + std::get<2>(edges_[id]);
         return result;
     }
 };

@@ -496,7 +496,8 @@ $2^{61} - 1$ mod の Rolling Hash です。
 構築可否 `exists`・合計コスト `cost`・採用辺ID `edge_ids` を返します。
 返り値の `parent(v)` または `parents[v]` で親を取得できます（根は `-1`、成功時のみ）。
 負の重み・多重辺に対応し、根を変えた再計算もできます。
-縮約履歴を保持するChu–Liu/Edmonds法の基本版で、最悪時は時間・追加空間ともに $O(n(n+m))$ です。
+遅延減算付きヒープと縮約木を使うChu–Liu/Edmonds法で、
+時間 $O((n+m)\log(n+m+1))$、追加空間 $O(n+m)$ です。
 
 詳しい使い方は [docs/directed_mst.md](docs/directed_mst.md)、
 実装の解説は [docs/explanations/directed_mst.md](docs/explanations/directed_mst.md) を参照してください。

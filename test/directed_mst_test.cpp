@@ -115,6 +115,9 @@ int main() {
     verify(5, {{1, 2, 0}, {2, 1, 0}, {3, 4, 0}, {4, 3, 0},
                {0, 1, 5}, {0, 3, 7}, {2, 3, 1}});
     verify(3, {{0, 0, -100}, {0, 1, -3}, {0, 1, -3}, {1, 2, -2}, {0, 2, 4}});
+    verify(4, {{0, 1, 10}, {0, 2, 10}, {0, 3, 3}, {3, 2, 4}});
+    verify(7, {{3, 1, 10}, {1, 2, 1}, {2, 0, 1}, {0, 1, 1},
+               {2, 6, 10}, {6, 4, 1}, {4, 5, 1}, {5, 6, 1}});
     {
         kyopro::directed_mst<long long> graph(3);
         graph.add_edge(0, 1, 5);
@@ -165,5 +168,23 @@ int main() {
         assert(result.exists && result.cost == n - 1);
         assert((int)result.edge_ids.size() == n - 1);
         assert(!graph.build(n - 1).exists);
+    }
+    {
+        // Nested contractions: the former per-level edge copies need quadratic memory.
+        int n = 100001;
+        kyopro::directed_mst<long long> graph(n);
+        graph.add_edge(1, 2, 0);
+        graph.add_edge(2, 1, 0);
+        for (int v = 3; v < n; v++) {
+            graph.add_edge(v, 1, v - 2);
+            graph.add_edge(1, v, 0);
+        }
+        graph.add_edge(0, 1, n);
+        auto result = graph.build(0);
+        assert(graph.edge_count() == 199999);
+        assert(result.exists && result.cost == n);
+        assert((int)result.edge_ids.size() == n - 1);
+        assert(result.parent(0) == -1 && result.parent(1) == 0);
+        for (int v = 2; v < n; v++) assert(result.parent(v) == 1);
     }
 }
