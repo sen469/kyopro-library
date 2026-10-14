@@ -13,6 +13,7 @@
 #include "kyopro/convex_hull_trick.hpp"
 #include "kyopro/cumulative_sum.hpp"
 #include "kyopro/dijkstra.hpp"
+#include "kyopro/minimum_spanning_tree.hpp"
 #include "kyopro/doubling.hpp"
 #include "kyopro/dynamic_range_kth.hpp"
 #include "kyopro/dynamic_segtree.hpp"

@@ -42,6 +42,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | ライブラリ | 用途 |
 | --- | --- |
 | [Dijkstra](dijkstra.md) | 非負辺重みの最短経路 |
+| [Minimum Spanning Tree](minimum_spanning_tree.md) | 最小全域木・最小全域森 |
 | [Topological Sort](topological_sort.md) | 有向グラフのトポロジカル順序 |
 | [Cycle Detection](cycle_detection.md) | 閉路検出 |
 | [Bipartite Graph](bipartite_graph.md) | 二部グラフ判定 |

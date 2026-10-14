@@ -485,6 +485,20 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 詳しい使い方は [docs/cycle_detection.md](docs/cycle_detection.md) を参照してください。
 
+## Minimum Spanning Tree
+
+```cpp
+#include "kyopro/minimum_spanning_tree.hpp"
+```
+
+`kyopro::minimum_spanning_tree<T> g(n)` を作り、`g.add_edge(u, v, cost)` で辺を追加します。
+`g.build()` は合計コスト・採用辺ID・連結成分数を返し、非連結の場合は最小全域森を求めます。
+辺IDは追加順で、`g.get_edge(id)` で辺を取得できます。辺の追加後に再び `build()` を呼ぶこともできます。
+負の重み・多重辺・自己ループに対応しています。
+
+詳しい使い方は [docs/minimum_spanning_tree.md](docs/minimum_spanning_tree.md)、
+実装の解説は [docs/explanations/minimum_spanning_tree.md](docs/explanations/minimum_spanning_tree.md) を参照してください。
+
 ## Dijkstra
 
 ```cpp
