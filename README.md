@@ -705,6 +705,19 @@ ACL の `segtree` / `lazy_segtree` に近い形式で、`op`, `e`, `f_ve`, `f_ev
 
 詳しい使い方は [docs/weighted_union_find.md](docs/weighted_union_find.md) を参照してください。
 
+## LIS
+
+```cpp
+#include "kyopro/lis.hpp"
+```
+
+最長増加部分列の長さを `lis_length(a)`、復元結果を `lis(a)` で取得します。
+第 2 引数を `false` にすると広義増加、第 3 引数に比較関数を渡すと減少部分列などにも対応します。
+時間計算量は $O(n\log n)$ です。
+
+詳しい使い方は [docs/lis.md](docs/lis.md)、
+実装の解説は [docs/explanations/lis.md](docs/explanations/lis.md) を参照してください。
+
 ## 提出用 include 展開
 
 ```sh

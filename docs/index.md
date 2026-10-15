@@ -86,6 +86,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Ternary Search](ternary_search.md) | 三分探索 |
 | [Coordinate Compression](compress.md) | 座標圧縮 |
 | [Mo](mo.md) | オフライン区間クエリ |
+| [LIS](lis.md) | 最長増加部分列の長さ・復元（狭義／広義） |
 | [Random Test Generator](random_test_generator.md) | ランダムテスト生成 |
 
 ## ACL（同梱版）

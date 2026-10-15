@@ -122,6 +122,7 @@ nav:
       - Ternary Search: ternary_search.md
       - Coordinate Compression: compress.md
       - Mo: mo.md
+      - LIS: lis.md
       - Random Test Generator: random_test_generator.md
   - ACL（同梱版）:
       - atcoder/index.md
@@ -193,6 +194,7 @@ nav:
           - Ternary Search: explanations/ternary_search.md
           - Coordinate Compression: explanations/compress.md
           - Mo: explanations/mo.md
+          - LIS: explanations/lis.md
       - ACL（同梱版）:
           - DSU: explanations/atcoder/dsu.md
           - Fenwick Tree: explanations/atcoder/fenwicktree.md
