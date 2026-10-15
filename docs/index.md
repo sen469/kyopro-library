@@ -73,7 +73,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Binomial](binomial.md) | 二項係数 |
 | [Factorial Mod](factorial_mod.md) | 素数を法とする階乗 |
 | [Arbitrary Mod Convolution](arbitrary_mod_convolution.md) | 任意の法での畳み込み |
-| [Matrix](matrix.md) | 行列演算 |
+| [Matrix](matrix.md) | 行列演算・行列式・逆行列・ランク・連立方程式 |
 | [Bigint](bigint.md) | 多倍長整数 |
 | [Geometry](geometry.md) | 幾何演算 |
 | [Angular Sort](angular_sort.md) | 偏角ソート |

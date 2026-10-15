@@ -569,6 +569,9 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 行列の加算、減算、乗算、累乗を行います。
 `long long` や `atcoder::modint` など、`+`, `-`, `*`, `T(0)`, `T(1)` が使える型で利用できます。
+素数を法とする `modint` などの厳密な体上では、`determinant()`・`inverse()`・`rank()` も使えます。
+`inverse()` は逆行列が存在しない場合に `std::nullopt` を返します。
+`solve(b)` で一次連立方程式 `Ax = b` を解き、解の有無・特殊解・解空間の基底を取得できます。
 
 詳しい使い方は [docs/matrix.md](docs/matrix.md) を参照してください。
 
