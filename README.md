@@ -10,6 +10,14 @@
 `build` で明示的に計算する形式です。配列からのDoubling構築や二部グラフ判定も
 `build` が必要です。同梱ACLのAPIは変更していません。
 
+## ライセンス
+
+本リポジトリの自作コード・ドキュメントは [CC0 1.0 Universal](LICENSE) で公開しています。
+[CC0の公式文書](https://creativecommons.org/publicdomain/zero/1.0/)も参照してください。
+同梱の外部ライブラリには、それぞれのライセンスが適用されます。
+ドキュメント用の外部ライブラリのライセンス表記は
+[docs/atcoder/lib/LICENSE.md](docs/atcoder/lib/LICENSE.md) を参照してください。
+
 ## ドキュメントの開発・公開
 
 Python 3.12 以降を使用します。
