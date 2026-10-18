@@ -4,7 +4,7 @@
 各ページでは、基本原理、内部データ、処理の流れと不変条件、計算量の根拠、改造時の注意点、改造後の確認例を説明します。
 引数・戻り値・制約などの API 仕様は、対応する使用法ページを参照してください。
 
-対象は `lib/kyopro/` の全50ライブラリと、同梱 ACL の公開12ライブラリです。
+対象は `lib/kyopro/` の全51ライブラリと、同梱 ACL の公開12ライブラリです。
 解説はこのリポジトリの実装に対応しており、同名の一般的なアルゴリズムと実装方法が異なる場合もあります。
 ローカル版にも解説と実装コードが含まれるため、オフラインで参照できます。
 
@@ -24,6 +24,7 @@
 | Persistent Union Find | [使用法](../persistent_union_find.md) | [解説](persistent_union_find.md) |
 | Dynamic Segtree | [使用法](../dynamic_segtree.md) | [解説](dynamic_segtree.md) |
 | Segtree | [使用法](../segtree.md) | [解説](segtree.md) |
+| Lazy Segtree | [使用法](../lazy_segtree.md) | [解説](lazy_segtree.md) |
 | Persistent Segtree | [使用法](../persistent_segtree.md) | [解説](persistent_segtree.md) |
 | Segtree ND | [使用法](../segtree_nd.md) | [解説](segtree_nd.md) |
 | Implicit Treap | [使用法](../implicit_treap.md) | [解説](implicit_treap.md) |

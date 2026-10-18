@@ -178,6 +178,19 @@ ACL の `segtree` と同じ公開メンバ関数を持つ独立実装です。
 詳しい使い方は [docs/segtree.md](docs/segtree.md)、
 実装の解説は [docs/explanations/segtree.md](docs/explanations/segtree.md) を参照してください。
 
+## Lazy Segtree
+
+```cpp
+#include "kyopro/lazy_segtree.hpp"
+```
+
+ACL の `lazy_segtree` と同じ操作を持つ独立実装です。
+点・区間 `apply`、区間積、境界探索に加え、`size()` と `O(n)` の `to_vec()` が使えます。
+`to_vec()` は遅延更新を葉まで伝播する非 `const` 関数です。
+
+詳しい使い方は [docs/lazy_segtree.md](docs/lazy_segtree.md)、
+実装の解説は [docs/explanations/lazy_segtree.md](docs/explanations/lazy_segtree.md) を参照してください。
+
 ## Dynamic Segtree
 
 ```cpp
