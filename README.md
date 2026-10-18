@@ -165,6 +165,19 @@ ACL の `lazy_segtree` に近い形式で、`op`, `e`, `mapping`, `composition`,
 詳しい使い方は [docs/dynamic_range_kth.md](docs/dynamic_range_kth.md)、
 実装の解説は [docs/explanations/dynamic_range_kth.md](docs/explanations/dynamic_range_kth.md) を参照してください。
 
+## Segtree
+
+```cpp
+#include "kyopro/segtree.hpp"
+```
+
+ACL の `segtree` と同じ公開メンバ関数を持つ独立実装です。
+`set`, `get`, `prod`, `all_prod`, `max_right`, `min_left` に加え、
+`size()` と、全要素を添字順にコピーする `to_vec()` が使えます。
+
+詳しい使い方は [docs/segtree.md](docs/segtree.md)、
+実装の解説は [docs/explanations/segtree.md](docs/explanations/segtree.md) を参照してください。
+
 ## Dynamic Segtree
 
 ```cpp

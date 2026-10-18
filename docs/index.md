@@ -24,6 +24,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Weighted Union Find](weighted_union_find.md) | 重み付きの連結管理 |
 | [Persistent Union Find](persistent_union_find.md) | 過去の版を保持する連結管理 |
 | [Dynamic Segtree](dynamic_segtree.md) | 大きな座標範囲の点更新・区間集約 |
+| [Segtree](segtree.md) | ACL 互換 API の点更新・区間積・境界探索、全要素取得 |
 | [Persistent Segtree](persistent_segtree.md) | 過去の版を保持する点更新・区間集約 |
 | [Segtree ND](segtree_nd.md) | 多次元の点更新・区間集約 |
 | [Implicit Treap](implicit_treap.md) | 列への挿入・削除・反転・区間操作 |

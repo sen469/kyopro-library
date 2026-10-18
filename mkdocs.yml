@@ -76,6 +76,7 @@ nav:
       - Weighted Union Find: weighted_union_find.md
       - Persistent Union Find: persistent_union_find.md
       - Dynamic Segtree: dynamic_segtree.md
+      - Segtree: segtree.md
       - Persistent Segtree: persistent_segtree.md
       - Segtree ND: segtree_nd.md
       - Implicit Treap: implicit_treap.md
@@ -148,6 +149,7 @@ nav:
           - Weighted Union Find: explanations/weighted_union_find.md
           - Persistent Union Find: explanations/persistent_union_find.md
           - Dynamic Segtree: explanations/dynamic_segtree.md
+          - Segtree: explanations/segtree.md
           - Persistent Segtree: explanations/persistent_segtree.md
           - Segtree ND: explanations/segtree_nd.md
           - Implicit Treap: explanations/implicit_treap.md

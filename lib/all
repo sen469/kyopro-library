@@ -37,6 +37,7 @@
 #include "kyopro/rerooting_dp.hpp"
 #include "kyopro/rolling_hash.hpp"
 #include "kyopro/run_length_encoding.hpp"
+#include "kyopro/segtree.hpp"
 #include "kyopro/segtree_nd.hpp"
 #include "kyopro/sieve.hpp"
 #include "kyopro/sparse_table.hpp"
