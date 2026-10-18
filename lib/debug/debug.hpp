@@ -5,14 +5,22 @@
 # include <cxxabi.h>
 
 // Forward declarations
+inline std::ostream &operator<<(std::ostream &os, __int128 value);
+
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p);
 
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &v);
 
+template <typename T, typename Allocator>
+std::ostream &operator<<(std::ostream &os, const std::deque<T, Allocator> &d);
+
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const std::set<T> &s);
+
+template <typename T, typename Compare, typename Allocator>
+std::ostream &operator<<(std::ostream &os, const std::multiset<T, Compare, Allocator> &s);
 
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, const std::map<T, U> &m);
@@ -33,6 +41,22 @@ template <typename T>
 auto operator<<(std::ostream &os, const T &m) -> decltype(m.val(), os);
 
 // Implementations
+inline std::ostream &operator<<(std::ostream &os, __int128 value) {
+    __uint128_t magnitude = static_cast<__uint128_t>(value);
+    if (value < 0) magnitude = __uint128_t(0) - magnitude;
+
+    // 39 decimal digits plus a possible minus sign.
+    char buffer[40];
+    char *last = buffer + sizeof(buffer);
+    char *first = last;
+    do {
+        *--first = '0' + magnitude % 10;
+        magnitude /= 10;
+    } while (magnitude != 0);
+    if (value < 0) *--first = '-';
+    return os << std::string(first, last);
+}
+
 template <typename T, typename U>
 std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &p) {
     return os << "(" << p.first << ", " << p.second << ")";
@@ -52,6 +76,26 @@ std::ostream &operator<<(std::ostream &os, const std::set<T> &s) {
     os << "{";
     for (auto it = s.begin(); it != s.end(); it++) {
         os << *it << (std::next(it) == s.end() ? "" : ", ");
+    }
+    return os << "}";
+}
+
+template <typename T, typename Allocator>
+std::ostream &operator<<(std::ostream &os, const std::deque<T, Allocator> &d) {
+    os << "{";
+    for (auto it = d.begin(); it != d.end(); ++it) {
+        if (it != d.begin()) os << ", ";
+        os << *it;
+    }
+    return os << "}";
+}
+
+template <typename T, typename Compare, typename Allocator>
+std::ostream &operator<<(std::ostream &os, const std::multiset<T, Compare, Allocator> &s) {
+    os << "{";
+    for (auto it = s.begin(); it != s.end(); ++it) {
+        if (it != s.begin()) os << ", ";
+        os << *it;
     }
     return os << "}";
 }
