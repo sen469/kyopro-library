@@ -11,6 +11,27 @@
 #include "kyopro/interval_heap.hpp"
 ```
 
+## デバッグ出力
+
+```cpp
+#include "debug/interval_heap.hpp"
+
+kyopro::interval_heap<int> heap = {5, 1, 3, 1};
+dg(heap); // 値の表示: {1, 1, 3, 5}
+```
+
+`debug/interval_heap.hpp` はヒープ本体と `debug/debug.hpp` も include します。
+既に `debug/debug.hpp` を include していても、その後に追加できます。
+`operator<<` にも対応するため、`cout << heap` や `dg(vector_of_heaps)` も使えます。
+
+ヒープのコピーから `min()` を取り出す順で表示します。
+重複は保持し、`Compare = greater<T>` なら降順になります。
+表示後も元のヒープの要素・比較関数は変わりません。
+要素型はコピー可能で、`debug.hpp` で出力可能である必要があります。
+
+現在の `multiset` 実装では、コピーと全要素の取り出しに合計 $O(n)$ 時間・
+$O(n)$ 追加空間を使います（要素のコピー・出力が $O(1)$ の場合）。
+
 ## コンストラクタ
 
 ```cpp
