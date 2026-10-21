@@ -442,6 +442,19 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/manacher.md](docs/manacher.md) を参照してください。
 
+## Aho–Corasick
+
+```cpp
+#include "kyopro/aho_corasick.hpp"
+```
+
+`aho_corasick<CHAR_SIZE, BASE>` に `insert()` でパターンを登録し、`build()` で構築します。
+`count(text)` で各パターンの出現回数、`find_all(text)` で一致位置と登録IDを取得できます。
+重複・空パターン・重なった一致に対応し、追加登録後も再構築できます。
+
+詳しい使い方は [docs/aho_corasick.md](docs/aho_corasick.md)、
+実装の解説は [docs/explanations/aho_corasick.md](docs/explanations/aho_corasick.md) を参照してください。
+
 ## KMP
 
 ```cpp

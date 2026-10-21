@@ -105,6 +105,7 @@ nav:
       - Rerooting DP: rerooting_dp.md
       - Doubling: doubling.md
   - 文字列:
+      - Aho–Corasick: aho_corasick.md
       - Rolling Hash: rolling_hash.md
       - KMP: kmp.md
       - Manacher: manacher.md
@@ -179,6 +180,7 @@ nav:
           - Rerooting DP: explanations/rerooting_dp.md
           - Doubling: explanations/doubling.md
       - 文字列:
+          - Aho–Corasick: explanations/aho_corasick.md
           - Rolling Hash: explanations/rolling_hash.md
           - KMP: explanations/kmp.md
           - Manacher: explanations/manacher.md

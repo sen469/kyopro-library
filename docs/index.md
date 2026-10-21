@@ -61,6 +61,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 
 | ライブラリ | 用途 |
 | --- | --- |
+| [Aho–Corasick](aho_corasick.md) | 複数パターンの同時検索・出現回数 |
 | [Rolling Hash](rolling_hash.md) | 部分文字列のハッシュ |
 | [KMP](kmp.md) | パターン検索 |
 | [Manacher](manacher.md) | 回文の検出 |
