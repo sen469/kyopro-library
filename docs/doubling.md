@@ -310,7 +310,7 @@ S db.value(int v, int power) const;
 ## 使用例
 
 - [ABC438-E Heavy Buckets](https://atcoder.jp/contests/abc438/submissions/80019815)
-
+- [ABC241-E Putting Candies](https://atcoder.jp/contests/abc241/submissions/80456785)
 ```cpp
 vector<int> next = {1, 2, 0};
 kyopro::doubling db(next);
