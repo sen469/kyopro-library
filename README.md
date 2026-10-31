@@ -668,7 +668,7 @@ DAG のトポロジカル順序を $O(n + m)$ で求めます。
 
 `kyopro::tree_diameter<T> g(n)` に `add_edge(u, v, cost)` で辺を登録し、`g.build()` で計算します。
 重み付き木の直径を $O(n)$ で求めます。
-直径の長さ、両端の頂点、両端を結ぶパスを返します。
+直径の長さ・両端・経路と、中心点または中心辺を返します。
 
 詳しい使い方は [docs/tree_diameter.md](docs/tree_diameter.md) を参照してください。
 

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cassert>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 namespace kyopro {
@@ -20,6 +21,7 @@ struct tree_diameter_result {
     int from;
     int to;
     std::vector<int> path;
+    std::vector<int> center;
 };
 
 namespace internal {
@@ -100,7 +102,7 @@ public:
         const auto& graph = graph_;
         int n = size();
         assert(edge_count_ == (n == 0 ? 0 : n - 1));
-        if (n == 0) return {T(0), -1, -1, {}};
+        if (n == 0) return {T(0), -1, -1, {}, {}};
 
         int s = internal::tree_diameter_find_farthest(graph, 0).vertex;
         auto res = internal::tree_diameter_find_farthest(graph, s);
@@ -113,8 +115,26 @@ public:
         }
         std::reverse(path.begin(), path.end());
 
-        return {res.dist[t], s, t, path};
+        std::vector<int> center;
+        for (std::size_t i = 0; i < path.size(); i++) {
+            int v = path[i];
+            T remaining = res.dist[t] - res.dist[v];
+            // Compare the two sides rather than doubling a distance: the
+            // diameter may already be close to the maximum representable T.
+            if (res.dist[v] < remaining) continue;
+            if (remaining < res.dist[v]) {
+                assert(i > 0);
+                center = {path[i - 1], v};
+            } else {
+                center = {v};
+            }
+            break;
+        }
+        assert(!center.empty());
+
+        return {res.dist[t], s, t, std::move(path), std::move(center)};
     }
+
 };
 
 }  // namespace kyopro
