@@ -631,6 +631,19 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 詳しい使い方は [docs/mo.md](docs/mo.md) を参照してください。
 
+## Eulerian Path / Cycle
+
+```cpp
+#include "kyopro/eulerian.hpp"
+```
+
+有向・無向グラフのオイラー路・オイラー閉路を `path()`・`cycle()` で求めます。
+始点指定・自己ループ・多重辺に対応し、頂点列と辺 ID 列を返します。
+時間・追加空間ともに $O(n+m)$ です。
+
+詳しい使い方は [docs/eulerian.md](docs/eulerian.md)、
+実装の解説は [docs/explanations/eulerian.md](docs/explanations/eulerian.md) を参照してください。
+
 ## Hamiltonian Path / Cycle
 
 ```cpp
