@@ -4,7 +4,7 @@
 各ページでは、基本原理、内部データ、処理の流れと不変条件、計算量の根拠、改造時の注意点、改造後の確認例を説明します。
 引数・戻り値・制約などの API 仕様は、対応する使用法ページを参照してください。
 
-対象は `lib/kyopro/` の全52ライブラリと、同梱 ACL の公開12ライブラリです。
+対象は `lib/kyopro/` の全53ライブラリと、同梱 ACL の公開12ライブラリです。
 解説はこのリポジトリの実装に対応しており、同名の一般的なアルゴリズムと実装方法が異なる場合もあります。
 ローカル版にも解説と実装コードが含まれるため、オフラインで参照できます。
 
@@ -47,6 +47,7 @@
 | Directed MST | [使用法](../directed_mst.md) | [解説](directed_mst.md) |
 | Topological Sort | [使用法](../topological_sort.md) | [解説](topological_sort.md) |
 | Cycle Detection | [使用法](../cycle_detection.md) | [解説](cycle_detection.md) |
+| Hamiltonian Path / Cycle | [使用法](../hamiltonian.md) | [解説](hamiltonian.md) |
 | Bipartite Graph | [使用法](../bipartite_graph.md) | [解説](bipartite_graph.md) |
 | Euler Tour | [使用法](../euler_tour.md) | [解説](euler_tour.md) |
 | Heavy Light Decomposition | [使用法](../heavy_light_decomposition.md) | [解説](heavy_light_decomposition.md) |

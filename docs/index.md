@@ -48,6 +48,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 | [Directed MST](directed_mst.md) | 根を指定した最小全域有向木 |
 | [Topological Sort](topological_sort.md) | 有向グラフのトポロジカル順序 |
 | [Cycle Detection](cycle_detection.md) | 閉路検出 |
+| [Hamiltonian Path / Cycle](hamiltonian.md) | ハミルトン路・閉路の探索と復元 |
 | [Bipartite Graph](bipartite_graph.md) | 二部グラフ判定 |
 | [Euler Tour](euler_tour.md) | 部分木を連続区間に変換 |
 | [Heavy Light Decomposition](heavy_light_decomposition.md) | 重軽分解・パス区間・LCA |

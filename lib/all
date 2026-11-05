@@ -25,6 +25,7 @@
 #include "kyopro/heavy_light_decomposition.hpp"
 #include "kyopro/factorial_mod.hpp"
 #include "kyopro/geometry.hpp"
+#include "kyopro/hamiltonian.hpp"
 #include "kyopro/interval_heap.hpp"
 #include "kyopro/interval_set.hpp"
 #include "kyopro/kmp.hpp"

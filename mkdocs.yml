@@ -96,6 +96,7 @@ nav:
       - Directed MST: directed_mst.md
       - Topological Sort: topological_sort.md
       - Cycle Detection: cycle_detection.md
+      - Hamiltonian Path / Cycle: hamiltonian.md
       - Bipartite Graph: bipartite_graph.md
       - Euler Tour: euler_tour.md
       - Heavy Light Decomposition: heavy_light_decomposition.md
@@ -171,6 +172,7 @@ nav:
           - Directed MST: explanations/directed_mst.md
           - Topological Sort: explanations/topological_sort.md
           - Cycle Detection: explanations/cycle_detection.md
+          - Hamiltonian Path / Cycle: explanations/hamiltonian.md
           - Bipartite Graph: explanations/bipartite_graph.md
           - Euler Tour: explanations/euler_tour.md
           - Heavy Light Decomposition: explanations/heavy_light_decomposition.md

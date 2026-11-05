@@ -631,6 +631,18 @@ $2^{61} - 1$ mod の Rolling Hash です。
 
 詳しい使い方は [docs/mo.md](docs/mo.md) を参照してください。
 
+## Hamiltonian Path / Cycle
+
+```cpp
+#include "kyopro/hamiltonian.hpp"
+```
+
+有向・無向グラフのハミルトン路・ハミルトン閉路を `path()`・`cycle()` で復元します。
+路の始点・終点の指定にも対応します。最大24頂点、時間 $O(n2^n)$、追加空間 $O(2^n+n)$ です。
+
+詳しい使い方は [docs/hamiltonian.md](docs/hamiltonian.md)、
+実装の解説は [docs/explanations/hamiltonian.md](docs/explanations/hamiltonian.md) を参照してください。
+
 ## Topological Sort
 
 ```cpp
