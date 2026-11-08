@@ -124,7 +124,7 @@ nav:
       - Geometry: geometry.md
       - Angular Sort: angular_sort.md
   - その他:
-      - Binary Search: binary_search.md
+      - Bisect: bisect.md
       - Ternary Search: ternary_search.md
       - Coordinate Compression: compress.md
       - Mo: mo.md
@@ -201,7 +201,7 @@ nav:
           - Geometry: explanations/geometry.md
           - Angular Sort: explanations/angular_sort.md
       - その他:
-          - Binary Search: explanations/binary_search.md
+          - Bisect: explanations/bisect.md
           - Ternary Search: explanations/ternary_search.md
           - Coordinate Compression: explanations/compress.md
           - Mo: explanations/mo.md

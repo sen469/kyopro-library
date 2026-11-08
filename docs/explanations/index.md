@@ -86,7 +86,7 @@
 
 | ライブラリ | 使用法 | 実装の解説 |
 | --- | --- | --- |
-| Binary Search | [使用法](../binary_search.md) | [解説](binary_search.md) |
+| Bisect | [使用法](../bisect.md) | [解説](bisect.md) |
 | Ternary Search | [使用法](../ternary_search.md) | [解説](ternary_search.md) |
 | Coordinate Compression | [使用法](../compress.md) | [解説](compress.md) |
 | Mo | [使用法](../mo.md) | [解説](mo.md) |

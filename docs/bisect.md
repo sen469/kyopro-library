@@ -1,21 +1,21 @@
-# Binary Search
+# Bisect
 
-[実装の解説](explanations/binary_search.md)
+[実装の解説](explanations/bisect.md)
 
-実装: [lib/kyopro/binary_search.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binary_search.hpp)
+実装: [lib/kyopro/bisect.hpp](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/bisect.hpp)
 
 整数の半開区間 `[first, last)` 上で、単調な判定を二分探索します。
 判定が `false` から `true` に切り替わる最初の整数を返します。
 
 ```cpp
-#include "kyopro/binary_search.hpp"
+#include "kyopro/bisect.hpp"
 ```
 
-## binary_search
+## bisect
 
 ```cpp
 template <class Int, class Predicate>
-Int kyopro::binary_search(Int first, Int last, Predicate pred);
+Int kyopro::bisect(Int first, Int last, Predicate pred);
 ```
 
 `pred(x)` が真になる最初の `x` を返します。
@@ -23,7 +23,7 @@ Int kyopro::binary_search(Int first, Int last, Predicate pred);
 空区間では `pred` を呼ばずに `last` を返します。
 
 ```cpp
-long long x = kyopro::binary_search(0LL, 1000000001LL,
+long long x = kyopro::bisect(0LL, 1000000001LL,
                                     [](long long x) {
     return x * x >= 1000000000LL;
 });

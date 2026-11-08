@@ -387,16 +387,16 @@ ACL の `segtree` に近い形式で、`op`, `e` を渡して使います。
 
 詳しい使い方は [docs/binomial.md](docs/binomial.md) を参照してください。
 
-## Binary Search
+## Bisect
 
 ```cpp
-#include "kyopro/binary_search.hpp"
+#include "kyopro/bisect.hpp"
 ```
 
 整数の半開区間 `[first, last)` で、単調な判定が真になる最初の位置を二分探索します。
 該当する位置がなければ `last` を返します。
 
-詳しい使い方は [docs/binary_search.md](docs/binary_search.md) を参照してください。
+詳しい使い方は [docs/bisect.md](docs/bisect.md) を参照してください。
 
 ## Ternary Search
 

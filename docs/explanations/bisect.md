@@ -1,6 +1,6 @@
-# Binary Search の実装解説
+# Bisect の実装解説
 
-[使用法に戻る](../binary_search.md) / [実装](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/binary_search.hpp)
+[使用法に戻る](../bisect.md) / [実装](https://github.com/sen469/kyopro-library/blob/main/lib/kyopro/bisect.hpp)
 
 ## 目的と基本原理
 

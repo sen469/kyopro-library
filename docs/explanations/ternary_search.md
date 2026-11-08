@@ -8,7 +8,7 @@
 
 ## 内部データ
 
-`first,last` は非空の半開区間、`middle1,middle2` は三等分点です。`Compare` の既定値は小さい値を良いとし、`std::greater` で最大化になります。整数の距離計算は binary_search の補助関数を共有します。
+`first,last` は非空の半開区間、`middle1,middle2` は三等分点です。`Compare` の既定値は小さい値を良いとし、`std::greater` で最大化になります。整数の距離計算は bisect の補助関数を共有します。
 
 ## 処理の流れと不変条件
 

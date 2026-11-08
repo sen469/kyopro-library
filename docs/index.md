@@ -89,7 +89,7 @@ C++ 用ライブラリの API・制約・計算量・使用例。
 
 | ライブラリ | 用途 |
 | --- | --- |
-| [Binary Search](binary_search.md) | 二分探索 |
+| [Bisect](bisect.md) | 二分探索 |
 | [Ternary Search](ternary_search.md) | 三分探索 |
 | [Coordinate Compression](compress.md) | 座標圧縮 |
 | [Mo](mo.md) | オフライン区間クエリ |

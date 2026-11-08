@@ -1,5 +1,5 @@
-#ifndef KYOPRO_BINARY_SEARCH_HPP
-#define KYOPRO_BINARY_SEARCH_HPP
+#ifndef KYOPRO_BISECT_HPP
+#define KYOPRO_BISECT_HPP
 
 #include <cassert>
 #include <limits>
@@ -39,11 +39,11 @@ Int search_advance(Int first, search_unsigned_t<Int> offset) {
 // Returns the first x in [first, last) for which pred(x) is true.
 // Returns last if no such x exists.
 template <class Int, class Predicate>
-Int binary_search(Int first, Int last, Predicate pred) {
+Int bisect(Int first, Int last, Predicate pred) {
     static_assert(std::is_integral<Int>::value,
-                  "binary_search requires an integral type");
+                  "bisect requires an integral type");
     static_assert(!std::is_same<typename std::remove_cv<Int>::type, bool>::value,
-                  "binary_search does not support bool");
+                  "bisect does not support bool");
     assert(first <= last);
 
     while (first < last) {
@@ -60,4 +60,4 @@ Int binary_search(Int first, Int last, Predicate pred) {
 
 }  // namespace kyopro
 
-#endif  // KYOPRO_BINARY_SEARCH_HPP
+#endif  // KYOPRO_BISECT_HPP

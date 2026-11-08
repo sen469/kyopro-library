@@ -6,7 +6,7 @@
 #include <type_traits>
 #include <utility>
 
-#include "kyopro/binary_search.hpp"
+#include "kyopro/bisect.hpp"
 
 namespace kyopro {
 
