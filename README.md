@@ -6,6 +6,8 @@
 
 [各ライブラリの実装解説](docs/explanations/index.md)
 
+[デバッグ出力の使い方](docs/debug.md)
+
 こちらのライブラリは `Codex` を用いて作成した。
 
 ## ライセンス

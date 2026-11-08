@@ -4,6 +4,16 @@
 # include <bits/stdc++.h>
 # include <cxxabi.h>
 
+namespace debug_internal {
+    template <class T, class = void>
+    struct has_registered_fields : std::false_type {};
+
+    template <class T>
+    struct has_registered_fields<T, std::void_t<
+        decltype(std::declval<const T&>().debug_fields()),
+        decltype(T::debug_field_names())>> : std::true_type {};
+}
+
 // Forward declarations
 inline std::ostream &operator<<(std::ostream &os, __int128 value);
 
@@ -38,7 +48,14 @@ template <typename... Args>
 std::ostream &operator<<(std::ostream &os, const std::tuple<Args...> &t);
 
 template <typename T>
-auto operator<<(std::ostream &os, const T &m) -> decltype(m.val(), os);
+auto operator<<(std::ostream &os, const T &m)
+    -> std::enable_if_t<!debug_internal::has_registered_fields<T>::value, decltype(m.val(), os)>;
+
+// Defined by debug/struct.hpp. Declare it before the container printers so
+// registered structs work inside vector, tuple, and other supported types.
+template <class T>
+auto operator<<(std::ostream &os, const T &value)
+    -> std::enable_if_t<debug_internal::has_registered_fields<T>::value, std::ostream&>;
 
 // Implementations
 inline std::ostream &operator<<(std::ostream &os, __int128 value) {
@@ -155,7 +172,8 @@ std::ostream &operator<<(std::ostream &os, const std::tuple<Args...> &t) {
 }
 
 template <typename T>
-auto operator<<(std::ostream &os, const T &m) -> decltype(m.val(), os) {
+auto operator<<(std::ostream &os, const T &m)
+    -> std::enable_if_t<!debug_internal::has_registered_fields<T>::value, decltype(m.val(), os)> {
     return os << m.val();
 }
 
